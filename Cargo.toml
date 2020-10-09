@@ -1,0 +1,15 @@
+[package]
+name = "lfs"
+version = "0.1.0"
+authors = ["dystroy <denys.seguret@gmail.com>"]
+edition = "2018"
+keywords = ["unix", "file-systems", "fs"]
+license = "MIT"
+categories = ["cli"]
+description = "give information on mounted disks"
+repository = "https://github.com/Canop/lfs"
+readme = "README.md"
+
+[dependencies]
+thiserror = "1.0"
+libc = "0.2"
