@@ -25,11 +25,28 @@ pub struct Mount {
     pub dev: DeviceId,
     pub root: PathBuf,
     pub mount_point: PathBuf,
+    pub fs: String,
     pub fs_type: String,
     pub bsize: u64,
     pub blocks: u64,
     pub bavail: u64,
     pub bfree: u64,
+}
+
+impl Mount {
+    pub fn size(&self) -> u64 {
+        self.bsize * self.blocks
+    }
+    pub fn available(&self) -> u64 {
+        self.bsize * self.bavail
+    }
+    pub fn use_share(&self) -> f64 {
+        if self.size() == 0 {
+            0.0
+        } else {
+            (self.size() - self.available()) as f64 / (self.size() as f64)
+        }
+    }
 }
 
 fn next<'a,'b>(split: &'b mut SplitWhitespace<'a>) -> Result<&'a str> {
@@ -54,6 +71,7 @@ impl FromStr for Mount {
         let mount_point = PathBuf::from(next(tokens)?);
         skip_until(tokens, "-")?;
         let fs_type = next(tokens)?.to_string();
+        let fs = next(tokens)?.to_string();
         // we get the free/total space info in libc::statvfs
         let c_mount_point = CString::new(mount_point.as_os_str().as_bytes()).unwrap();
         let statvfs = unsafe {
@@ -70,6 +88,7 @@ impl FromStr for Mount {
             dev,
             root,
             mount_point,
+            fs,
             fs_type,
             bsize: statvfs.f_bsize,
             blocks: statvfs.f_blocks,
