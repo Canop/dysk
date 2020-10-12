@@ -17,6 +17,16 @@ use {
 /// I have no idea of the size of this id
 pub type MountId = u32;
 
+/// inode & blocs information given by statvfs
+#[derive(Debug)]
+pub struct Stats {
+    pub bsize: u64,
+    pub blocks: u64,
+    pub bavail: u64,
+    pub bfree: u64,
+}
+
+
 /// A mount point
 #[derive(Debug)]
 pub struct Mount {
@@ -27,18 +37,15 @@ pub struct Mount {
     pub mount_point: PathBuf,
     pub fs: String,
     pub fs_type: String,
-    pub bsize: u64,
-    pub blocks: u64,
-    pub bavail: u64,
-    pub bfree: u64,
+    pub stats: Option<Stats>,
 }
 
 impl Mount {
     pub fn size(&self) -> u64 {
-        self.bsize * self.blocks
+        self.stats.as_ref().map_or(0, |s| s.bsize * s.blocks)
     }
     pub fn available(&self) -> u64 {
-        self.bsize * self.bavail
+        self.stats.as_ref().map_or(0, |s| s.bsize * s.bavail)
     }
     pub fn used(&self) -> u64 {
         self.size() - self.available()
@@ -77,13 +84,30 @@ impl FromStr for Mount {
         let fs = next(tokens)?.to_string();
         // we get the free/total space info in libc::statvfs
         let c_mount_point = CString::new(mount_point.as_os_str().as_bytes()).unwrap();
-        let statvfs = unsafe {
-            let mut stat = mem::MaybeUninit::<libc::statvfs>::uninit();
-            let res = libc::statvfs(c_mount_point.as_ptr(), stat.as_mut_ptr());
-            if res != 0 {
-                return Err(Error::NonZeroLibcReturn(res));
+        let stats = unsafe {
+            let mut statvfs = mem::MaybeUninit::<libc::statvfs>::uninit();
+            let code = libc::statvfs(c_mount_point.as_ptr(), statvfs.as_mut_ptr());
+            match code {
+                0 => {
+                    // good
+                    let statvfs = statvfs.assume_init();
+                    Some(Stats {
+                        bsize: statvfs.f_bsize,
+                        blocks: statvfs.f_blocks,
+                        bavail: statvfs.f_bavail,
+                        bfree: statvfs.f_bfree,
+                    })
+                }
+                -1 => {
+                    // the filesystem wasn't found, it's a strange one, for example a
+                    // docker one
+                    None
+                }
+                _ => {
+                    // unexpected
+                    return Err(Error::NonZeroStavfsReturn{ code, path: mount_point });
+                }
             }
-            stat.assume_init()
         };
         Ok(Mount {
             id,
@@ -93,10 +117,7 @@ impl FromStr for Mount {
             mount_point,
             fs,
             fs_type,
-            bsize: statvfs.f_bsize,
-            blocks: statvfs.f_blocks,
-            bavail: statvfs.f_bavail,
-            bfree: statvfs.f_bfree,
+            stats,
         })
     }
 }
@@ -106,5 +127,11 @@ pub fn read_all() -> Result<Vec<Mount>> {
         .trim()
         .split('\n')
         .map(str::parse)
+        .inspect(|r| {
+            if let Err(e) = r {
+                eprintln!("Error while parsing a mount line: {}", e);
+            }
+        })
+        .filter(Result::is_ok)
         .collect()
 }

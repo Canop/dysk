@@ -1,4 +1,8 @@
 
+use std::{
+    path::PathBuf,
+};
+
 /// lfs error type
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
@@ -6,10 +10,13 @@ pub enum Error {
     IO(#[from] std::io::Error),
     #[error("Unexpected format")]
     UnexpectedFormat,
-    #[error("parse int error: {0}")]
+    #[error("Parse int error: {0}")]
     NotAnInt(#[from] std::num::ParseIntError),
-    #[error("non zero libc return code: {0}")]
-    NonZeroLibcReturn(i32),
+    #[error("libc.statvfs({path:?}) returned {code}")]
+    NonZeroStavfsReturn {
+        code: i32,
+        path: PathBuf,
+    }
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
