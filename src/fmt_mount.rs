@@ -18,9 +18,9 @@ use {
 };
 
 static MD: &str = r#"
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
 |id|dev|filesystem|type|size|used|use%|avail|mount point
-|-:|:-:|:-|:-:|:-:|-:|-:|:-
+|-:|:-:|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points
 |${id}|*${dev-major}*:*${dev-minor}*|${fs}|${fs-type}|${size}|${used}|**${use-percents}%**|**${available}**|${mount-point}
 }
