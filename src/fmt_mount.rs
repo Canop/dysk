@@ -18,11 +18,11 @@ use {
 };
 
 static MD: &str = r#"
-|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|id|dev|filesystem|type|size|used|use%|avail|mount point
-|-:|:-:|:-|:-:|:-:|-:|-:|-:|:-
+|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+|id|dev|filesystem|dsk|type|size|used|use%|avail|mount point
+|-:|:-|:-|:-:|:-:|:-:|-:|-:|-:|:-
 ${mount-points
-|${id}|*${dev-major}*:*${dev-minor}*|${fs}|${fs-type}|${size}|${used}|**${use-percents}**|**${available}**|${mount-point}
+|${id}|*${dev-major}*:*${dev-minor}*|${fs}|${dsk}|${fs-type}|${size}|${used}|**${use-percents}**|**${available}**|${mount-point}
 }
 |-:
 "#;
@@ -40,6 +40,7 @@ pub fn print(mounts: &Vec<Mount>) -> Result<()> {
             .set("dev-major", format!("{}", mount.dev.major))
             .set("dev-minor", format!("{}", mount.dev.minor))
             .set("fs", &mount.fs)
+            .set("dsk", mount.disk_type())
             .set("fs-type", &mount.fs_type)
             .set("mount-point", mount.mount_point.to_string_lossy());
         if mount.stats.is_some() {

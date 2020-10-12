@@ -26,7 +26,6 @@ pub struct Stats {
     pub bfree: u64,
 }
 
-
 /// A mount point
 #[derive(Debug)]
 pub struct Mount {
@@ -37,6 +36,9 @@ pub struct Mount {
     pub mount_point: PathBuf,
     pub fs: String,
     pub fs_type: String,
+
+    /// true for HDD, false for SSD, None for unknown or not a disk
+    pub rotational: Option<bool>,
     pub stats: Option<Stats>,
 }
 
@@ -55,6 +57,24 @@ impl Mount {
             0.0
         } else {
             self.used() as f64 / (self.size() as f64)
+        }
+    }
+    pub fn partition_name(&self) -> Option<String> {
+        self.fs.strip_prefix("/dev/").map(String::from)
+    }
+    /// Something like "sda" or "sdb"
+    pub fn disk_name(&self) -> Option<String> {
+        // Q: Am I sure this is correct ?
+        // A: Absolutely not!
+        self.partition_name()
+            .map(|pn| pn.chars().take_while(char::is_ascii_alphabetic).collect::<String>())
+            .filter(|s| s.len()>2)
+    }
+    pub fn disk_type(&self) -> &'static str {
+        match self.rotational {
+            Some(true) => "HDD",
+            Some(false) => "SSD",
+            None => "",
         }
     }
 }
@@ -109,7 +129,7 @@ impl FromStr for Mount {
                 }
             }
         };
-        Ok(Mount {
+        let mut mount = Mount {
             id,
             parent,
             dev,
@@ -117,8 +137,19 @@ impl FromStr for Mount {
             mount_point,
             fs,
             fs_type,
+            rotational: None,
             stats,
-        })
+        };
+        // try to determine whether it's SSD or HDD
+        mount.rotational = mount.disk_name()
+            .and_then(|name| sys::read_file(&format!("/sys/block/{}/queue/rotational", name)).ok())
+            .and_then(|c| {
+                match c.trim().as_ref() {
+                "0" => Some(false),
+                "1" => Some(true),
+                _ => None, // should not happen today
+            }});
+        Ok(mount)
     }
 }
 
