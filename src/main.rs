@@ -1,9 +1,5 @@
 
-mod device_id;
-mod error;
-mod mount;
 mod fmt_mount;
-mod sys;
 
 use argh::FromArgs;
 
@@ -15,9 +11,9 @@ struct Args {
     all: bool,
 }
 
-fn main() -> crate::error::Result<()>  {
+fn main() -> lfs_core::Result<()>  {
     let args:Args = argh::from_env();
-    let mut mounts = mount::read_all()?;
+    let mut mounts = lfs_core::read_all()?;
     if !args.all {
         mounts.retain(|m| m.size() > 0);
     }

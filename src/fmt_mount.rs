@@ -1,8 +1,5 @@
 use {
-    crate::{
-        error::*,
-        mount::Mount,
-    },
+    lfs_core::*,
     crossterm::style::Color::*,
     file_size,
     minimad::{

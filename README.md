@@ -1,4 +1,4 @@
-# LFS
+# lfs
 
 [![CI][s3]][l3] [![MIT][s2]][l2] [![Latest Version][s1]][l1] [![Chat on Miaou][s4]][l4]
 
@@ -23,4 +23,21 @@ Comparison:
 
 ![comparison](doc/screenshot.png)
 
+## Installation
+
+Run
+
+```
+cargo install lfs
+```
+
+## Usage
+
+```
+lfs
+```
 By default, **lfs** doesn't show mount points with no size. Use `lfs -a` to show them all.
+
+## Internals
+
+If you want to display the same data in your application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.
