@@ -40,11 +40,14 @@ impl Mount {
     pub fn available(&self) -> u64 {
         self.bsize * self.bavail
     }
+    pub fn used(&self) -> u64 {
+        self.size() - self.available()
+    }
     pub fn use_share(&self) -> f64 {
         if self.size() == 0 {
             0.0
         } else {
-            (self.size() - self.available()) as f64 / (self.size() as f64)
+            self.used() as f64 / (self.size() as f64)
         }
     }
 }

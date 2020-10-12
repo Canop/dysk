@@ -19,10 +19,10 @@ use {
 
 static MD: &str = r#"
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|id|dev|filesystem|type|size|avail|use%|mount point
+|id|dev|filesystem|type|size|used|use%|avail|mount point
 |-:|:-:|:-|:-:|:-:|-:|-:|:-
 ${mount-points
-|${id}|*${dev-major}*:*${dev-minor}*|${fs}|${fs-type}|${size}|**${available}**|**${use-percents}%**|${mount-point}
+|${id}|*${dev-major}*:*${dev-minor}*|${fs}|${fs-type}|${size}|${used}|**${use-percents}%**|**${available}**|${mount-point}
 }
 |-:
 "#;
@@ -43,8 +43,9 @@ pub fn print(mounts: &Vec<Mount>) -> Result<()> {
             .set("fs-type", &mount.fs_type)
             .set("mount-point", mount.mount_point.to_string_lossy())
             .set("size", file_size::fit_4(mount.size()))
-            .set("available", file_size::fit_4(mount.available()))
-            .set("use-percents", format!("{:.0}", 100.0*mount.use_share()));
+            .set("used", file_size::fit_4(mount.used()))
+            .set("use-percents", format!("{:.0}", 100.0*mount.use_share()))
+            .set("available", file_size::fit_4(mount.available()));
     }
     let (width, _) = terminal_size();
     let text = expander.expand(&template);
