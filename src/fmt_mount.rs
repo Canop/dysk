@@ -31,8 +31,8 @@ pub fn print(mounts: &Vec<Mount>) -> Result<()> {
     let template = TextTemplate::from(MD);
     let mut expander = OwningTemplateExpander::new();
     let mut skin = MadSkin::default();
-    skin.italic = CompoundStyle::with_fg(AnsiValue(137));
-    skin.bold = CompoundStyle::with_fg(AnsiValue(30));
+    skin.italic = CompoundStyle::with_fg(AnsiValue(209));
+    skin.bold = CompoundStyle::with_fg(AnsiValue(208));
     expander.set("mounts_len", format!("{}", mounts.len()));
     for mount in mounts {
         let sub = expander.sub("mount-points")
