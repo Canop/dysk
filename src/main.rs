@@ -15,7 +15,12 @@ fn main() -> lfs_core::Result<()>  {
     let args:Args = argh::from_env();
     let mut mounts = lfs_core::read_all()?;
     if !args.all {
-        mounts.retain(|m| m.size() > 0);
+        mounts.retain(|m| {
+            m.size() > 0
+                && m.fs_type != "tmpfs"
+                && m.fs_type != "devtmpfs"
+                && m.fs_type != "squashfs"
+        });
     }
     mounts.sort_by_key(|m| u64::MAX-m.size());
     fmt_mount::print(&mounts)
