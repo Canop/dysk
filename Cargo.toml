@@ -1,6 +1,6 @@
 [package]
 name = "lfs"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2018"
 keywords = ["unix", "filesystem", "fs"]
@@ -14,7 +14,9 @@ readme = "README.md"
 argh = "0.1.3"
 crossterm = "0.17.7"
 file-size = "1.0.3"
-lfs-core = "0.1"
+lfs-core = "0.2"
 minimad = "0.6.6"
 termimad = "0.8.28"
 
+[patch.crates-io]
+# lfs-core = { path = "../lfs-core" }

@@ -33,19 +33,19 @@ pub fn print(mounts: &Vec<Mount>) -> Result<()> {
     expander.set("mounts_len", format!("{}", mounts.len()));
     for mount in mounts {
         let sub = expander.sub("mount-points")
-            .set("id", format!("{}", mount.id))
-            .set("dev-major", format!("{}", mount.dev.major))
-            .set("dev-minor", format!("{}", mount.dev.minor))
-            .set("fs", &mount.fs)
-            .set("dsk", mount.disk_type())
-            .set("fs-type", &mount.fs_type)
-            .set("mount-point", mount.mount_point.to_string_lossy());
-        if mount.stats.is_some() {
+            .set("id", format!("{}", mount.info.id))
+            .set("dev-major", format!("{}", mount.info.dev.major))
+            .set("dev-minor", format!("{}", mount.info.dev.minor))
+            .set("fs", &mount.info.fs)
+            .set("dsk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
+            .set("fs-type", &mount.info.fs_type)
+            .set("mount-point", mount.info.mount_point.to_string_lossy());
+        if let Some(stats) = &mount.stats {
             sub.
-                set("size", file_size::fit_4(mount.size()))
-                .set("used", file_size::fit_4(mount.used()))
-                .set("use-percents", format!("{:.0}%", 100.0*mount.use_share()))
-                .set("available", file_size::fit_4(mount.available()));
+                set("size", file_size::fit_4(stats.size()))
+                .set("used", file_size::fit_4(stats.used()))
+                .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
+                .set("available", file_size::fit_4(stats.available()));
         } else {
             sub.
                 set("size", "-")
