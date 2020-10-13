@@ -36,7 +36,7 @@ cargo install lfs
 ```
 lfs
 ```
-By default, **lfs** doesn't show mount points with no size. Use `lfs -a` to show them all.
+By default, **lfs** only show mount points backed by block devices (i.e. disks). Use `lfs -a` to show them all.
 
 ## Internals
 
