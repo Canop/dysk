@@ -182,7 +182,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "argh",
  "crossterm",
@@ -194,9 +194,9 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "262954d3d457ffed472f10578ff1dc922222716df65ec85eb028e7e8550837a7"
+checksum = "81b007af6a931c2b3948efaef47a72ef9eedc0c3d20656f024eae9a7d82e5277"
 dependencies = [
  "libc",
  "thiserror",
@@ -243,9 +243,9 @@ dependencies = [
 
 [[package]]
 name = "minimad"
-version = "0.6.6"
+version = "0.6.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b992b6b8097cbfe0875a2af5d10e206840a20c5af0355e97d387cb11fc36488"
+checksum = "24fe6f533320d060be6644ff3967df0ddb2e3061164ab4976c9157995702e887"
 dependencies = [
  "lazy_static",
 ]
@@ -388,9 +388,9 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.8.28"
+version = "0.8.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ba7ef34a6838b9244c3f8396b2c62cb4e6cd95287a1c0faa8113c6e9b60a8b9"
+checksum = "7645e0e5639e21f16e33030ac3ce9009cb0c25e7d04411eb0e7cab59066a2c9b"
 dependencies = [
  "crossbeam",
  "crossterm",

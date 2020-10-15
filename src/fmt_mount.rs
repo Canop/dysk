@@ -24,13 +24,11 @@ ${mount-points
 |-:
 "#;
 
-pub fn print(mounts: &Vec<Mount>) -> Result<()> {
-    let template = TextTemplate::from(MD);
+pub fn print(mounts: &[Mount]) -> Result<()> {
     let mut expander = OwningTemplateExpander::new();
-    let mut skin = MadSkin::default();
-    skin.italic = CompoundStyle::with_fg(AnsiValue(209));
-    skin.bold = CompoundStyle::with_fg(AnsiValue(208));
-    expander.set("mounts_len", format!("{}", mounts.len()));
+    expander
+        .set_default("")
+        .set("mounts_len", format!("{}", mounts.len()));
     for mount in mounts {
         let sub = expander.sub("mount-points")
             .set("id", format!("{}", mount.info.id))
@@ -41,21 +39,21 @@ pub fn print(mounts: &Vec<Mount>) -> Result<()> {
             .set("fs-type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy());
         if let Some(stats) = &mount.stats {
-            sub.
-                set("size", file_size::fit_4(stats.size()))
-                .set("used", file_size::fit_4(stats.used()))
-                .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
-                .set("available", file_size::fit_4(stats.available()));
-        } else {
-            sub.
-                set("size", "-")
-                .set("used", "-")
-                .set("use-percents", "-")
-                .set("available", "-");
+            if stats.size() > 0 {
+                sub
+                    .set("size", file_size::fit_4(stats.size()))
+                    .set("used", file_size::fit_4(stats.used()))
+                    .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
+                    .set("available", file_size::fit_4(stats.available()));
+            }
         }
     }
     let (width, _) = terminal_size();
+    let template = TextTemplate::from(MD);
     let text = expander.expand(&template);
+    let mut skin = MadSkin::default();
+    skin.italic = CompoundStyle::with_fg(AnsiValue(209));
+    skin.bold = CompoundStyle::with_fg(AnsiValue(208));
     let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
     print!("{}", fmt_text);
     Ok(())
