@@ -17,11 +17,7 @@
 
 A small linux utility listing your filesystems.
 
-It's very similar to the `df` tool you already have.
-
-Comparison:
-
-![comparison](doc/screenshot.png)
+![screenshot](doc/screenshot.png)
 
 ## Installation
 
@@ -36,7 +32,8 @@ cargo install lfs
 ```
 lfs
 ```
-By default, **lfs** only show mount points backed by block devices (i.e. disks). Use `lfs -a` to show them all.
+By default, **lfs** only show mount points backed by normal block devices (i.e. disks).
+Use `lfs -a` to show them all.
 
 ## Internals
 
