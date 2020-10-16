@@ -1,1 +1,4 @@
 /target
+build
+releases
+lfs_*.zip

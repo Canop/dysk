@@ -19,16 +19,14 @@ static MD: &str = r#"
 |id|dev|filesystem|dsk|type|size|used|use%|avail|mount point
 |-:|:-|:-|:-:|:-:|-:|-:|-:|-:|:-
 ${mount-points
-|${id}|*${dev-major}*:*${dev-minor}*|${fs}|${dsk}|${fs-type}|${size}|${used}|**${use-percents}**|**${available}**|${mount-point}
+|${id}|${dev-major}:${dev-minor}|${fs}|${dsk}|${fs-type}|*${size}*|`${used}`|`${use-percents}`|**${available}**|${mount-point}
 }
 |-:
 "#;
 
 pub fn print(mounts: &[Mount]) -> Result<()> {
     let mut expander = OwningTemplateExpander::new();
-    expander
-        .set_default("")
-        .set("mounts_len", format!("{}", mounts.len()));
+    expander.set_default("");
     for mount in mounts {
         let sub = expander.sub("mount-points")
             .set("id", format!("{}", mount.info.id))
@@ -53,6 +51,7 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
     let text = expander.expand(&template);
     let mut skin = MadSkin::default();
     skin.italic = CompoundStyle::with_fg(AnsiValue(209));
+    skin.inline_code = CompoundStyle::with_fg(AnsiValue(166));
     skin.bold = CompoundStyle::with_fg(AnsiValue(208));
     let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
     print!("{}", fmt_text);

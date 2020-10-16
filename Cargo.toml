@@ -1,6 +1,6 @@
 [package]
 name = "lfs"
-version = "0.5.0"
+version = "0.5.1"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2018"
 keywords = ["unix", "filesystem", "fs"]

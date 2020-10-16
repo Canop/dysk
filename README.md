@@ -21,7 +21,11 @@ A small linux utility listing your filesystems.
 
 ## Installation
 
-Run
+### Precompiled binary
+
+You can download it from https://github.com/Canop/lfs/releases
+
+### From source
 
 ```
 cargo install lfs

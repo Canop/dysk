@@ -4,8 +4,17 @@ mod fmt_mount;
 use argh::FromArgs;
 
 #[derive(FromArgs)]
-/// Print information on your filesystems
+/// List your filesystems.
+///
+/// All units are SI.
+///
+/// Source at https://github.com/Canop/lfs
 struct Args {
+
+    /// print the version
+    #[argh(switch, short='v')]
+    version: bool,
+
     /// whether to show all mount points
     #[argh(switch, short='a')]
     all: bool,
@@ -13,6 +22,10 @@ struct Args {
 
 fn main() -> lfs_core::Result<()>  {
     let args:Args = argh::from_env();
+    if args.version {
+        println!("lfs {}", env!("CARGO_PKG_VERSION"));
+        return Ok(());
+    }
     let mut mounts = lfs_core::read_mounts()?;
     if !args.all {
         mounts.retain(|m|

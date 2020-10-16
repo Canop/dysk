@@ -1,3 +1,7 @@
+<a name="v0.5.1"></a>
+### v0.5.1 - 2020/10/16
+* `--version`
+
 <a name="v0.5.0"></a>
 ### v0.5.0 - 2020/10/15
 * identifies removable devices as such
