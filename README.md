@@ -46,6 +46,8 @@ To show them all, use
 lfs -a
 ```
 
+To get the output as JSON, do `lfs -j` or  `lfs -a -j`.
+
 ## Internals
 
 If you want to display the same data in your Rust application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.
