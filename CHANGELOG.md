@@ -1,3 +1,7 @@
+<a name="v0.5.2"></a>
+### v0.5.2 - 2020/10/17
+* `--json` option to output the data in JSON
+
 <a name="v0.5.1"></a>
 ### v0.5.1 - 2020/10/16
 * `--version`

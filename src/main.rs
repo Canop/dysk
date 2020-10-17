@@ -1,5 +1,6 @@
 
 mod fmt_mount;
+mod json;
 
 use argh::FromArgs;
 
@@ -18,6 +19,10 @@ struct Args {
     /// whether to show all mount points
     #[argh(switch, short='a')]
     all: bool,
+
+    /// output as JSON
+    #[argh(switch, short='j')]
+    json: bool,
 }
 
 fn main() -> lfs_core::Result<()>  {
@@ -32,6 +37,10 @@ fn main() -> lfs_core::Result<()>  {
             m.disk.is_some()
             && m.info.fs_type != "squashfs" // quite ad-hoc...
         );
+    }
+    if args.json {
+        println!("{}", serde_json::to_string_pretty(&json::output_value(&mounts)).unwrap());
+        return Ok(());
     }
     if mounts.is_empty() {
         println!("no disk was found - try\n    lfs -a");

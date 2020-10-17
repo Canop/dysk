@@ -1,6 +1,6 @@
 [package]
 name = "lfs"
-version = "0.5.1"
+version = "0.5.2"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2018"
 keywords = ["unix", "filesystem", "fs"]
@@ -16,6 +16,8 @@ crossterm = "0.17.7"
 file-size = "1.0.3"
 lfs-core = "0.3"
 minimad = "0.6.7"
+serde ="1.0"
+serde_json = "1.0"
 termimad = "0.8.29"
 
 [patch.crates-io]
