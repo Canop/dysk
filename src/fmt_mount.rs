@@ -36,14 +36,12 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
             .set("dsk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("fs-type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy());
-        if let Some(stats) = &mount.stats {
-            if stats.size() > 0 {
-                sub
-                    .set("size", file_size::fit_4(stats.size()))
-                    .set("used", file_size::fit_4(stats.used()))
-                    .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
-                    .set("available", file_size::fit_4(stats.available()));
-            }
+        if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
+            sub
+                .set("size", file_size::fit_4(stats.size()))
+                .set("used", file_size::fit_4(stats.used()))
+                .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
+                .set("available", file_size::fit_4(stats.available()));
         }
     }
     let (width, _) = terminal_size();

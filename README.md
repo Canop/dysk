@@ -36,9 +36,9 @@ cargo install lfs
 ```
 lfs
 ```
-By default, **lfs** only show mount points backed by normal block devices (i.e. disks).
+By default, **lfs** only shows mount points backed by normal block devices (i.e. disks).
 Use `lfs -a` to show them all.
 
 ## Internals
 
-If you want to display the same data in your application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.
+If you want to display the same data in your Rust application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.
