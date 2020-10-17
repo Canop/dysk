@@ -27,6 +27,8 @@ You can download it from https://github.com/Canop/lfs/releases
 
 ### From source
 
+You need the [Rust tool chain](https://rustup.rs/).
+
 ```
 cargo install lfs
 ```
