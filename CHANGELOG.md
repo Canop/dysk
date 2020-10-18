@@ -1,3 +1,7 @@
+<a name="v0.5.3"></a>
+### v0.5.3 - 2020/10/18
+* now compiles on 32 bits platforms too (but tests lacking)
+
 <a name="v0.5.2"></a>
 ### v0.5.2 - 2020/10/17
 * `--json` option to output the data in JSON

@@ -1,8 +1,17 @@
 # build a new release of lfs for distribution
 # 
+# WARNING: this is not intented for normal usage but
+# for the official release. It involves a heavy tool
+# chain running on linux.
+#
 # For your own usage, you should rather do
+#
 #     cargo install --path .
 # 
+# or
+#
+#     cargo build --release
+#
 version=$(sed 's/version = "\([0-9.]\{1,\}\)"/\1/;t;d' Cargo.toml | head -1)
 
 echo "Building release $version"
@@ -11,10 +20,8 @@ echo "Building release $version"
 rm -rf build
 mkdir build
 
-# build the linux version
-cargo build --release
-strip target/release/lfs
-cp target/release/lfs build
+# compile all targets
+./compile-all-targets.sh
 
 # add the readme and changelog in the build directory
 echo "This is lfs. More info and installation instructions on https://github.com/Canop/lfs" > build/README.md
