@@ -1,3 +1,7 @@
+<a name="v0.5.4"></a>
+### v0.5.4 - 2021/06/21
+* fix missing size of disk whose name contains a space character
+
 <a name="v0.5.3"></a>
 ### v0.5.3 - 2020/10/18
 * now compiles on 32 bits platforms too (but tests lacking)
