@@ -15,7 +15,7 @@
 [l4]: https://miaou.dystroy.org/3768?Rust
 
 
-A modern linux utility listing your filesystems.
+A linux utility listing your filesystems.
 
 ![screenshot](doc/screenshot.png)
 
