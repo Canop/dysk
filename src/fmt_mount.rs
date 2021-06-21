@@ -1,17 +1,9 @@
 use {
-    lfs_core::*,
     crossterm::style::Color::*,
     file_size,
-    minimad::{
-        TextTemplate,
-        OwningTemplateExpander,
-    },
-    termimad::{
-        CompoundStyle,
-        FmtText,
-        MadSkin,
-        terminal_size,
-    },
+    lfs_core::*,
+    minimad::{OwningTemplateExpander, TextTemplate},
+    termimad::{terminal_size, CompoundStyle, FmtText, MadSkin},
 };
 
 static MD: &str = r#"
@@ -28,7 +20,8 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for mount in mounts {
-        let sub = expander.sub("mount-points")
+        let sub = expander
+            .sub("mount-points")
             .set("id", format!("{}", mount.info.id))
             .set("dev-major", format!("{}", mount.info.dev.major))
             .set("dev-minor", format!("{}", mount.info.dev.minor))
@@ -40,19 +33,20 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
             sub
                 .set("size", file_size::fit_4(stats.size()))
                 .set("used", file_size::fit_4(stats.used()))
-                .set("use-percents", format!("{:.0}%", 100.0*stats.use_share()))
+                .set("use-percents", format!("{:.0}%", 100.0 * stats.use_share()))
                 .set("available", file_size::fit_4(stats.available()));
         }
     }
     let (width, _) = terminal_size();
     let template = TextTemplate::from(MD);
     let text = expander.expand(&template);
-    let mut skin = MadSkin::default();
-    skin.italic = CompoundStyle::with_fg(AnsiValue(209));
-    skin.inline_code = CompoundStyle::with_fg(AnsiValue(166));
-    skin.bold = CompoundStyle::with_fg(AnsiValue(208));
+    let skin = MadSkin {
+        bold: CompoundStyle::with_fg(AnsiValue(208)),
+        inline_code: CompoundStyle::with_fg(AnsiValue(166)),
+        italic: CompoundStyle::with_fg(AnsiValue(209)),
+        ..Default::default()
+    };
     let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
     print!("{}", fmt_text);
     Ok(())
 }
-

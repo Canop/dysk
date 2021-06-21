@@ -15,9 +15,17 @@
 [l4]: https://miaou.dystroy.org/3768?Rust
 
 
-A small linux utility listing your filesystems.
+A modern linux utility listing your filesystems.
 
 ![screenshot](doc/screenshot.png)
+
+Besides traditional columns, the `dsk` column helps you identify your physical devices:
+
+* `rem` : a removable device (most often an USB key)
+* `HDD` : a rotational disk
+* `SSD` : a solid state storage device, usually quite fast
+
+All sizes are based on the current SI recommendations: 1M is one million bytes.
 
 ## Installation
 
