@@ -24,6 +24,7 @@ Besides traditional columns, the `dsk` column helps you identify your physical d
 * `rem` : a removable device (most often an USB key)
 * `HDD` : a rotational disk
 * `SSD` : a solid state storage device, usually quite fast
+* `RAM` : an in-memory device (zram)
 
 All sizes are based on the current SI recommendations: 1M is one million bytes.
 

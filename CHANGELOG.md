@@ -1,3 +1,6 @@
+### next
+* tag zram "disks" as "RAM"
+
 <a name="v0.5.4"></a>
 ### v0.5.4 - 2021/06/21
 * fix missing size of disk whose name contains a space character
