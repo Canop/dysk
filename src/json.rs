@@ -25,6 +25,8 @@ pub fn output_value(mounts: &[Mount]) -> Value {
                         "type": d.disk_type(),
                         "rotational": d.rotational,
                         "removable": d.removable,
+                        "crypted": d.crypted,
+                        "ram": d.ram,
                     })
                 });
                 json!({

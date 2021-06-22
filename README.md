@@ -19,12 +19,13 @@ A linux utility listing your filesystems.
 
 ![screenshot](doc/screenshot.png)
 
-Besides traditional columns, the `dsk` column helps you identify your physical devices:
+Besides traditional columns, the `dsk` column helps you identify your "disk":
 
-* `rem` : a removable device (most often an USB key)
+* `remov` : a removable device (such as an USB key)
 * `HDD` : a rotational disk
 * `SSD` : a solid state storage device, usually quite fast
-* `RAM` : an in-memory device (zram)
+* `RAM` : an in-memory device (such as zram)
+* `crypt` : a crypted disk
 
 All sizes are based on the current SI recommendations: 1M is one million bytes.
 

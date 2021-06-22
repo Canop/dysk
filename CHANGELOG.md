@@ -1,5 +1,7 @@
-### next
+<a name="v0.6.0"></a>
+### v0.6.0 - 2021/06/22
 * tag zram "disks" as "RAM"
+* list and identify crypted disks
 
 <a name="v0.5.4"></a>
 ### v0.5.4 - 2021/06/21
