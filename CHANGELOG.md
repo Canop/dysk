@@ -1,3 +1,7 @@
+<a name="v0.7.0"></a>
+### v0.7.0 - 2021/06/23
+* use bars to better display disk use
+
 <a name="v0.6.0"></a>
 ### v0.6.0 - 2021/06/22
 * tag zram "disks" as "RAM"

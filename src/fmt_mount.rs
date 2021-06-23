@@ -3,15 +3,30 @@ use {
     file_size,
     lfs_core::*,
     minimad::{OwningTemplateExpander, TextTemplate},
-    termimad::{terminal_size, CompoundStyle, FmtText, MadSkin},
+    termimad::{
+        terminal_size,
+        CompoundStyle,
+        FmtText,
+        MadSkin,
+        ProgressBar,
+    },
 };
 
+// those colors are chosen to be "redish" for used, "greenish" for available
+// and, most importantly, to work on both white and black backgrrounds. If you
+// find a better combination, please show me.
+static USED_COLOR: u8 = 209;
+static AVAI_COLOR: u8 = 65;
+static SIZE_COLOR: u8 = 172;
+
+static BAR_WIDTH: usize = 5;
+
 static MD: &str = r#"
-|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|id|dev|filesystem|dsk|type|size|used|use%|avail|mount point
-|-:|:-|:-|:-:|:-:|-:|-:|-:|-:|:-
+|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+|id|dev|filesystem|dsk|type|used|use%|avail|size|mount point
+|-:|:-|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points
-|${id}|${dev-major}:${dev-minor}|${fs}|${dsk}|${fs-type}|*${size}*|`${used}`|`${use-percents}`|**${available}**|${mount-point}
+|${id}|${dev-major}:${dev-minor}|${fs}|${dsk}|${fs-type}|`${used}`|`${use-percents}` ~~${bar}~~|*${available}*|**${size}**|${mount-point}
 }
 |-:
 "#;
@@ -30,10 +45,13 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
             .set("fs-type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy());
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
+            let use_share = stats.use_share();
+            let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
             sub
                 .set("size", file_size::fit_4(stats.size()))
                 .set("used", file_size::fit_4(stats.used()))
-                .set("use-percents", format!("{:.0}%", 100.0 * stats.use_share()))
+                .set("use-percents", format!("{:.0}%", 100.0 * use_share))
+                .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
                 .set("available", file_size::fit_4(stats.available()));
         }
     }
@@ -41,9 +59,10 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
     let template = TextTemplate::from(MD);
     let text = expander.expand(&template);
     let skin = MadSkin {
-        bold: CompoundStyle::with_fg(AnsiValue(208)),
-        inline_code: CompoundStyle::with_fg(AnsiValue(166)),
-        italic: CompoundStyle::with_fg(AnsiValue(209)),
+        bold: CompoundStyle::with_fg(AnsiValue(SIZE_COLOR)), // size
+        inline_code: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
+        strikeout: CompoundStyle::with_fgbg(AnsiValue(USED_COLOR), AnsiValue(AVAI_COLOR)), // use bar
+        italic: CompoundStyle::with_fg(AnsiValue(AVAI_COLOR)), // available
         ..Default::default()
     };
     let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
