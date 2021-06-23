@@ -58,6 +58,11 @@ lfs -a
 
 To get the output as JSON, do `lfs -j` or  `lfs -a -j`.
 
+You may pass a path to have only the relevant device shown.
+For example:
+
+![lfs dot](doc/lfs-dot.png)
+
 ## Internals
 
 If you want to display the same data in your Rust application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.

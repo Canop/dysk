@@ -1,6 +1,7 @@
 <a name="v0.7.0"></a>
 ### v0.7.0 - 2021/06/23
 * use bars to better display disk use
+* you may pass a path as argument to have lfs show only the relevant device
 
 <a name="v0.6.0"></a>
 ### v0.6.0 - 2021/06/22

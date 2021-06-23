@@ -1,7 +1,14 @@
 mod fmt_mount;
 mod json;
 
-use argh::FromArgs;
+use {
+    argh::FromArgs,
+    std::{
+        fs,
+        os::unix::fs::MetadataExt,
+        path::PathBuf,
+    },
+};
 
 #[derive(FromArgs)]
 /// List your filesystems.
@@ -21,6 +28,10 @@ struct Args {
     /// output as JSON
     #[argh(switch, short = 'j')]
     json: bool,
+
+    #[argh(positional)]
+    /// if a path is provided, only the device holding this path will be shown
+    pub path: Option<PathBuf>,
 }
 
 fn main() -> lfs_core::Result<()> {
@@ -34,6 +45,11 @@ fn main() -> lfs_core::Result<()> {
         mounts.retain(
             |m| m.disk.is_some() && m.info.fs_type != "squashfs", // quite ad-hoc...
         );
+    }
+    if let Some(path) = &args.path {
+        let md = fs::metadata(path)?;
+        let dev = lfs_core::DeviceId::from(md.dev());
+        mounts.retain(|m| m.info.dev == dev);
     }
     if args.json {
         println!(
