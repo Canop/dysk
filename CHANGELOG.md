@@ -1,3 +1,7 @@
+<a name="v0.7.1"></a>
+### v0.7.1 - 2021/06/24
+* better column balancing in table display
+
 <a name="v0.7.0"></a>
 ### v0.7.0 - 2021/06/23
 * use bars to better display disk use
