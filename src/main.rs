@@ -3,11 +3,7 @@ mod json;
 
 use {
     argh::FromArgs,
-    std::{
-        fs,
-        os::unix::fs::MetadataExt,
-        path::PathBuf,
-    },
+    std::{fs, os::unix::fs::MetadataExt, path::PathBuf},
 };
 
 #[derive(FromArgs)]
