@@ -42,6 +42,6 @@ pub fn output_value(mounts: &[Mount]) -> Value {
                     "stats": stats,
                 })
             })
-            .collect()
+            .collect(),
     )
 }

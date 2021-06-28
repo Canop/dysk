@@ -3,13 +3,7 @@ use {
     file_size,
     lfs_core::*,
     minimad::{OwningTemplateExpander, TextTemplate},
-    termimad::{
-        terminal_size,
-        CompoundStyle,
-        FmtText,
-        MadSkin,
-        ProgressBar,
-    },
+    termimad::{terminal_size, CompoundStyle, FmtText, MadSkin, ProgressBar},
 };
 
 // those colors are chosen to be "redish" for used, "greenish" for available
@@ -47,8 +41,7 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
-            sub
-                .set("size", file_size::fit_4(stats.size()))
+            sub.set("size", file_size::fit_4(stats.size()))
                 .set("used", file_size::fit_4(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
