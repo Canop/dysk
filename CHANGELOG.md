@@ -1,3 +1,7 @@
+<a name="v0.7.2"></a>
+### v0.7.2 - 2021/06/29
+* use termimad 0.13 for better support of narrow terminals and wide chars
+
 <a name="v0.7.1"></a>
 ### v0.7.1 - 2021/06/24
 * better column balancing in table display
