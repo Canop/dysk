@@ -3,11 +3,7 @@ mod json;
 
 use {
     argh::FromArgs,
-    std::{
-        fs,
-        os::unix::fs::MetadataExt,
-        path::PathBuf,
-    },
+    std::{cmp::Reverse, fs, os::unix::fs::MetadataExt, path::PathBuf},
 };
 
 #[derive(FromArgs)]
@@ -62,7 +58,7 @@ fn main() -> lfs_core::Result<()> {
         println!("no disk was found - try\n    lfs -a");
         Ok(())
     } else {
-        mounts.sort_by_key(|m| u64::MAX - m.size());
+        mounts.sort_by_key(|m| Reverse(m.size()));
         fmt_mount::print(&mounts)
     }
 }
