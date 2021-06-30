@@ -17,10 +17,10 @@ static BAR_WIDTH: usize = 5;
 
 static MD: &str = r#"
 |-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|id|dev|filesystem|dsk|type|used|use%|avail|size|mount point
+|id|dev|filesystem|disk|type|used|use%|avail|size|mount point
 |-:|:-|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points
-|${id}|${dev-major}:${dev-minor}|${fs}|${dsk}|${fs-type}|`${used}`|`${use-percents}` ~~${bar}~~|*${available}*|**${size}**|${mount-point}
+|${id}|${dev-major}:${dev-minor}|${fs}|${disk}|${fs-type}|`${used}`|`${use-percents}` ~~${bar}~~|*${available}*|**${size}**|${mount-point}
 }
 |-:
 "#;
@@ -35,7 +35,7 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
             .set("dev-major", format!("{}", mount.info.dev.major))
             .set("dev-minor", format!("{}", mount.info.dev.minor))
             .set("fs", &mount.info.fs)
-            .set("dsk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
+            .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("fs-type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy());
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {

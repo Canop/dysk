@@ -19,7 +19,7 @@ A linux utility listing your filesystems.
 
 ![screenshot](doc/screenshot.png)
 
-Besides traditional columns, the `dsk` column helps you identify your "disk":
+Besides traditional columns, the `disk` column helps you identify your "disk":
 
 * `remov` : a removable device (such as an USB key)
 * `HDD` : a rotational disk

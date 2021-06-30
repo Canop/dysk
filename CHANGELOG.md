@@ -1,3 +1,7 @@
+<a name="v0.7.3"></a>
+### v0.7.3 - 2021/06/30
+* fix disk not found for BTRFS filesystems - Fix #11
+
 <a name="v0.7.2"></a>
 ### v0.7.2 - 2021/06/29
 * use termimad 0.13 for better support of narrow terminals and wide chars
