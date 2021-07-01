@@ -1,3 +1,8 @@
+<a name="v0.7.4"></a>
+### v0.7.4 - 2021/07/01
+* `--color` option with values yes|no|auto (auto being default)
+* no tty style when `--color` is default and the output is piped
+
 <a name="v0.7.3"></a>
 ### v0.7.3 - 2021/06/30
 * fix disk not found for BTRFS filesystems - Fix #11

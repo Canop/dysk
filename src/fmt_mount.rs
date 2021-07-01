@@ -25,7 +25,7 @@ ${mount-points
 |-:
 "#;
 
-pub fn print(mounts: &[Mount]) -> Result<()> {
+pub fn print(mounts: &[Mount], color: bool) -> Result<()> {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for mount in mounts {
@@ -51,14 +51,22 @@ pub fn print(mounts: &[Mount]) -> Result<()> {
     let (width, _) = terminal_size();
     let template = TextTemplate::from(MD);
     let text = expander.expand(&template);
-    let skin = MadSkin {
+    let skin = if color {
+        make_colored_skin()
+    } else {
+        MadSkin::no_style()
+    };
+    let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
+    print!("{}", fmt_text);
+    Ok(())
+}
+
+fn make_colored_skin() -> MadSkin {
+    MadSkin {
         bold: CompoundStyle::with_fg(AnsiValue(SIZE_COLOR)), // size
         inline_code: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
         strikeout: CompoundStyle::with_fgbg(AnsiValue(USED_COLOR), AnsiValue(AVAI_COLOR)), // use bar
         italic: CompoundStyle::with_fg(AnsiValue(AVAI_COLOR)), // available
         ..Default::default()
-    };
-    let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
-    print!("{}", fmt_text);
-    Ok(())
+    }
 }
