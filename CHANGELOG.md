@@ -1,3 +1,7 @@
+<a name="v0.7.5"></a>
+### v0.7.5 - 2021/07/01
+* fix endless loops in some configurations - Fix #13
+
 <a name="v0.7.4"></a>
 ### v0.7.4 - 2021/07/01
 * `--color` option with values yes|no|auto (auto being default)
