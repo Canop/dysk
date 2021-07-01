@@ -63,6 +63,8 @@ For example:
 
 ![lfs dot](doc/lfs-dot.png)
 
+Use `lfs --help` to list the other arguments.
+
 ## Internals
 
 If you want to display the same data in your Rust application, have a look at the [lfs-core](https://docs.rs/lfs-core/) crate.
