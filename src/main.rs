@@ -20,8 +20,9 @@ fn main() -> lfs_core::Result<()> {
     }
     let mut mounts = lfs_core::read_mounts()?;
     if !args.all {
-        mounts.retain(
-            |m| m.disk.is_some() && m.info.fs_type != "squashfs", // quite ad-hoc...
+        mounts.retain(|m|
+            m.disk.is_some() // by default only fs with disks are shown
+            && m.info.fs_type != "squashfs", // quite ad-hoc...
         );
     }
     if let Some(path) = &args.path {

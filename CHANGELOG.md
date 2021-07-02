@@ -1,3 +1,6 @@
+### next
+* better identification of mapped devices (for example LVM)
+
 <a name="v0.7.5"></a>
 ### v0.7.5 - 2021/07/01
 * fix endless loops in some configurations - Fix #13
