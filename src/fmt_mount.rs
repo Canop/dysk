@@ -20,7 +20,7 @@ static MD: &str = r#"
 |id|dev|filesystem|disk|type|used|use%|avail|size|mount point
 |-:|:-|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points
-|${id}|${dev-major}:${dev-minor}|${fs}|${disk}|${fs-type}|`${used}`|`${use-percents}` ~~${bar}~~|*${available}*|**${size}**|${mount-point}
+|${id}|${dev-major}:${dev-minor}|${fs}|${disk}|${fs-type}|~~${used}~~|~~${use-percents}~~ `${bar}`|*${available}*|**${size}**|${mount-point}
 }
 |-:
 "#;
@@ -64,8 +64,8 @@ pub fn print(mounts: &[Mount], color: bool) -> Result<()> {
 fn make_colored_skin() -> MadSkin {
     MadSkin {
         bold: CompoundStyle::with_fg(AnsiValue(SIZE_COLOR)), // size
-        inline_code: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
-        strikeout: CompoundStyle::with_fgbg(AnsiValue(USED_COLOR), AnsiValue(AVAI_COLOR)), // use bar
+        inline_code: CompoundStyle::with_fgbg(AnsiValue(USED_COLOR), AnsiValue(AVAI_COLOR)), // use bar
+        strikeout: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
         italic: CompoundStyle::with_fg(AnsiValue(AVAI_COLOR)), // available
         ..Default::default()
     }

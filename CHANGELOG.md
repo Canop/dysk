@@ -1,5 +1,6 @@
-### next
-* better identification of mapped devices (for example LVM)
+<a name="v0.7.6"></a>
+### v0.7.6 - 2021/07/08
+* better identify mapped devices (such as LVM)
 
 <a name="v0.7.5"></a>
 ### v0.7.5 - 2021/07/01

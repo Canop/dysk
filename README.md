@@ -19,12 +19,13 @@ A linux utility listing your filesystems.
 
 ![screenshot](doc/screenshot.png)
 
-Besides traditional columns, the `disk` column helps you identify your "disk":
+Besides traditional columns, the `disk` column helps you identify your "disk" (or the mapping standing between your filesystem and the physical device) :
 
 * `remov` : a removable device (such as an USB key)
 * `HDD` : a rotational disk
-* `SSD` : a solid state storage device, usually quite fast
+* `SSD` : a solid state storage device
 * `RAM` : an in-memory device (such as zram)
+* `LVM` : a device mapped to one or several disks using LVM
 * `crypt` : a crypted disk
 
 All sizes are based on the current SI recommendations: 1M is one million bytes.
@@ -48,7 +49,7 @@ cargo install lfs
 ```
 lfs
 ```
-By default, **lfs** only shows mount points backed by normal block devices (i.e. disks).
+By default, **lfs** only shows mount points backed by normal block devices, which are usually the "storage" filesystems you're interested into.
 
 To show them all, use
 

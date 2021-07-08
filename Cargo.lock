@@ -212,7 +212,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "0.7.6-dev"
+version = "0.7.6"
 dependencies = [
  "argh",
  "crossterm",
@@ -467,9 +467,9 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a09f249613ba31188fd902030fcbc94bbdebb5e881fe7fcb58be16fb50e0d77a"
+checksum = "72cc07d71829847df3a04fe2341f0598676b1faf377d0965c48cb922241273d7"
 dependencies = [
  "crossbeam",
  "crossterm",
