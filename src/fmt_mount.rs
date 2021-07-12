@@ -1,13 +1,12 @@
 use {
     crossterm::style::Color::*,
-    file_size,
     lfs_core::*,
     minimad::{OwningTemplateExpander, TextTemplate},
-    termimad::{terminal_size, CompoundStyle, FmtText, MadSkin, ProgressBar},
+    termimad::{CompoundStyle, MadSkin, ProgressBar},
 };
 
 // those colors are chosen to be "redish" for used, "greenish" for available
-// and, most importantly, to work on both white and black backgrrounds. If you
+// and, most importantly, to work on both white and black backgrounds. If you
 // find a better combination, please show me.
 static USED_COLOR: u8 = 209;
 static AVAI_COLOR: u8 = 65;
@@ -25,7 +24,7 @@ ${mount-points
 |-:
 "#;
 
-pub fn print(mounts: &[Mount], color: bool) -> Result<()> {
+pub fn print(mounts: &[Mount], color: bool) {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for mount in mounts {
@@ -48,17 +47,13 @@ pub fn print(mounts: &[Mount], color: bool) -> Result<()> {
                 .set("available", file_size::fit_4(stats.available()));
         }
     }
-    let (width, _) = terminal_size();
-    let template = TextTemplate::from(MD);
-    let text = expander.expand(&template);
     let skin = if color {
         make_colored_skin()
     } else {
         MadSkin::no_style()
     };
-    let fmt_text = FmtText::from_text(&skin, text, Some(width as usize));
-    print!("{}", fmt_text);
-    Ok(())
+    let template = TextTemplate::from(MD);
+    skin.print_owning_expander(&expander, &template);
 }
 
 fn make_colored_skin() -> MadSkin {

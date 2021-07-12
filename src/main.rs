@@ -39,11 +39,11 @@ fn main() -> lfs_core::Result<()> {
     }
     if mounts.is_empty() {
         println!("no disk was found - try\n    lfs -a");
-        Ok(())
     } else {
         mounts.sort_by_key(|m| Reverse(m.size()));
         let color = args.color.value()
             .unwrap_or_else(|| std::io::stdout().is_tty());
-        fmt_mount::print(&mounts, color)
+        fmt_mount::print(&mounts, color);
     }
+    Ok(())
 }

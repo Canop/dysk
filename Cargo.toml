@@ -11,7 +11,7 @@ repository = "https://github.com/Canop/lfs"
 readme = "README.md"
 
 [dependencies]
-argh = "0.1.3"
+argh = "0.1.4"
 crossterm = "0.20.0"
 file-size = "1.0.3"
 lfs-core = "0.4.2"

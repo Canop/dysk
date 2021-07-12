@@ -1,4 +1,3 @@
-
 use {
     argh::FromArgs,
     std::path::PathBuf,
@@ -9,7 +8,7 @@ use {
 ///
 /// All units are SI.
 ///
-/// Source at https://github.com/Canop/lfs
+/// Source and doc at https://github.com/Canop/lfs
 pub struct Args {
     /// print the version
     #[argh(switch, short = 'v')]
