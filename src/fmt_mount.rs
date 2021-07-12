@@ -30,9 +30,9 @@ pub fn print(mounts: &[Mount], color: bool) {
     for mount in mounts {
         let sub = expander
             .sub("mount-points")
-            .set("id", format!("{}", mount.info.id))
-            .set("dev-major", format!("{}", mount.info.dev.major))
-            .set("dev-minor", format!("{}", mount.info.dev.minor))
+            .set("id", mount.info.id)
+            .set("dev-major", mount.info.dev.major)
+            .set("dev-minor", mount.info.dev.minor)
             .set("fs", &mount.info.fs)
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("fs-type", &mount.info.fs_type)
