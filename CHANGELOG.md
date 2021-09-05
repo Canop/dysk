@@ -1,3 +1,7 @@
+<a name="v1.0.0"></a>
+### v1.0.0 - 2021/09/05
+I see no reason not to tag this a 1.0
+
 <a name="v0.7.6"></a>
 ### v0.7.6 - 2021/07/08
 * better identify mapped devices (such as LVM)
