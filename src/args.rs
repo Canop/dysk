@@ -7,8 +7,6 @@ use {
 #[derive(FromArgs)]
 /// List your filesystems.
 ///
-/// All units are SI.
-///
 /// Source and doc at https://github.com/Canop/lfs
 pub struct Args {
     /// print the version

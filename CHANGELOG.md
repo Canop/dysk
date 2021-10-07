@@ -1,3 +1,6 @@
+### next
+--units launch argument, to choose between SI units or the old binary ones - Fix #17
+
 <a name="v1.0.0"></a>
 ### v1.0.0 - 2021/09/05
 I see no reason not to tag this a 1.0

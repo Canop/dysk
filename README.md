@@ -28,7 +28,7 @@ Besides traditional columns, the `disk` column helps you identify your "disk" (o
 * `LVM` : a device mapped to one or several disks using LVM
 * `crypt` : a crypted disk
 
-All sizes are based on the current SI recommendations: 1M is one million bytes.
+All sizes are normally based on the current SI recommendations (1M is one million bytes) but can be changed with `--units binary` (then 1M is 1,048,576 bytes).
 
 ## Installation
 
