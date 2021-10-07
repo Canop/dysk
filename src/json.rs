@@ -1,9 +1,10 @@
 use {
+    crate::units::Units,
     lfs_core::*,
     serde_json::{json, Value},
 };
 
-pub fn output_value(mounts: &[Mount]) -> Value {
+pub fn output_value(mounts: &[Mount], units: Units) -> Value {
     Value::Array(
         mounts
             .iter()
@@ -14,10 +15,10 @@ pub fn output_value(mounts: &[Mount]) -> Value {
                         "blocks": s.blocks,
                         "bavail": s.bavail,
                         "bfree": s.bfree,
-                        "size": file_size::fit_4(s.size()),
-                        "used": file_size::fit_4(s.used()),
+                        "size": units.fmt(s.size()),
+                        "used": units.fmt(s.used()),
                         "used-percent": format!("{:.0}%", 100.0*s.use_share()),
-                        "available": file_size::fit_4(s.available()),
+                        "available": units.fmt(s.available()),
                     })
                 });
                 let disk = mount.disk.as_ref().map(|d| {

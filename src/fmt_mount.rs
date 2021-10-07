@@ -1,4 +1,5 @@
 use {
+    crate::units::Units,
     crossterm::style::Color::*,
     lfs_core::*,
     minimad::{OwningTemplateExpander, TextTemplate},
@@ -16,7 +17,7 @@ static BAR_WIDTH: usize = 5;
 
 static MD: &str = r#"
 |-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|id|dev|filesystem|disk|type|used|use%|avail|size|mount point
+|id|dev|filesystem|disk|type|used|use%|free|size|mount point
 |-:|:-|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points
 |${id}|${dev-major}:${dev-minor}|${fs}|${disk}|${fs-type}|~~${used}~~|~~${use-percents}~~ `${bar}`|*${available}*|**${size}**|${mount-point}
@@ -24,7 +25,7 @@ ${mount-points
 |-:
 "#;
 
-pub fn print(mounts: &[Mount], color: bool) {
+pub fn print(mounts: &[Mount], color: bool, units: Units) {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for mount in mounts {
@@ -40,11 +41,11 @@ pub fn print(mounts: &[Mount], color: bool) {
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
-            sub.set("size", file_size::fit_4(stats.size()))
-                .set("used", file_size::fit_4(stats.used()))
+            sub.set("size", units.fmt(stats.size()))
+                .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
-                .set("available", file_size::fit_4(stats.available()));
+                .set("available", units.fmt(stats.available()));
         }
     }
     let skin = if color {
@@ -65,3 +66,5 @@ fn make_colored_skin() -> MadSkin {
         ..Default::default()
     }
 }
+
+

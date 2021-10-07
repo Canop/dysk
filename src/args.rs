@@ -1,4 +1,5 @@
 use {
+    crate::units::Units,
     argh::FromArgs,
     std::path::PathBuf,
 };
@@ -26,6 +27,10 @@ pub struct Args {
     #[argh(switch, short = 'j')]
     pub json: bool,
 
+    #[argh(option, default = "Default::default()")]
+    /// units: 'SI' (default) or 'binary'
+    pub units: Units,
+
     #[argh(positional)]
     /// if a path is provided, only the device holding this path will be shown
     pub path: Option<PathBuf>,
@@ -48,6 +53,16 @@ impl argh::FromArgValue for BoolArg {
             "yes" => Ok(BoolArg(Some(true))),
             "no" => Ok(BoolArg(Some(false))),
             _ => Err(format!("Illegal value: {:?}", value)),
+        }
+    }
+}
+
+impl argh::FromArgValue for Units {
+    fn from_arg_value(value: &str) -> Result<Self, String> {
+        match value.to_lowercase().as_ref() {
+            "si" => Ok(Self::Si),
+            "binary" => Ok(Self::Binary),
+            _ => Err(format!("Illegal value: {:?} - valid values are 'SI' and 'binary'", value)),
         }
     }
 }

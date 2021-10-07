@@ -1,6 +1,7 @@
 mod args;
 mod fmt_mount;
 mod json;
+mod units;
 
 use {
     crate::args::*,
@@ -33,7 +34,7 @@ fn main() -> lfs_core::Result<()> {
     if args.json {
         println!(
             "{}",
-            serde_json::to_string_pretty(&json::output_value(&mounts)).unwrap()
+            serde_json::to_string_pretty(&json::output_value(&mounts, args.units)).unwrap()
         );
         return Ok(());
     }
@@ -43,7 +44,7 @@ fn main() -> lfs_core::Result<()> {
         mounts.sort_by_key(|m| Reverse(m.size()));
         let color = args.color.value()
             .unwrap_or_else(|| std::io::stdout().is_tty());
-        fmt_mount::print(&mounts, color);
+        fmt_mount::print(&mounts, color, args.units);
     }
     Ok(())
 }
