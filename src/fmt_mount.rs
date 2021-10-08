@@ -16,7 +16,7 @@ static SIZE_COLOR: u8 = 172;
 static BAR_WIDTH: usize = 5;
 
 static MD: &str = r#"
-|-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+|-:|:-:|:-:|:-:|:-:|-:|:-:|:-:|:-|:-
 |id|dev|filesystem|disk|type|used|use%|free|size|mount point
 |-:|:-|:-|:-:|:-:|-:|-:|-:|:-
 ${mount-points

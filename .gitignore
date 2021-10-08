@@ -1,5 +1,6 @@
 /target
-build
-releases
-lfs_*.zip
-trav
+/build
+/releases
+/lfs_*.zip
+/trav
+/deploy.sh

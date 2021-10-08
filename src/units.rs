@@ -1,7 +1,7 @@
 
 
 /// The Units system used for sizes
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Units {
     Si, // Units according to the SI system
     Binary, // Old binary based units
