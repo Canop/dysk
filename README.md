@@ -44,6 +44,14 @@ You need the [Rust tool chain](https://rustup.rs/).
 cargo install lfs
 ```
 
+### Arch Linux
+
+**lfs** can be installed from the [community repository](https://archlinux.org/packages/community/x86_64/lfs/):
+
+```
+pacman -S lfs
+```
+
 ## Usage
 
 ```
