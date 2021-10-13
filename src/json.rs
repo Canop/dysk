@@ -37,6 +37,7 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
                         "minor": mount.info.dev.minor,
                     },
                     "fs": mount.info.fs,
+                    "fs-label": mount.fs_label,
                     "fs-type": mount.info.fs_type,
                     "mount-point": mount.info.mount_point,
                     "disk": disk,
