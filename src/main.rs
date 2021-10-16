@@ -44,7 +44,7 @@ fn main() -> lfs_core::Result<()> {
         mounts.sort_by_key(|m| Reverse(m.size()));
         let color = args.color.value()
             .unwrap_or_else(|| std::io::stdout().is_tty());
-        fmt_mount::print(&mounts, color, args.units);
+        fmt_mount::print(&mounts, color, &args);
     }
     Ok(())
 }

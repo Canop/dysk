@@ -1,8 +1,8 @@
 use {
-    crate::units::Units,
+    crate::*,
     crossterm::style::Color::*,
     lfs_core::*,
-    minimad::{OwningTemplateExpander, TextTemplate},
+    minimad::{*, Alignment::*},
     termimad::{CompoundStyle, MadSkin, ProgressBar},
 };
 
@@ -15,29 +15,24 @@ static SIZE_COLOR: u8 = 172;
 
 static BAR_WIDTH: usize = 5;
 
-static MD: &str = r#"
-|-:|:-:|:-:|:-:|:-:|-:|:-:|:-:|:-|:-
-|id|dev|filesystem|disk|type|used|use%|free|size|mount point
-|-:|:-|:-|:-:|:-:|-:|-:|-:|:-
-${mount-points
-|${id}|${dev-major}:${dev-minor}|${fs}|${disk}|${fs-type}|~~${used}~~|~~${use-percents}~~ `${bar}`|*${available}*|**${size}**|${mount-point}
-}
-|-:
-"#;
+pub fn print(mounts: &[Mount], color: bool, args: &Args) {
 
-pub fn print(mounts: &[Mount], color: bool, units: Units) {
+    let units = args.units;
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for mount in mounts {
         let sub = expander
-            .sub("mount-points")
+            .sub("rows")
             .set("id", mount.info.id)
             .set("dev-major", mount.info.dev.major)
             .set("dev-minor", mount.info.dev.minor)
-            .set("fs", &mount.info.fs)
+            .set("filesystem", &mount.info.fs)
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
-            .set("fs-type", &mount.info.fs_type)
+            .set("type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy());
+        if let Some(label) = &mount.fs_label {
+            sub.set("label", label);
+        }
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
@@ -45,7 +40,7 @@ pub fn print(mounts: &[Mount], color: bool, units: Units) {
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
-                .set("available", units.fmt(stats.available()));
+                .set("free", units.fmt(stats.available()));
         }
     }
     let skin = if color {
@@ -53,8 +48,26 @@ pub fn print(mounts: &[Mount], color: bool, units: Units) {
     } else {
         MadSkin::no_style()
     };
-    let template = TextTemplate::from(MD);
-    skin.print_owning_expander(&expander, &template);
+
+    let mut tbl = TableBuilder::default();
+    tbl
+        .col(Col::simple("id").align(Right))
+        .col(Col::new("dev", "${dev-major}:${dev-minor}"))
+        .col(Col::simple("filesystem"));
+    if args.labels {
+        tbl.col(Col::simple("label"));
+    }
+    tbl
+        .col(Col::simple("disk").align_content(Center))
+        .col(Col::simple("type"))
+        .col(Col::new("used", "~~${used}~~"))
+        .col(Col::new("use%", "~~${use-percents}~~ `${bar}`").align_content(Right))
+        .col(Col::new("free", "*${free}*").align(Right))
+        .col(Col::new("size", "**${size}**"))
+        .col(Col::simple("mount point").align(Left));
+
+
+    skin.print_owning_expander_md(&expander, &tbl);
 }
 
 fn make_colored_skin() -> MadSkin {

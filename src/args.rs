@@ -21,6 +21,10 @@ pub struct Args {
     #[argh(switch, short = 'a')]
     pub all: bool,
 
+    /// whether to show labels in the table
+    #[argh(switch, short = 'l')]
+    pub labels: bool,
+
     /// output as JSON
     #[argh(switch, short = 'j')]
     pub json: bool,

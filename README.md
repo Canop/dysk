@@ -57,6 +57,9 @@ pacman -S lfs
 ```
 lfs
 ```
+
+### All filesystems
+
 By default, **lfs** only shows mount points backed by normal block devices, which are usually the "storage" filesystems you're interested into.
 
 To show them all, use
@@ -65,12 +68,26 @@ To show them all, use
 lfs -a
 ```
 
+### JSON
+
 To get the output as JSON, do `lfs -j` or  `lfs -a -j`.
+
+### Find the filesystem you're interested into
 
 You may pass a path to have only the relevant device shown.
 For example:
 
 ![lfs dot](doc/lfs-dot.png)
+
+### Show labels
+
+Labels aren't frequently defined, or useful, so they're not displayed by default.
+
+Use `--labels` or `-l` to display them in the table:
+
+![labels](doc/labels.png)
+
+### Other options
 
 Use `lfs --help` to list the other arguments.
 

@@ -128,9 +128,9 @@ dependencies = [
 
 [[package]]
 name = "crossterm"
-version = "0.20.0"
+version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0ebde6a9dd5e331cd6c6f48253254d117642c31653baa475e394657c59c1f7d"
+checksum = "486d44227f71a1ef39554c0dc47e44b9f4139927c75043312690c3f476d1d788"
 dependencies = [
  "bitflags",
  "crossterm_winapi",
@@ -212,7 +212,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "1.2.0-dev"
+version = "1.2.0"
 dependencies = [
  "argh",
  "crossterm",
@@ -276,9 +276,9 @@ dependencies = [
 
 [[package]]
 name = "minimad"
-version = "0.8.0"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8957f240ecb82a4e699bcf4db189fe8a7f5aa68b9e6d5abf829c62a9ee4630ed"
+checksum = "cd37b2e65fbd459544194d8f52ed84027e031684335a062c708774c09d172b0b"
 dependencies = [
  "once_cell",
 ]
@@ -467,9 +467,9 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.14.3"
+version = "0.16.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d1ea6e542eaec310898d8ba84e5dbda91e95b27e5e023722f0140ca57d72136e"
+checksum = "d06b905c5f505c6fe06d2c1df359d4919c44aed53cb12ff9babf8d5085885a36"
 dependencies = [
  "crossbeam",
  "crossterm",

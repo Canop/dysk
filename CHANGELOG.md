@@ -1,3 +1,8 @@
+<a name="v1.2.0"></a>
+### v1.2.0 - 2021/10/16
+- filesystem labels added to JSON when found
+- `-l` launch argument adds a "label" column to the table
+
 <a name="v1.1.0"></a>
 ### v1.1.0 - 2021/10/08
 --units launch argument, to choose between SI units or the old binary ones - Fix #17
