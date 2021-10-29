@@ -2,8 +2,10 @@ use {
     crate::*,
     crossterm::style::Color::*,
     lfs_core::*,
-    minimad::{*, Alignment::*},
-    termimad::{CompoundStyle, MadSkin, ProgressBar},
+    termimad::{
+        minimad::{*, Alignment::*},
+        CompoundStyle, MadSkin, ProgressBar,
+    },
 };
 
 // those colors are chosen to be "redish" for used, "greenish" for available
