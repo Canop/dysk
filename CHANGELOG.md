@@ -1,3 +1,7 @@
+<a name="v1.2.1"></a>
+### v1.2.1 - 2021/10/30
+- decode ascii-hexa encoded labels (i.e. displays "/home" instead of "\x2fhome")
+
 <a name="v1.2.0"></a>
 ### v1.2.0 - 2021/10/16
 - filesystem labels added to JSON when found
