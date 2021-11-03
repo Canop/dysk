@@ -16,6 +16,7 @@ static AVAI_COLOR: u8 = 65;
 static SIZE_COLOR: u8 = 172;
 
 static BAR_WIDTH: usize = 5;
+static INODES_BAR_WIDTH: usize = 5;
 
 pub fn print(mounts: &[Mount], color: bool, args: &Args) {
 
@@ -38,11 +39,22 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
-            sub.set("size", units.fmt(stats.size()))
+            sub
+                .set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
                 .set("free", units.fmt(stats.available()));
+            if args.inodes && stats.files > 0 {
+                let iuse_share = stats.inodes_use_share();
+                let ipb = ProgressBar::new(iuse_share as f32, INODES_BAR_WIDTH);
+                sub
+                    .set("inodes", stats.files)
+                    .set("iused", stats.inodes_used())
+                    .set("iuse-percents", format!("{:.0}%", 100.0 * iuse_share))
+                    .set("ibar", format!("{:<width$}", ipb, width = INODES_BAR_WIDTH))
+                    .set("ifree", stats.favail);
+            }
         }
     }
     let skin = if color {
@@ -61,11 +73,20 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
     }
     tbl
         .col(Col::simple("disk").align_content(Center))
-        .col(Col::simple("type"))
+        .col(Col::simple("type"));
+    tbl
         .col(Col::new("used", "~~${used}~~"))
         .col(Col::new("use%", "~~${use-percents}~~ `${bar}`").align_content(Right))
         .col(Col::new("free", "*${free}*").align(Right))
-        .col(Col::new("size", "**${size}**"))
+        .col(Col::new("size", "**${size}**"));
+    if args.inodes {
+        tbl
+            //.col(Col::new("used inodes", "~~${iused}~~").align_content(Right))
+            //.col(Col::new("free inodes", "*${ifree}*").align(Right))
+            .col(Col::new("inodes use", "~~${iuse-percents}~~ `${ibar}`").align_content(Right));
+            //.col(Col::new("inodes", "**${inodes}**").align_content(Right));
+    }
+    tbl
         .col(Col::simple("mount point").align(Left));
 
 

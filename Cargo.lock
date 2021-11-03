@@ -212,7 +212,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "1.2.1"
+version = "1.3.0"
 dependencies = [
  "argh",
  "crossterm",
@@ -225,9 +225,9 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.5.1"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f498e3c354322d1993bbca7d917b3a9d7d0dbef226104977c66686bfac12bd77"
+checksum = "1025d189fa604f1be578396671fc65e5d57e9b88700c678f76de79f29b967b7c"
 dependencies = [
  "lazy-regex",
  "libc",
@@ -236,9 +236,9 @@ dependencies = [
 
 [[package]]
 name = "libc"
-version = "0.2.105"
+version = "0.2.106"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "869d572136620d55835903746bcb5cdc54cb2851fd0aeec53220b4bb65ef3013"
+checksum = "a60553f9a9e039a333b4e9b20573b9e9b9c0bb3a11e201ccc48ef4283456d673"
 
 [[package]]
 name = "lock_api"

@@ -1,3 +1,8 @@
+<a name="v1.3.0"></a>
+### v1.3.0 - 2021/11/03
+- inodes stats (total, free, used, % used) added to JSON
+- `--inodes` (or `-i`) launch argument adds a "inodes use" column to the table - Fix #23
+
 <a name="v1.2.1"></a>
 ### v1.2.1 - 2021/10/30
 - decode ascii-hexa encoded labels (i.e. displays "/home" instead of "\x2fhome")
@@ -5,7 +10,7 @@
 <a name="v1.2.0"></a>
 ### v1.2.0 - 2021/10/16
 - filesystem labels added to JSON when found
-- `-l` launch argument adds a "label" column to the table
+- `--labels` (`-l` in short) launch argument adds a "label" column to the table
 
 <a name="v1.1.0"></a>
 ### v1.1.0 - 2021/10/08

@@ -13,8 +13,11 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
                     json!({
                         "bsize": s.bsize,
                         "blocks": s.blocks,
-                        "bavail": s.bavail,
                         "bfree": s.bfree,
+                        "bavail": s.bavail,
+                        "files": s.files,
+                        "ffree": s.ffree,
+                        "favail": s.favail,
                         "size": units.fmt(s.size()),
                         "used": units.fmt(s.used()),
                         "used-percent": format!("{:.0}%", 100.0*s.use_share()),

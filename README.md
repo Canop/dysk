@@ -72,6 +72,44 @@ lfs -a
 
 To get the output as JSON, do `lfs -j` or  `lfs -a -j`.
 
+Here's an example output, with comments:
+
+```js
+[
+  { // one entry per filesystem
+    "dev": { // device id, commonly represented as 8:1
+      "major": 8,
+      "minor": 1
+    },
+    "disk": {
+      "crypted": false,
+      "ram": false, // true for memory disks
+      "removable": false,
+      "rotational": false, // true for HDD
+      "type": "SSD" // human readable disk type
+    },
+    "fs": "/dev/sda1",
+    "fs-label": null, // not null when the fs is labelled
+    "fs-type": "ext4",
+    "id": 26, // filesystem id
+    "mount-point": "/",
+    "stats": {
+      "available": "82G", // human readable available space
+      "bavail": 19973841, // number of free blocks for underprivileged users
+      "bfree": 23000170, // number of free blocks
+      "blocks": 59233748, // total number of blocks
+      "bsize": 4096, // size of a block, in bytes
+      "favail": 14088395, // number of free inodes for underprivileged users
+      "ffree": 14088395, // number of free inodes
+      "files": 15114240, // total number of inodes
+      "size": "243G", // disk size, for humans, SI unit
+      "used": "161G", // used space, SI unit
+      "used-percent": "66%"
+    }
+  }
+]
+```
+
 ### Find the filesystem you're interested into
 
 You may pass a path to have only the relevant device shown.
@@ -86,6 +124,12 @@ Labels aren't frequently defined, or useful, so they're not displayed by default
 Use `--labels` or `-l` to display them in the table:
 
 ![labels](doc/labels.png)
+
+### Show inodes
+
+To display inodes use, use `--inodes` or `-i`:
+
+![inodes](doc/lfs-inodes.png)
 
 ### Other options
 

@@ -17,13 +17,17 @@ pub struct Args {
     /// color: 'yes', 'no' or 'auto' (auto should be good in most cases)
     pub color: BoolArg,
 
-    /// whether to show all mount points
+    /// show all mount points
     #[argh(switch, short = 'a')]
     pub all: bool,
 
-    /// whether to show labels in the table
+    /// show labels in the table
     #[argh(switch, short = 'l')]
     pub labels: bool,
+
+    /// show inodes in the table
+    #[argh(switch, short = 'i')]
+    pub inodes: bool,
 
     /// output as JSON
     #[argh(switch, short = 'j')]
