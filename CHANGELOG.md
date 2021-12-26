@@ -1,3 +1,7 @@
+<a name="v1.3.1"></a>
+### v1.3.1 - 2021/12/25
+- upgrade termimad for better table fitting (especially when some mount points have long paths)
+
 <a name="v1.3.0"></a>
 ### v1.3.0 - 2021/11/03
 - inodes stats (total, free, used, % used) added to JSON

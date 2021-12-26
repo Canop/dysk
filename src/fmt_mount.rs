@@ -103,4 +103,3 @@ fn make_colored_skin() -> MadSkin {
     }
 }
 
-
