@@ -23,6 +23,7 @@ fn main() -> lfs_core::Result<()> {
     if !args.all {
         mounts.retain(|m|
             m.disk.is_some() // by default only fs with disks are shown
+            && !m.info.bound // removing bound mounts
             && m.info.fs_type != "squashfs", // quite ad-hoc...
         );
     }

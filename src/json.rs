@@ -45,6 +45,7 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
                     "mount-point": mount.info.mount_point,
                     "disk": disk,
                     "stats": stats,
+                    "bound": mount.info.bound,
                 })
             })
             .collect(),
