@@ -1,3 +1,7 @@
+<a name="v1.4.0"></a>
+### v1.4.0 - 2022/01/06
+- bound mounts hidden by default
+
 <a name="v1.3.1"></a>
 ### v1.3.1 - 2021/12/25
 - upgrade termimad for better table fitting (especially when some mount points have long paths)

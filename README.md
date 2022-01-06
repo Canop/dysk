@@ -60,7 +60,7 @@ lfs
 
 ### All filesystems
 
-By default, **lfs** only shows mount points backed by normal block devices, which are usually the "storage" filesystems you're interested into.
+By default, **lfs** only shows the "normal" storage filesystems, backed by physical block devices and not bound to another mount point.
 
 To show them all, use
 

@@ -177,6 +177,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "doc-comment"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
+
+[[package]]
 name = "file-size"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -237,7 +243,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "1.4.0-dev"
+version = "1.4.0"
 dependencies = [
  "argh",
  "crossterm",
@@ -250,13 +256,13 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.7.0"
+version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7830d5cccd0c50bcc086228f3fe49adbc91e6989e30fc22a20aa16f7e227f6d"
+checksum = "51685ef91fe95a73090f6b0f829a223d83920966c8ca5640ef829e0846f47ff5"
 dependencies = [
  "lazy-regex",
  "libc",
- "thiserror",
+ "snafu",
 ]
 
 [[package]]
@@ -477,6 +483,28 @@ name = "smallvec"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ecab6c735a6bb4139c0caafd0cc3635748bbb3acf4550e8138122099251f309"
+
+[[package]]
+name = "snafu"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eba135d2c579aa65364522eb78590cdf703176ef71ad4c32b00f58f7afb2df5"
+dependencies = [
+ "doc-comment",
+ "snafu-derive",
+]
+
+[[package]]
+name = "snafu-derive"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a7fe9b0669ef117c5cabc5549638528f36771f058ff977d7689deb517833a75"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
 
 [[package]]
 name = "syn"

@@ -13,13 +13,19 @@ use {
     },
 };
 
-fn main() -> lfs_core::Result<()> {
+fn main() {
     let args: Args = argh::from_env();
     if args.version {
         println!("lfs {}", env!("CARGO_PKG_VERSION"));
-        return Ok(());
+        return;
     }
-    let mut mounts = lfs_core::read_mounts()?;
+    let mut mounts = match lfs_core::read_mounts() {
+        Ok(mounts) => mounts,
+        Err(e) => {
+            eprintln!("Error reading mounts: {}", e);
+            return;
+        }
+    };
     if !args.all {
         mounts.retain(|m|
             m.disk.is_some() // by default only fs with disks are shown
@@ -28,7 +34,13 @@ fn main() -> lfs_core::Result<()> {
         );
     }
     if let Some(path) = &args.path {
-        let md = fs::metadata(path)?;
+        let md = match fs::metadata(path) {
+            Ok(md) => md,
+            Err(e) => {
+                eprintln!("Can't read {:?} : {}", path, e);
+                return;
+            }
+        };
         let dev = lfs_core::DeviceId::from(md.dev());
         mounts.retain(|m| m.info.dev == dev);
     }
@@ -37,7 +49,7 @@ fn main() -> lfs_core::Result<()> {
             "{}",
             serde_json::to_string_pretty(&json::output_value(&mounts, args.units)).unwrap()
         );
-        return Ok(());
+        return;
     }
     if mounts.is_empty() {
         println!("no disk was found - try\n    lfs -a");
@@ -47,5 +59,5 @@ fn main() -> lfs_core::Result<()> {
             .unwrap_or_else(|| std::io::stdout().is_tty());
         fmt_mount::print(&mounts, color, &args);
     }
-    Ok(())
 }
+
