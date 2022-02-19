@@ -1,5 +1,8 @@
 use {
-    crate::units::Units,
+    crate::{
+        cols::Cols,
+        units::Units,
+    },
     argh::FromArgs,
     std::path::PathBuf,
 };
@@ -14,20 +17,16 @@ pub struct Args {
     pub version: bool,
 
     #[argh(option, default = "Default::default()")]
-    /// color: 'yes', 'no' or 'auto' (auto should be good in most cases)
+    /// color: 'yes', 'no' or 'auto'
     pub color: BoolArg,
 
     /// show all mount points
     #[argh(switch, short = 'a')]
     pub all: bool,
 
-    /// show labels in the table
-    #[argh(switch, short = 'l')]
-    pub labels: bool,
-
-    /// show inodes in the table
-    #[argh(switch, short = 'i')]
-    pub inodes: bool,
+    /// columns, eg `-c +inodes` or `-c id+dev+default`
+    #[argh(option, default = "Default::default()", short = 'c')]
+    pub cols: Cols,
 
     /// output as JSON
     #[argh(switch, short = 'j')]

@@ -1,3 +1,8 @@
+### next (2.0)
+- It's now possible to set the columns with the `--cols` launch argument
+- default column set has changed
+- `--inodes` and `--label` have been removed (to see for example lables, use `lfs -c +label`)
+
 <a name="v1.4.0"></a>
 ### v1.4.0 - 2022/01/06
 - bound mounts hidden by default

@@ -1,6 +1,8 @@
 mod args;
-mod fmt_mount;
+mod col;
+mod cols;
 mod json;
+mod table;
 mod units;
 
 use {
@@ -57,7 +59,7 @@ fn main() {
         mounts.sort_by_key(|m| Reverse(m.size()));
         let color = args.color.value()
             .unwrap_or_else(|| std::io::stdout().is_tty());
-        fmt_mount::print(&mounts, color, &args);
+        table::print(&mounts, color, &args);
     }
 }
 

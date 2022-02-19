@@ -1,17 +1,18 @@
 [package]
 name = "lfs"
-version = "1.4.0"
+version = "2.0.0-dev"
 authors = ["dystroy <denys.seguret@gmail.com>"]
-edition = "2018"
+edition = "2021"
 keywords = ["linux", "filesystem", "fs"]
 license = "MIT"
 categories = ["filesystem", "command-line-utilities"]
-description = "give information on mounted disks"
+description = "give information on mounted filesystems"
 repository = "https://github.com/Canop/lfs"
 readme = "README.md"
+rust-version = "1.56"
 
 [dependencies]
-argh = "0.1.4"
+argh = "0.1.7"
 crossterm = "0.22.1"
 file-size = "1.0.3"
 lfs-core = "0.8.1"
