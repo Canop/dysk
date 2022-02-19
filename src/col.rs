@@ -90,7 +90,7 @@ impl Col {
             Self::Label => Alignment::Left,
             Self::Disk => Alignment::Center,
             Self::Type => Alignment::Center,
-            Self::Used => Alignment::Center,
+            Self::Used => Alignment::Right,
             Self::Use => Alignment::Right,
             Self::Free => Alignment::Right,
             Self::Size => Alignment::Right,
