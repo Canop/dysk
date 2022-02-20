@@ -1,5 +1,10 @@
+
+<a name="v2.0.1"></a>
+### v2.0.1 - 2022/02/20
+- align filesystem column to the left
+
 <a name="v2.0.0"></a>
-### v2.0.0 - 2022/01/06
+### v2.0.0 - 2022/02/20
 - It's now possible to set the columns with the `--cols` launch argument
 - default column set has changed
 - `--inodes` and `--label` have been removed (to see for example lables, use `lfs -c +label`)

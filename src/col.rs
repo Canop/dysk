@@ -86,7 +86,7 @@ impl Col {
         match self {
             Self::Id => Alignment::Right,
             Self::Dev => Alignment::Center,
-            Self::Filesystem => Alignment::Center,
+            Self::Filesystem => Alignment::Left,
             Self::Label => Alignment::Left,
             Self::Disk => Alignment::Center,
             Self::Type => Alignment::Center,
