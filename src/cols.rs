@@ -32,11 +32,35 @@ impl Cols {
     pub fn remove(&mut self, removed: Col) {
         self.0.retain(|&f| f!=removed);
     }
-    // Add a col, preventing duplicates
-    // (may be used when the col is present to reorder)
+    /// Add a col, preventing duplicates
+    /// (may be used when the col is present to reorder)
     pub fn add(&mut self, added: Col) {
         self.remove(added);
         self.0.push(added);
+    }
+    /// Add the columns of the set, except when they're
+    /// already present
+    ///
+    /// This makes it possible to add a set while keeping
+    /// the order of the previous columns, for example
+    /// `lfs -c disk+`
+    pub fn add_set(&mut self, col_set: &[Col]) {
+        if self.0 == ALL_COLS {
+            for &col in col_set {
+                self.add(col);
+            }
+        } else {
+            for &col in col_set {
+                if !self.contains(col) {
+                    self.add(col);
+                }
+            }
+        }
+    }
+    pub fn remove_set(&mut self, col_set: &[Col]) {
+        for &col in col_set {
+            self.remove(col);
+        }
     }
     pub fn cols(&self) -> &[Col] {
         &self.0
@@ -62,6 +86,9 @@ impl FromStr for Cols {
                 tokens.push(c.into());
                 must_create = true;
             }
+        }
+        if value.ends_with('+') || value.ends_with('-') {
+            tokens.push("default".to_string());
         }
         let mut cols = if let Some(first_token) = tokens.get(0) {
             if first_token == "+" || first_token == "-" {
@@ -97,27 +124,10 @@ impl FromStr for Cols {
                 }
                 "default" => {
                     if negative {
-                        for &col in DEFAULT_COLS {
-                            cols.remove(col);
-                        }
+                        cols.remove_set(DEFAULT_COLS);
                         negative = false;
                     } else {
-                        // when adding default, we don't want to reorder
-                        // the cols which would have been added before
-                        // so that we can tel "size default" to have all
-                        // the default column but size at the start.
-                        // Except when there already all columns
-                        if cols.0 == ALL_COLS {
-                            for &col in DEFAULT_COLS {
-                                cols.add(col);
-                            }
-                        } else {
-                            for &col in DEFAULT_COLS {
-                                if !cols.contains(col) {
-                                    cols.add(col);
-                                }
-                            }
-                        }
+                        cols.add_set(DEFAULT_COLS);
                     }
                 }
                 _ => {
