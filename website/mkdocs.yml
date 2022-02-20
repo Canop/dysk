@@ -1,0 +1,36 @@
+site_name: lfs
+site_description: 'lfs, like df but better'
+site_url: https://dystroy.org/lfs
+repo_url: https://github.com/Canop/lfs
+edit_uri: ''
+
+nav:
+        - Overview: index.md
+        - Install: install.md
+        - Table: table.md
+        - JSON: json.md
+        - Community: community.md
+
+extra_css:
+        - css/extra.css
+        - css/link-to-dystroy.css
+
+extra_javascript:
+        - js/link-to-dystroy.js
+
+theme:
+        name: mkdocs
+        favicon: img/favicon.png
+        nav_style: dark
+        custom_dir: custom_theme
+        highlightjs: true
+        hljs_style: Dracula
+        hljs_languages:
+                - yaml
+                - ini
+                - css
+                - rust
+
+markdown_extensions:
+        - admonition
+        - def_list
