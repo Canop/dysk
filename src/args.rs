@@ -10,7 +10,7 @@ use {
 #[derive(FromArgs)]
 /// List your filesystems.
 ///
-/// Source and doc at https://github.com/Canop/lfs
+/// Documentation at https://dystroy.org/lfs
 pub struct Args {
     /// print the version
     #[argh(switch, short = 'v')]

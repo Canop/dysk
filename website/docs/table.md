@@ -38,13 +38,13 @@ With `-c all`, you may see all available columns, but that's normally too much f
 
 The most obvious use of the `--cols` argument is the explicit definition of the columns to display.
 
-For example `lfs -c label+use+size+disk+mount` will show the `label`, `use`, `size`, and `disk` columns, in that order:
+For example `lfs -c label+use+size+disk+mount` will show the `label`, `use`, `size`, `disk`, and `mount` columns, in that order:
 
 ![screen](img/c=label+use+size+disk+mount.png)
 
 All the default columns (see [table above](#columns)) can be inserted with just `default`.
 
-Here's adding the label before and the device id at the end, with `lfs -c label+default+dev`:
+Here's adding the label at the start and the device id at the end, with `lfs -c label+default+dev`:
 
 ![screen](img/c=label+default+dev.png)
 
