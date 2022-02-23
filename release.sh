@@ -12,7 +12,7 @@
 #
 #     cargo build --release
 #
-version=$(sed 's/version = "\([0-9.]\{1,\}\)"/\1/;t;d' Cargo.toml | head -1)
+version=$(./version.sh)
 
 echo "Building release $version"
 

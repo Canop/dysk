@@ -8,7 +8,7 @@ H1="\n\e[30;104;1m\e[2K\n\e[A" # style first header
 H2="\n\e[30;104m\e[1K\n\e[A" # style second header
 EH="\e[00m\n\e[2K" # end header
 
-version=$(sed 's/version = "\([0-9.]\{1,\}\(-[a-z]\+\)\?\)"/\1/;t;d' Cargo.toml | head -1)
+version=$(./version.sh)
 echo -e "${H1}Compilation of all targets for lfs $version${EH}"
  
 # clean previous build
@@ -17,28 +17,25 @@ mkdir build
 echo "   build cleaned"
 
 # build the linux version
-echo -e "${H2}Compiling the linux version${EH}"
+target="x86_64-linux"
+echo -e "${H2}Compiling the linux version - $target${EH}"
 cargo build --release 
 strip target/release/lfs
-mkdir build/x86_64-linux/
-cp target/release/lfs build/x86_64-linux/
+mkdir "build/$target/"
+cp target/release/lfs "build/$target/"
 
-# build the Raspberry version
-# use cargo cross
-echo -e "${H2}Compiling the Raspberry version${EH}"
-cross build --target armv7-unknown-linux-gnueabihf --release
-mkdir build/armv7-unknown-linux-gnueabihf
-cp target/armv7-unknown-linux-gnueabihf/release/lfs build/armv7-unknown-linux-gnueabihf/
+# build versions for other platforms using cargo cross
+cross_build() {
+    name="$1"
+    target="$2"
+    echo -e "${H2}Compiling the $name / $target version${EH}"
+    cross build --target "$target" --release
+    mkdir "build/$target"
+    cp "target/$target/release/lfs" "build/$target/"
+}
+cross_build "Raspberry 32" "armv7-unknown-linux-gnueabihf"
+cross_build "Android" "aarch64-linux-android"
+cross_build "MUSL" "x86_64-unknown-linux-musl"
+cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 
-# build the Android version
-# use cargo cross
-echo -e "${H2}Compiling the Android version${EH}"
-cross build --target aarch64-linux-android --release
-mkdir build/aarch64-linux-android
-cp target/aarch64-linux-android/release/lfs build/aarch64-linux-android/
-
-# build a musl version
-echo -e "${H2}Compiling the MUSL version${EH}"
-cross build --release --target x86_64-unknown-linux-musl
-mkdir build/x86_64-unknown-linux-musl
-cp target/x86_64-unknown-linux-musl/release/lfs build/x86_64-unknown-linux-musl
+echo -e "${H1}Compilations done${EH}"
