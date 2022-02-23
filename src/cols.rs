@@ -87,9 +87,6 @@ impl FromStr for Cols {
                 must_create = true;
             }
         }
-        if value.ends_with('+') || value.ends_with('-') {
-            tokens.push("default".to_string());
-        }
         let mut cols = if let Some(first_token) = tokens.get(0) {
             if first_token == "+" || first_token == "-" {
                 // if it starts with an addition or removal, the
@@ -140,6 +137,15 @@ impl FromStr for Cols {
                     }
                 }
             }
+        }
+        match tokens.last().map(|s| s.as_ref()) {
+            Some("-") => {
+                cols.remove_set(DEFAULT_COLS);
+            }
+            Some("+") => {
+                cols.add_set(DEFAULT_COLS);
+            }
+            _ => {}
         }
         Ok(cols)
     }
@@ -244,6 +250,18 @@ mod cols_parsing {
         check(
             "+dev",
             vec![Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint, Dev]
+        );
+        check(
+            "dev+",
+            vec![Dev, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
+        );
+        check(
+            "all-",
+            vec![Id, Dev, Label, InodesUsed, InodesUse, InodesFree, InodesCount],
+        );
+        check(
+            "-size+inodes_free+",
+            vec![Filesystem, Disk, Type, Used, Use, Free, MountPoint, InodesFree, Size]
         );
         check(
             "+dev-size+inodes",
