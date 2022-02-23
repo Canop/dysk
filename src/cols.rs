@@ -167,9 +167,11 @@ mod cols_parsing {
 
     #[test]
     fn bad_cols(){
-        assert_eq!(
-            "nothing".parse::<Cols>().unwrap_err().to_string(),
-            r#""nothing" can't be parsed as a column"#,
+        assert!(
+            "nothing".parse::<Cols>()
+                .unwrap_err()
+                .to_string()
+                .starts_with(r#""nothing" can't be parsed as a column; expected"#),
         );
     }
 
@@ -264,7 +266,7 @@ mod cols_parsing {
             vec![Filesystem, Disk, Type, Used, Use, Free, MountPoint, InodesFree, Size]
         );
         check(
-            "+dev-size+inodes",
+            "+dev-size+inodes_use",
             vec![Filesystem, Disk, Type, Used, Use, Free, MountPoint, Dev, InodesUse]
         );
         check(
