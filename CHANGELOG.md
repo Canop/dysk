@@ -1,4 +1,5 @@
-### next
+<a name="v2.1.0"></a>
+### v2.1.0 - 2022/02/23
 - fix failure in parsing `--cols` arguments with underscore
 - list all column names in case of bad value of `--cols`
 - improve alignement of the 'inodes' column - Fix #38
