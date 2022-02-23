@@ -26,17 +26,20 @@ Here's a sample, that I could get with `lfs -j > disks.json`:
     "id": 26,
     "mount-point": "/",
     "stats": {
-      "available": "82G",
-      "bavail": 20034649,
-      "bfree": 23060978,
+      "available": "81G",
+      "bavail": 19668017,
+      "bfree": 22694346,
       "blocks": 59233748,
       "bsize": 4096,
-      "favail": 13907592,
-      "ffree": 13907592,
-      "files": 15114240,
+      "inodes": {
+        "avail": 13901150,
+        "files": 15114240,
+        "free": 13901150,
+        "used-percent": "8%"
+      },
       "size": "243G",
-      "used": "161G",
-      "used-percent": "66%"
+      "used": "162G",
+      "used-percent": "67%"
     }
   },
   {
@@ -58,16 +61,19 @@ Here's a sample, that I could get with `lfs -j > disks.json`:
     "id": 106,
     "mount-point": "/home/dys/dev",
     "stats": {
-      "available": "561G",
-      "bavail": 136864893,
-      "bfree": 136864893,
+      "available": "558G",
+      "bavail": 136303656,
+      "bfree": 136303656,
       "blocks": 244071157,
       "bsize": 4096,
-      "favail": 487302056,
-      "ffree": 487302056,
-      "files": 488380736,
+      "inodes": {
+        "avail": 487292182,
+        "files": 488380736,
+        "free": 487292182,
+        "used-percent": "0%"
+      },
       "size": "1.0T",
-      "used": "439G",
+      "used": "441G",
       "used-percent": "44%"
     }
   }
