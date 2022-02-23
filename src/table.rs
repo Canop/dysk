@@ -81,11 +81,13 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
                     Col::Type => "${type}",
                     Col::Used => "~~${used}~~",
                     Col::Use => "~~${use-percents}~~ `${bar}`",
+                    Col::UsePercent => "~~${use-percents}~~",
                     Col::Free => "*${free}*",
                     Col::Size => "**${size}**",
                     Col::InodesFree => "*${ifree}*",
                     Col::InodesUsed => "~~${iused}~~",
                     Col::InodesUse => "~~${iuse-percents}~~ `${ibar}`",
+                    Col::InodesUsePercent => "~~${iuse-percents}~~",
                     Col::InodesCount => "**${inodes}**",
                     Col::MountPoint => "${mount-point}",
                 }

@@ -16,11 +16,13 @@ disk | ✓ | short tag of the underlying storage identified
 type | ✓ | filesystem type
 used | ✓ | cumulated size of the occupied blocks
 use | ✓ | graphical view of the use share
+use_percent |  | percentage of occupied blocks
 free | ✓ | cumulated size of the available blocks
 size | ✓ | size of the volume
 inodesfree |  | available inodes
 inodesused |  | inodes used
-inodes |  | inodes use share
+inodes |  | inodes use share, graphical
+inodes_use_percent |  | inodes use share, in percents
 inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
 

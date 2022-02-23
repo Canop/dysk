@@ -203,7 +203,7 @@ mod cols_parsing {
     fn algebraic_cols() {
         check(
             "all - dev -inodes + label",
-            vec![Id, Filesystem, Disk, Type, Used, Use, Free, Size, InodesUsed, InodesFree, InodesCount, MountPoint, Label],
+            vec![Id, Filesystem, Disk, Type, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUsePercent, InodesFree, InodesCount, MountPoint, Label],
         );
         check(
             "dev + dev +disk - use + size",
@@ -211,19 +211,19 @@ mod cols_parsing {
         );
         check(
             "all-default+use",
-            vec![Id, Dev, Label, InodesUsed, InodesUse, InodesFree, InodesCount, Use],
+            vec![Id, Dev, Label, UsePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Use],
         );
         check(
             "all+default", // special: all but default at the end
-            vec![Id, Dev, Label, InodesUsed, InodesUse, InodesFree, InodesCount, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
+            vec![Id, Dev, Label, UsePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
         );
         check(
             "fs dev all", // we want all column but fs and dev at the start
-            vec![Filesystem, Dev, Id, Label, Disk, Type, Used, Use, Free, Size, InodesUsed, InodesUse, InodesFree, InodesCount, MountPoint],
+            vec![Filesystem, Dev, Id, Label, Disk, Type, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
         );
         check(
             "fs dev all -id-disk",
-            vec![Filesystem, Dev, Label, Type, Used, Use, Free, Size, InodesUsed, InodesUse, InodesFree, InodesCount, MountPoint],
+            vec![Filesystem, Dev, Label, Type, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
         );
     }
 
@@ -259,7 +259,7 @@ mod cols_parsing {
         );
         check(
             "all-",
-            vec![Id, Dev, Label, InodesUsed, InodesUse, InodesFree, InodesCount],
+            vec![Id, Dev, Label, UsePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount],
         );
         check(
             "-size+inodes_free+",
