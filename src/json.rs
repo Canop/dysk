@@ -10,18 +10,24 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
             .iter()
             .map(|mount| {
                 let stats = mount.stats.as_ref().map(|s| {
+                    let inodes = s.inodes.as_ref().map(|inodes| {
+                        json!({
+                            "files": inodes.files,
+                            "free": inodes.ffree,
+                            "avail": inodes.favail,
+                            "used-percent": format!("{:.0}%", 100.0*inodes.use_share()),
+                        })
+                    });
                     json!({
                         "bsize": s.bsize,
                         "blocks": s.blocks,
                         "bfree": s.bfree,
                         "bavail": s.bavail,
-                        "files": s.files,
-                        "ffree": s.ffree,
-                        "favail": s.favail,
                         "size": units.fmt(s.size()),
                         "used": units.fmt(s.used()),
                         "used-percent": format!("{:.0}%", 100.0*s.use_share()),
                         "available": units.fmt(s.available()),
+                        "inodes": inodes,
                     })
                 });
                 let disk = mount.disk.as_ref().map(|d| {

@@ -49,15 +49,15 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
                 .set("free", units.fmt(stats.available()));
-            if stats.files > 0 {
-                let iuse_share = stats.inodes_use_share();
+            if let Some(inodes) = &stats.inodes {
+                let iuse_share = inodes.use_share();
                 let ipb = ProgressBar::new(iuse_share as f32, INODES_BAR_WIDTH);
                 sub
-                    .set("inodes", stats.files)
-                    .set("iused", stats.inodes_used())
+                    .set("inodes", inodes.files)
+                    .set("iused", inodes.used())
                     .set("iuse-percents", format!("{:.0}%", 100.0 * iuse_share))
                     .set("ibar", format!("{:<width$}", ipb, width = INODES_BAR_WIDTH))
-                    .set("ifree", stats.favail);
+                    .set("ifree", inodes.favail);
             }
         }
     }

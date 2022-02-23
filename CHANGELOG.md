@@ -1,5 +1,9 @@
 ### next
 - fix failure in parsing `--cols` arguments with underscore
+- list all column names in case of bad value of `--cols`
+- improve alignement of the 'inodes' column - Fix #38
+- it's now possible to have size info but no inodes, so as to be compatible with filesystems not filling inodes info in a consistent way - Fix #36
+- breaking change: inodes related fields in the JSON have been moved to a dedicated `inodes` struct (because they're now optional)
 
 <a name="v2.0.2"></a>
 ### v2.0.2 - 2022/02/23
@@ -13,7 +17,7 @@
 ### v2.0.0 - 2022/02/20
 - It's now possible to set the columns with the `--cols` launch argument
 - default column set has changed
-- `--inodes` and `--label` have been removed (to see for example lables, use `lfs -c +label`)
+- `--inodes` and `--label` have been removed (example: to see labels, use `lfs -c +label`)
 
 <a name="v1.4.0"></a>
 ### v1.4.0 - 2022/01/06
