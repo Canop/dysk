@@ -1,3 +1,5 @@
+### next
+- fix failure in parsing `--cols` arguments with underscore
 
 <a name="v2.0.2"></a>
 ### v2.0.2 - 2022/02/23

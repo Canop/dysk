@@ -74,7 +74,7 @@ impl FromStr for Cols {
         let mut tokens: Vec<String> = Vec::new();
         let mut must_create = true;
         for c in value.chars() {
-            if c.is_alphabetic() {
+            if c.is_alphabetic() || c == '_' {
                 if must_create {
                     tokens.push(c.into());
                     must_create = false;
@@ -272,6 +272,10 @@ mod cols_parsing {
         check(
             "default-fs+inodes",
             vec![Disk, Type, Used, Use, Free, Size, MountPoint, InodesUse]
+        );
+        check(
+            "+inodes_used+inodes_free",
+            vec![Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint, InodesUsed, InodesFree]
         );
     }
 

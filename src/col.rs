@@ -95,7 +95,7 @@ impl Col {
             Self::Free => Alignment::Right,
             Self::Size => Alignment::Right,
             Self::InodesUsed => Alignment::Right,
-            Self::InodesUse => Alignment::Center,
+            Self::InodesUse => Alignment::Right,
             Self::InodesFree => Alignment::Right,
             Self::InodesCount => Alignment::Right,
             Self::MountPoint => Alignment::Left,
