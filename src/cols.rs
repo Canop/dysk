@@ -203,7 +203,7 @@ mod cols_parsing {
     fn algebraic_cols() {
         check(
             "all - dev -inodes + label",
-            vec![Id, Filesystem, Disk, Type, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUsePercent, InodesFree, InodesCount, MountPoint, Label],
+            vec![Id, Filesystem, Type, Disk, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUsePercent, InodesFree, InodesCount, MountPoint, Label],
         );
         check(
             "dev + dev +disk - use + size",
@@ -215,11 +215,11 @@ mod cols_parsing {
         );
         check(
             "all+default", // special: all but default at the end
-            vec![Id, Dev, Label, UsePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
+            vec![Id, Dev, Label, UsePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint]
         );
         check(
             "fs dev all", // we want all column but fs and dev at the start
-            vec![Filesystem, Dev, Id, Label, Disk, Type, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
+            vec![Filesystem, Dev, Id, Label, Type, Disk, Used, Use, UsePercent, Free, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
         );
         check(
             "fs dev all -id-disk",
@@ -251,11 +251,11 @@ mod cols_parsing {
         );
         check(
             "+dev",
-            vec![Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint, Dev]
+            vec![Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint, Dev]
         );
         check(
             "dev+",
-            vec![Dev, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
+            vec![Dev, Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint]
         );
         check(
             "all-",
@@ -263,11 +263,11 @@ mod cols_parsing {
         );
         check(
             "-size+inodes_free+",
-            vec![Filesystem, Disk, Type, Used, Use, Free, MountPoint, InodesFree, Size]
+            vec![Filesystem, Type, Disk, Used, Use, Free, MountPoint, InodesFree, Size]
         );
         check(
             "+dev-size+inodes_use",
-            vec![Filesystem, Disk, Type, Used, Use, Free, MountPoint, Dev, InodesUse]
+            vec![Filesystem, Type, Disk, Used, Use, Free, MountPoint, Dev, InodesUse]
         );
         check(
             "-use-type",
@@ -275,15 +275,15 @@ mod cols_parsing {
         );
         check(
             "default+dev",
-            vec![Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint, Dev]
+            vec![Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint, Dev]
         );
         check(
             "default,size+use", // just reordering
-            vec![Filesystem, Disk, Type, Used, Free, MountPoint, Size, Use]
+            vec![Filesystem, Type, Disk, Used, Free, MountPoint, Size, Use]
         );
         check(
             "dev default",
-            vec![Dev, Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint]
+            vec![Dev, Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint]
         );
         check(
             "size dev default -disk",
@@ -291,11 +291,11 @@ mod cols_parsing {
         );
         check(
             "default-fs+inodes",
-            vec![Disk, Type, Used, Use, Free, Size, MountPoint, InodesUse]
+            vec![Type, Disk, Used, Use, Free, Size, MountPoint, InodesUse]
         );
         check(
             "+inodes_used+inodes_free",
-            vec![Filesystem, Disk, Type, Used, Use, Free, Size, MountPoint, InodesUsed, InodesFree]
+            vec![Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint, InodesUsed, InodesFree]
         );
     }
 

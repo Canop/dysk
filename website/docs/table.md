@@ -12,8 +12,8 @@ id | | mount point id
 dev | | device id
 filesystem | ✓ | filesystem
 label |  | label
-disk | ✓ | short tag of the underlying storage identified
 type | ✓ | filesystem type
+disk | ✓ | short tag of the underlying storage identified
 used | ✓ | cumulated size of the occupied blocks
 use | ✓ | graphical view of the use share
 use_percent |  | percentage of occupied blocks

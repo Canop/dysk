@@ -66,8 +66,8 @@ col_enum!(
     Dev "dev": "dev",
     Filesystem "fs" "filesystem": "filesystem",
     Label "label": "label",
-    Disk "disk": "disk",
     Type "type": "type",
+    Disk "disk": "disk",
     Used "used": "used",
     Use "use": "use%",
     UsePercent "use_percent": "use%",
@@ -83,8 +83,8 @@ col_enum!(
 
 pub static DEFAULT_COLS: &[Col] = &[
     Col::Filesystem,
-    Col::Disk,
     Col::Type,
+    Col::Disk,
     Col::Used,
     Col::Use,
     Col::Free,

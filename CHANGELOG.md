@@ -5,6 +5,7 @@
 - it's now possible to have size info but no inodes, so as to be compatible with filesystems not filling inodes info in a consistent way - Fix #36
 - breaking change: inodes related fields in the JSON have been moved to a dedicated `inodes` struct (because they're now optional)
 - addition of 2 new non default columns: `use_percent` and `inodes_percent`
+- switch columns type and disk: it makes more sense to have the type of filesystem just after the filesystem name
 
 <a name="v2.0.2"></a>
 ### v2.0.2 - 2022/02/23
