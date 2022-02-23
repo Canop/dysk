@@ -1,4 +1,8 @@
 
+<a name="v2.0.2"></a>
+### v2.0.2 - 2022/02/23
+- show ZFS volumes among "normal" filesystems, even when the disk can't be determined - Fix #32
+
 <a name="v2.0.1"></a>
 ### v2.0.1 - 2022/02/20
 - align filesystem column to the left

@@ -17,17 +17,21 @@
 
 A linux utility listing your filesystems.
 
-Installation & Usage documentation : **[https://dystroy.org/lfs](https://dystroy.org/lfs)**
+Complete documentation lives at **[https://dystroy.org/lfs](https://dystroy.org/lfs)**
 
-## Default table
+* **[Overview](https://dystroy.org/lfs/)**
+* **[Installation](https://dystroy.org/lfs/install)**
+
+
+### Default table
 
 ![screenshot](website/docs/img/standard.png)
 
-## Custom choice of column
+### Custom choice of column
 
 ![screenshot](website/docs/img/c=label+default+dev.png)
 
-## JSON output
+### JSON output
 
 ![screenshot](website/docs/img/json-jq-tour.png)
 
