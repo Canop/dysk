@@ -1,3 +1,6 @@
+### next
+- `--list-cols` launch argument
+
 <a name="v2.1.0"></a>
 ### v2.1.0 - 2022/02/23
 - fix failure in parsing `--cols` arguments with underscore

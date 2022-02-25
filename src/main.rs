@@ -2,12 +2,12 @@ mod args;
 mod col;
 mod cols;
 mod json;
+mod list_cols;
 mod table;
 mod units;
 
 use {
     crate::args::*,
-    crossterm::tty::IsTty,
     std::{
         cmp::Reverse,
         fs,
@@ -19,6 +19,10 @@ fn main() {
     let args: Args = argh::from_env();
     if args.version {
         println!("lfs {}", env!("CARGO_PKG_VERSION"));
+        return;
+    }
+    if args.list_cols {
+        list_cols::print(args.color());
         return;
     }
     let mut mounts = match lfs_core::read_mounts() {
@@ -60,9 +64,7 @@ fn main() {
         println!("no disk was found - try\n    lfs -a");
     } else {
         mounts.sort_by_key(|m| Reverse(m.size()));
-        let color = args.color.value()
-            .unwrap_or_else(|| std::io::stdout().is_tty());
-        table::print(&mounts, color, &args);
+        table::print(&mounts, args.color(), &args);
     }
 }
 

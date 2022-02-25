@@ -7,7 +7,10 @@ use {
 };
 
 macro_rules! col_enum {
-    ($($variant:ident $name:literal $($alias:literal)* : $title:literal ,)*) => {
+    (@just_variant $variant:ident $discarded:ident) => {
+        Col::$variant
+    };
+    ($($variant:ident $name:literal $($alias:literal)* : $title:literal $($def:ident)*,)*) => {
         /// A column of the lfs table.
         #[derive(Debug, Clone, Copy, PartialEq)]
         pub enum Col {
@@ -15,6 +18,11 @@ macro_rules! col_enum {
         }
         pub static ALL_COLS: &[Col] = &[
             $(Col::$variant,)*
+        ];
+        pub static DEFAULT_COLS: &[Col] = &[
+            $(
+                $(col_enum!(@just_variant $variant $def),)*
+            )*
         ];
         impl FromStr for Col {
             type Err = ParseColError;
@@ -54,43 +62,43 @@ macro_rules! col_enum {
                     )*
                 }
             }
+            pub fn aliases(self) -> &'static [&'static str] {
+                match self {
+                    $(
+                        Self::$variant => &[$($alias,)*],
+                    )*
+                }
+            }
+            pub fn is_default(self) -> bool {
+                DEFAULT_COLS.contains(&self)
+            }
         }
-    }
+    };
 }
 
 // definition of all columns and their names
 // in the --cols definition
 col_enum!(
-    // syntax: Variant name [alias] : title
+    // syntax:
+    // Variant name [aliases]: title [default]
     Id "id": "id",
-    Dev "dev": "dev",
-    Filesystem "fs" "filesystem": "filesystem",
+    Dev "dev" "device" "device_id": "dev",
+    Filesystem "fs" "filesystem": "filesystem" default,
     Label "label": "label",
-    Type "type": "type",
-    Disk "disk": "disk",
-    Used "used": "used",
-    Use "use": "use%",
+    Type "type": "type" default,
+    Disk "disk" "dsk": "disk" default,
+    Used "used": "used" default,
+    Use "use": "use%" default,
     UsePercent "use_percent": "use%",
-    Free "free": "free",
-    Size "size": "size",
-    InodesUsed "inodes_used": "used inodes",
-    InodesUse "inodes" "inodes_use": "inodes%",
-    InodesUsePercent "inodes_use_percent": "inodes%",
-    InodesFree "inodes_free": "free inodes",
-    InodesCount "inodes_total" "inodes_count": "inodes total",
-    MountPoint "mount" "mount_point": "mount point",
+    Free "free": "free" default,
+    Size "size": "size" default,
+    InodesUsed "inodes_used" "iused": "used inodes",
+    InodesUse "inodes" "ino" "inodes_use" "iuse": "inodes%",
+    InodesUsePercent "inodes_use_percent" "iuse_percent": "inodes%",
+    InodesFree "inodes_free" "ifree": "free inodes",
+    InodesCount "inodes_total" "inodes_count" "itotal": "inodes total",
+    MountPoint "mount" "mount_point" "mp": "mount point" default,
 );
-
-pub static DEFAULT_COLS: &[Col] = &[
-    Col::Filesystem,
-    Col::Type,
-    Col::Disk,
-    Col::Used,
-    Col::Use,
-    Col::Free,
-    Col::Size,
-    Col::MountPoint,
-];
 
 impl Col {
     pub fn header_align(self) -> Alignment {
@@ -106,8 +114,8 @@ impl Col {
             Self::Dev => Alignment::Center,
             Self::Filesystem => Alignment::Left,
             Self::Label => Alignment::Left,
-            Self::Disk => Alignment::Center,
             Self::Type => Alignment::Center,
+            Self::Disk => Alignment::Center,
             Self::Used => Alignment::Right,
             Self::Use => Alignment::Right,
             Self::UsePercent => Alignment::Right,
@@ -119,6 +127,27 @@ impl Col {
             Self::InodesFree => Alignment::Right,
             Self::InodesCount => Alignment::Right,
             Self::MountPoint => Alignment::Left,
+        }
+    }
+    pub fn description(self) -> &'static str {
+        match self {
+            Self::Id => "mount point id",
+            Self::Dev => "device id",
+            Self::Filesystem => "filesystem",
+            Self::Label => "volume label",
+            Self::Type => "filesystem type",
+            Self::Disk => "storage type",
+            Self::Used => "size used",
+            Self::Use => "usage graphical view",
+            Self::UsePercent => "percentage of blocks used",
+            Self::Free => "free bytes",
+            Self::Size => "total size",
+            Self::InodesUsed => "number of inodes used",
+            Self::InodesUse => "graphical view of inodes usage",
+            Self::InodesUsePercent => "percentage of inodes used",
+            Self::InodesFree => "number of free inodes",
+            Self::InodesCount => "total count of inodes",
+            Self::MountPoint => "mount point",
         }
     }
 }

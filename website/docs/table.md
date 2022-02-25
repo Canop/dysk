@@ -4,6 +4,8 @@ You can modify it easily.
 
 # Columns
 
+You can run `lfs --list-cols` for the list of all columns.
+
 ## All columns
 
 name | default | meaning
@@ -25,6 +27,7 @@ inodes |  | inodes use share, graphical
 inodes_use_percent |  | inodes use share, in percents
 inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
+
 
 ## --cols argument
 

@@ -3,6 +3,7 @@ use {
         cols::Cols,
         units::Units,
     },
+    crossterm::tty::IsTty,
     argh::FromArgs,
     std::path::PathBuf,
 };
@@ -23,6 +24,10 @@ pub struct Args {
     /// show all mount points
     #[argh(switch, short = 'a')]
     pub all: bool,
+
+    /// list the available column names
+    #[argh(switch)]
+    pub list_cols: bool,
 
     /// columns, eg `-c +inodes` or `-c id+dev+default`
     #[argh(option, default = "Default::default()", short = 'c')]
@@ -69,5 +74,11 @@ impl argh::FromArgValue for Units {
             "binary" => Ok(Self::Binary),
             _ => Err(format!("Illegal value: {:?} - valid values are 'SI' and 'binary'", value)),
         }
+    }
+}
+impl Args {
+    pub fn color(&self) -> bool {
+        self.color.value()
+            .unwrap_or_else(|| std::io::stdout().is_tty())
     }
 }
