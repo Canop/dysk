@@ -1,5 +1,6 @@
-### next
-- `--list-cols` launch argument
+<a name="v2.1.1"></a>
+### v2.1.1 - 2022/02/25
+- `--list-cols` launch argument for knowing the columns and their names
 
 <a name="v2.1.0"></a>
 ### v2.1.0 - 2022/02/23
