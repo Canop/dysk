@@ -1,3 +1,6 @@
+### next
+- `--sort` launch argument for sorting rows in table
+
 <a name="v2.1.1"></a>
 ### v2.1.1 - 2022/02/25
 - `--list-cols` launch argument for knowing the columns and their names

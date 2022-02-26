@@ -29,7 +29,7 @@ inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
 
 
-## --cols argument
+## Choose columns
 
 With the `--cols` launch argument, shortened as `-c`, you can change the displayed columns or their order.
 
@@ -88,3 +88,19 @@ To see *all* filesystems of your system, do `lfs --all`:
 ![screen](img/rows-all.png)
 
 This list can be quite big with virtual file systems, docker use, etc.
+
+## Sort
+
+With the `--sort` launch argument, shortened as `-s`, you can specify the order of displayed rows.
+
+The argument's value must be either a column name, for example `lfs -s dev`, or a column name and a direction, for example `lfs --sort size-desc`.
+
+The `desc` and `asc` directions can be abbreviated into `d` and `a`.
+
+For example, sorting on the device id:
+
+![screen](img/s=dev.png)
+
+Or sorting on the remaining free space, in descending order:
+
+![screen](img/s=free-d.png)

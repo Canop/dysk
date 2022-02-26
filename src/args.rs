@@ -2,6 +2,7 @@ use {
     crate::{
         cols::Cols,
         units::Units,
+        sorting::Sorting,
     },
     crossterm::tty::IsTty,
     argh::FromArgs,
@@ -32,6 +33,10 @@ pub struct Args {
     /// columns, eg `-c +inodes` or `-c id+dev+default`
     #[argh(option, default = "Default::default()", short = 'c')]
     pub cols: Cols,
+
+    /// sort, eg `-s inodes` or `-s size-asc`
+    #[argh(option, default = "Default::default()", short = 's')]
+    pub sort: Sorting,
 
     /// output as JSON
     #[argh(switch, short = 'j')]

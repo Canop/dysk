@@ -3,13 +3,14 @@ mod col;
 mod cols;
 mod json;
 mod list_cols;
+mod order;
+mod sorting;
 mod table;
 mod units;
 
 use {
     crate::args::*,
     std::{
-        cmp::Reverse,
         fs,
         os::unix::fs::MetadataExt,
     },
@@ -61,10 +62,10 @@ fn main() {
         return;
     }
     if mounts.is_empty() {
-        println!("no disk was found - try\n    lfs -a");
-    } else {
-        mounts.sort_by_key(|m| Reverse(m.size()));
-        table::print(&mounts, args.color(), &args);
+        println!("no mount to display - try\n    lfs -a");
+        return;
     }
+    args.sort.sort(&mut mounts);
+    table::print(&mounts, args.color(), &args);
 }
 

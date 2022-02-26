@@ -26,7 +26,7 @@ The default display of **lfs** is a table, which can be configured with the colu
 
 ![screen](img/c=label+.png)
 
-See [Table](./table) for the definition of the columns and the syntax for choosing them.
+See [Table](./table) for the definition of the columns and the syntax for choosing them, or on how to [sort rows](./table#sort).
 
 # JSON
 

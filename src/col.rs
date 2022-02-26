@@ -1,5 +1,8 @@
 use {
+    crate::order::Order,
+    lfs_core::Mount,
     std::{
+        cmp::Ordering,
         fmt,
         str::FromStr,
     },
@@ -150,6 +153,101 @@ impl Col {
             Self::MountPoint => "mount point",
         }
     }
+    pub fn comparator(self) -> impl for<'a, 'b> FnMut(&'a Mount, &'b Mount) -> Ordering {
+        match self {
+            Self::Id => |a: &Mount, b: &Mount| a.info.id.cmp(&b.info.id),
+            Self::Dev => |a: &Mount, b: &Mount| a.info.dev.cmp(&b.info.dev),
+            Self::Filesystem =>  |a: &Mount, b: &Mount| a.info.fs.cmp(&b.info.fs),
+            Self::Label =>  |a: &Mount, b: &Mount| match (&a.fs_label, &b.fs_label) {
+                (Some(a), Some(b)) => a.cmp(b),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
+            Self::Type =>  |a: &Mount, b: &Mount| a.info.fs_type.cmp(&b.info.fs_type),
+            Self::Disk =>  |a: &Mount, b: &Mount| match (&a.disk, &b.disk) {
+                (Some(a), Some(b)) => a.disk_type().to_lowercase().cmp(&b.disk_type().to_lowercase()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::Used =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+                (Some(a), Some(b)) => a.used().cmp(&b.used()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::Use | Self::UsePercent =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+                // SAFETY: use_share() doesn't return NaN
+                (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::Free =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+                (Some(a), Some(b)) => a.available().cmp(&b.available()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::Size =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+                (Some(a), Some(b)) => a.size().cmp(&b.size()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::InodesUsed =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+                (Some(a), Some(b)) => a.used().cmp(&b.used()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::InodesUsePercent | Self::InodesUse  =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+                // SAFETY: use_share() doesn't return NaN
+                (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::InodesFree =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+                (Some(a), Some(b)) => a.favail.cmp(&b.favail),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::InodesCount =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+                (Some(a), Some(b)) => a.files.cmp(&b.files),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::MountPoint =>  |a: &Mount, b: &Mount| a.info.mount_point.cmp(&b.info.mount_point),
+        }
+    }
+    pub fn default_sort_order(self) -> Order {
+        match self {
+            Self::Id => Order::Asc,
+            Self::Dev => Order::Asc,
+            Self::Filesystem => Order::Asc,
+            Self::Label => Order::Asc,
+            Self::Type => Order::Asc,
+            Self::Disk => Order::Asc,
+            Self::Used => Order::Asc,
+            Self::Use => Order::Desc,
+            Self::UsePercent => Order::Asc,
+            Self::Free => Order::Asc,
+            Self::Size => Order::Desc,
+            Self::InodesUsed => Order::Asc,
+            Self::InodesUse => Order::Asc,
+            Self::InodesUsePercent => Order::Asc,
+            Self::InodesFree => Order::Asc,
+            Self::InodesCount => Order::Asc,
+            Self::MountPoint => Order::Asc,
+        }
+    }
+    pub fn default_sort_col() -> Self {
+        Self::Size
+    }
 }
 
 
@@ -165,20 +263,11 @@ impl ParseColError {
 }
 impl fmt::Display for ParseColError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?} can't be parsed as a column; expected one of ", self.raw)?;
-        let mut names = ALL_COLS.iter().map(|c| c.name()).peekable();
-        write!(f, "{:?}", names.next().unwrap())?;
-        loop {
-            if let Some(name) = names.next() {
-                if names.peek().is_none() {
-                    write!(f, ", or {:?}", name)?;
-                    break;
-                } else {
-                    write!(f, ", {:?}", name)?;
-                }
-            }
-        }
-        Ok(())
+        write!(
+            f,
+            "{:?} can't be parsed as a column; use 'lfs --list-cols' to see all column names",
+            self.raw,
+        )
     }
 }
 impl std::error::Error for ParseColError {}

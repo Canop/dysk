@@ -167,11 +167,9 @@ mod cols_parsing {
 
     #[test]
     fn bad_cols(){
-        assert!(
-            "nothing".parse::<Cols>()
-                .unwrap_err()
-                .to_string()
-                .starts_with(r#""nothing" can't be parsed as a column; expected"#),
+        assert_eq!(
+            "nothing".parse::<Cols>().unwrap_err().to_string(),
+            r#""nothing" can't be parsed as a column; use 'lfs --list-cols' to see all column names"#,
         );
     }
 
