@@ -1,5 +1,6 @@
-### next
-- `--sort` launch argument for sorting rows in table
+<a name="v2.2.0"></a>
+### v2.2.0 - 2022/02/26
+- `--sort` launch argument for sorting rows in table - Fix #37
 
 <a name="v2.1.1"></a>
 ### v2.1.1 - 2022/02/25
