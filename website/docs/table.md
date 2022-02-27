@@ -15,6 +15,7 @@ dev | | device id
 filesystem | ✓ | filesystem
 label |  | label
 type | ✓ | filesystem type
+remote | | whether it's a remote filesystem
 disk | ✓ | short tag of the underlying storage identified
 used | ✓ | cumulated size of the occupied blocks
 use | ✓ | graphical view of the use share
@@ -73,21 +74,33 @@ Here's removing the `fs` column and moving the `type` column to the end, with `l
 
 # Rows
 
-The default selection of filesystems showcases your storage, avoiding any filesystem with no "disk", bound to another filesystem, etc.
+## Normality
+
+The default selection of filesystems showcases your storage, avoiding any filesystem which both have no "disk" and aren't remote ones, bound to another filesystem, etc.
 
 ![screen](img/rows-standard.png)
 
-If you're only interested in the device on which some file is, give the path as argument.
+Here are the rules of the current heuristics, in order: a filesystem
 
-For example, for the current device, use `lfs .`:
-
-![screen](img/rows-current.png)
+1. is excluded when it's bound to a previous one
+1. is excluded when it's of type `squashfs`
+1. is included when it's of type `zfs`
+1. is included when it's remote
+1. is excluded when no underlying disk was found
 
 To see *all* filesystems of your system, do `lfs --all`:
 
 ![screen](img/rows-all.png)
 
 This list can be quite big with virtual file systems, docker use, etc.
+
+## Current filesystem
+
+If you're only interested in the device on which some file is, give the path as argument.
+
+For example, for the current device, use `lfs .`:
+
+![screen](img/rows-current.png)
 
 ## Sort
 

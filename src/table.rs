@@ -40,6 +40,9 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
         if let Some(label) = &mount.fs_label {
             sub.set("label", label);
         }
+        if mount.info.is_remote() {
+            sub.set("remote", "x");
+        }
         if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
@@ -79,6 +82,7 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
                     Col::Label => "${label}",
                     Col::Disk => "${disk}",
                     Col::Type => "${type}",
+                    Col::Remote => "${remote}",
                     Col::Used => "~~${used}~~",
                     Col::Use => "~~${use-percents}~~ `${bar}`",
                     Col::UsePercent => "~~${use-percents}~~",

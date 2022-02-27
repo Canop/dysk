@@ -3,13 +3,17 @@ mod col;
 mod cols;
 mod json;
 mod list_cols;
+mod normal;
 mod order;
 mod sorting;
 mod table;
 mod units;
 
 use {
-    crate::args::*,
+    crate::{
+        args::*,
+        normal::*,
+    },
     std::{
         fs,
         os::unix::fs::MetadataExt,
@@ -34,14 +38,7 @@ fn main() {
         }
     };
     if !args.all {
-        mounts.retain(|m|
-            (
-                m.disk.is_some() // by default only fs with disks are shown
-                || m.info.fs_type == "zfs" // unless it's zfs - see https://github.com/Canop/lfs/issues/32
-            )
-            && !m.info.bound // removing bound mounts
-            && m.info.fs_type != "squashfs", // quite ad-hoc...
-        );
+        mounts.retain(is_normal);
     }
     if let Some(path) = &args.path {
         let md = match fs::metadata(path) {

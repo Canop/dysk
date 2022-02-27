@@ -1,3 +1,7 @@
+<a name="v2.3.0"></a>
+### v2.3.0 - 2022/02/27
+- "remote" column. Remote filesystems included by default - Fix #33
+
 <a name="v2.2.0"></a>
 ### v2.2.0 - 2022/02/26
 - `--sort` launch argument for sorting rows in table - Fix #37
