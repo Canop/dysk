@@ -1,3 +1,7 @@
+<a name="v2.3.1"></a>
+### v2.3.1 - 2022/03/01
+- don't consider volumes of size 0 as normal - Fix #49
+
 <a name="v2.3.0"></a>
 ### v2.3.0 - 2022/02/27
 - "remote" column. Remote filesystems included by default - Fix #33
