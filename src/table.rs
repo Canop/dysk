@@ -43,7 +43,7 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
         if mount.info.is_remote() {
             sub.set("remote", "x");
         }
-        if let Some(stats) = mount.stats.as_ref().filter(|s| s.size() > 0) {
+        if let Some(stats) = mount.stats() {
             let use_share = stats.use_share();
             let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
             sub
@@ -62,6 +62,8 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
                     .set("ibar", format!("{:<width$}", ipb, width = INODES_BAR_WIDTH))
                     .set("ifree", inodes.favail);
             }
+        } else if mount.is_unreachable() {
+            sub.set("use-error", "unreachable");
         }
     }
     let skin = if color {
@@ -84,7 +86,7 @@ pub fn print(mounts: &[Mount], color: bool, args: &Args) {
                     Col::Type => "${type}",
                     Col::Remote => "${remote}",
                     Col::Used => "~~${used}~~",
-                    Col::Use => "~~${use-percents}~~ `${bar}`",
+                    Col::Use => "~~${use-percents}~~ `${bar}`~~${use-error}~~",
                     Col::UsePercent => "~~${use-percents}~~",
                     Col::Free => "*${free}*",
                     Col::Size => "**${size}**",

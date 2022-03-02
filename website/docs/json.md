@@ -34,25 +34,28 @@ Here it is:
   "mount-point": "/",
   "remote": false,
   "stats": {
-    "available": "82G",
-    "bavail": 19918995,
-    "bfree": 22945324,
+    "available": "81G",
+    "bavail": 19764035,
+    "bfree": 22790364,
     "blocks": 59233748,
     "bsize": 4096,
     "inodes": {
-      "avail": 13875011,
+      "avail": 13880393,
       "files": 15114240,
-      "free": 13875011,
+      "free": 13880393,
       "used-percent": "8%"
     },
     "size": "243G",
-    "used": "161G",
-    "used-percent": "66%"
-  }
+    "used": "162G",
+    "used-percent": "67%"
+  },
+  "unreachable": false
 }
 ```
 
 The `disk`, `stats`, and `stats.inodes` structures, or the `fs-label`, may be `null` for some filesystems.
+
+Note that fields may be *added* in any version.
 
 # All filesystems
 

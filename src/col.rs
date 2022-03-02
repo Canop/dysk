@@ -175,26 +175,26 @@ impl Col {
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Used =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+            Self::Used =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.used().cmp(&b.used()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Use | Self::UsePercent =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+            Self::Use | Self::UsePercent =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 // SAFETY: use_share() doesn't return NaN
                 (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Free =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+            Self::Free =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.available().cmp(&b.available()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Size =>  |a: &Mount, b: &Mount| match (&a.stats, &b.stats) {
+            Self::Size =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.size().cmp(&b.size()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,

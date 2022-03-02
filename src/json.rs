@@ -9,7 +9,7 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
         mounts
             .iter()
             .map(|mount| {
-                let stats = mount.stats.as_ref().map(|s| {
+                let stats = mount.stats().map(|s| {
                     let inodes = s.inodes.as_ref().map(|inodes| {
                         json!({
                             "files": inodes.files,
@@ -53,6 +53,7 @@ pub fn output_value(mounts: &[Mount], units: Units) -> Value {
                     "stats": stats,
                     "bound": mount.info.bound,
                     "remote": mount.info.is_remote(),
+                    "unreachable": mount.is_unreachable(),
                 })
             })
             .collect(),

@@ -1,3 +1,6 @@
+### next
+- 'unreachable' information available in JSON and in the table (in the 'use' column). This mostly concerns disconnected remote filesystems.
+
 <a name="v2.3.1"></a>
 ### v2.3.1 - 2022/03/01
 - don't consider volumes of size 0 as normal - Fix #49
