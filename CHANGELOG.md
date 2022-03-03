@@ -1,5 +1,6 @@
 ### next
 - 'unreachable' information available in JSON and in the table (in the 'use' column). This mostly concerns disconnected remote filesystems.
+- `--filter` argument to filter the displayed filesystems - Fix #41
 
 <a name="v2.3.1"></a>
 ### v2.3.1 - 2022/03/01

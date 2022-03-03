@@ -20,7 +20,7 @@ static SIZE_COLOR: u8 = 172;
 static BAR_WIDTH: usize = 5;
 static INODES_BAR_WIDTH: usize = 5;
 
-pub fn print(mounts: &[Mount], color: bool, args: &Args) {
+pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
     if args.cols.is_empty() {
         return;
     }

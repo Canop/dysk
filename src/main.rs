@@ -1,6 +1,8 @@
 mod args;
 mod col;
+mod col_expr;
 mod cols;
+mod filter;
 mod json;
 mod list_cols;
 mod normal;
@@ -58,11 +60,18 @@ fn main() {
         );
         return;
     }
+    args.sort.sort(&mut mounts);
+    let mounts = match args.filter.filter(&mounts) {
+        Ok(mounts) => mounts,
+        Err(e) => {
+            eprintln!("Error in filter evaluation: {}", e);
+            return;
+        }
+    };
     if mounts.is_empty() {
         println!("no mount to display - try\n    lfs -a");
         return;
     }
-    args.sort.sort(&mut mounts);
     table::print(&mounts, args.color(), &args);
 }
 

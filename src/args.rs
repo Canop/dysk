@@ -1,6 +1,7 @@
 use {
     crate::{
         cols::Cols,
+        filter::Filter,
         units::Units,
         sorting::Sorting,
     },
@@ -33,6 +34,10 @@ pub struct Args {
     /// columns, eg `-c +inodes` or `-c id+dev+default`
     #[argh(option, default = "Default::default()", short = 'c')]
     pub cols: Cols,
+
+    /// filter, eg `-f '(size<35G | remote=false) & type=xfs'`
+    #[argh(option, default = "Default::default()", short = 'f')]
+    pub filter: Filter,
 
     /// sort, eg `-s inodes` or `-s size-asc`
     #[argh(option, default = "Default::default()", short = 's')]
