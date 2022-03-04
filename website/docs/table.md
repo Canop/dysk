@@ -72,37 +72,7 @@ Here's removing the `fs` column and moving the `type` column to the end, with `l
 ![screen](img/c=-fs+type.png)
 
 
-# Rows
-
-## Normality
-
-The default selection of filesystems showcases your storage, avoiding any filesystem which both have no "disk" and aren't remote ones, bound to another filesystem, etc.
-
-![screen](img/rows-standard.png)
-
-Here are the rules of the current heuristics, in order: a filesystem
-
-1. is excluded when it's bound to a previous one
-1. is excluded when it's of type `squashfs`
-1. is included when it's of type `zfs`
-1. is included when it's remote
-1. is excluded when no underlying disk was found
-
-To see *all* filesystems of your system, do `lfs --all`:
-
-![screen](img/rows-all.png)
-
-This list can be quite big with virtual file systems, docker use, etc.
-
-## Current filesystem
-
-If you're only interested in the device on which some file is, give the path as argument.
-
-For example, for the current device, use `lfs .`:
-
-![screen](img/rows-current.png)
-
-## Sort
+# Sort
 
 With the `--sort` launch argument, shortened as `-s`, you can specify the order of displayed rows.
 

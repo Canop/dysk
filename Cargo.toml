@@ -1,6 +1,6 @@
 [package]
 name = "lfs"
-version = "2.4.0-dev"
+version = "2.4.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
 keywords = ["linux", "filesystem", "fs"]
@@ -16,7 +16,7 @@ argh = "0.1.7"
 bet = "1.0.0"
 crossterm = "0.22.1"
 file-size = "1.0.3"
-lfs-core = "0.10.2"
+lfs-core = "0.11.0"
 serde = "1.0"
 serde_json = "1.0"
 termimad = "0.20.0"

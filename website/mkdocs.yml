@@ -9,6 +9,7 @@ nav:
         - Install: install.md
         - Table: table.md
         - JSON: json.md
+        - Filters: filters.md
         - Community: community.md
 
 extra_css:

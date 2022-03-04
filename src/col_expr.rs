@@ -95,7 +95,7 @@ impl ColExpr {
             ),
             Col::Remote => self.operator.eval(
                 mount.info.is_remote(),
-                parse_bool(&self.value),
+                parse_bool(&self.value)?,
             ),
             Col::Disk => self.operator.eval_option_str(
                 mount.disk.as_ref().map(|d| d.name.as_str()),
@@ -233,6 +233,7 @@ pub enum EvalExprError {
     NotANumber(String),
     NotAnId(String),
     NotADeviceId(String),
+    NotABool(String),
 }
 impl EvalExprError {
 }
@@ -248,14 +249,21 @@ impl fmt::Display for EvalExprError {
             Self::NotADeviceId(s) => {
                 write!(f, "{:?} can't be evaluated as a device id", &s)
             }
+            Self::NotABool(s) => {
+                write!(f, "{:?} can't be evaluated as a boolean", &s)
+            }
         }
     }
 }
 impl std::error::Error for EvalExprError {}
 
-fn parse_bool(s: &str) -> bool {
-    let s = s.to_lowercase();
-    s == "x" || s == "true" || s == "yes" || s == "1"
+fn parse_bool(input: &str) -> Result<bool, EvalExprError> {
+    let s = input.to_lowercase();
+    match s.as_ref() {
+        "x" | "t" | "true" | "1" | "y" | "yes" => Ok(true),
+        "f" | "false" | "0" | "n" | "no" => Ok(false),
+        _ => Err(EvalExprError::NotABool(input.to_string())),
+    }
 }
 
 /// Parse numbers like "1234", "32G", "4kB", "54Gib", "1.2M"

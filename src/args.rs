@@ -31,6 +31,10 @@ pub struct Args {
     #[argh(switch)]
     pub list_cols: bool,
 
+    /// fetch stats of remote volumes, 'yes', 'no' or 'auto'
+    #[argh(option, default = "Default::default()")]
+    pub remote_stats: BoolArg,
+
     /// columns, eg `-c +inodes` or `-c id+dev+default`
     #[argh(option, default = "Default::default()", short = 'c')]
     pub cols: Cols,

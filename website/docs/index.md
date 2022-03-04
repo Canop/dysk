@@ -34,3 +34,8 @@ See [Table](./table) for the definition of the columns and the syntax for choosi
 
 ![screen](img/json-jq-tour.png)
 
+# Filters
+
+The query syntax lets you specify the filesystems you want:
+
+![screen](img/filters.png)

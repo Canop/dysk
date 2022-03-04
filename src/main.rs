@@ -32,7 +32,12 @@ fn main() {
         list_cols::print(args.color());
         return;
     }
-    let mut mounts = match lfs_core::read_mounts() {
+    let mut options = lfs_core::ReadOptions::default();
+    options.remote_stats(match args.remote_stats.value() {
+        Some(false) => false,
+        _ => true,
+    });
+    let mut mounts = match lfs_core::read_mounts(&options) {
         Ok(mounts) => mounts,
         Err(e) => {
             eprintln!("Error reading mounts: {}", e);
@@ -53,13 +58,6 @@ fn main() {
         let dev = lfs_core::DeviceId::from(md.dev());
         mounts.retain(|m| m.info.dev == dev);
     }
-    if args.json {
-        println!(
-            "{}",
-            serde_json::to_string_pretty(&json::output_value(&mounts, args.units)).unwrap()
-        );
-        return;
-    }
     args.sort.sort(&mut mounts);
     let mounts = match args.filter.filter(&mounts) {
         Ok(mounts) => mounts,
@@ -68,6 +66,13 @@ fn main() {
             return;
         }
     };
+    if args.json {
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json::output_value(&mounts, args.units)).unwrap()
+        );
+        return;
+    }
     if mounts.is_empty() {
         println!("no mount to display - try\n    lfs -a");
         return;

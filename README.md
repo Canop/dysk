@@ -35,4 +35,8 @@ Complete documentation lives at **[https://dystroy.org/lfs](https://dystroy.org/
 
 ![screenshot](website/docs/img/json-jq-tour.png)
 
+### Filters
+
+![screenshot](website/docs/img/filters.png)
+
 

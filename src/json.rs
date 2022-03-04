@@ -4,7 +4,7 @@ use {
     serde_json::{json, Value},
 };
 
-pub fn output_value(mounts: &[Mount], units: Units) -> Value {
+pub fn output_value(mounts: &[&Mount], units: Units) -> Value {
     Value::Array(
         mounts
             .iter()
