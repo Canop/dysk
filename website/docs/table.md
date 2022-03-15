@@ -87,3 +87,23 @@ For example, sorting on the device id:
 Or sorting on the remaining free space, in descending order:
 
 ![screen](img/s=free-d.png)
+
+# CSV
+
+With the `--csv` argument, you can ask lfs to output the table in CSV:
+
+```bash
+lfs --csv > mounts.csv
+```
+
+You may choose the separator with the `--csv-separator` argument.
+
+Filters, sorting, and column selection work the same than for standard tables so you may do this:
+
+```bash
+lfs --csv -f 'size>100G' -c remote+default+inodes > mounts.csv
+```
+which would give something like this:
+
+![screen](img/csv.png)
+

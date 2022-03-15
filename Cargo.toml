@@ -1,6 +1,6 @@
 [package]
 name = "lfs"
-version = "2.4.0"
+version = "2.5.0-dev"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
 keywords = ["linux", "filesystem", "fs"]
@@ -9,7 +9,7 @@ categories = ["filesystem", "command-line-utilities"]
 description = "give information on mounted filesystems"
 repository = "https://github.com/Canop/lfs"
 readme = "README.md"
-rust-version = "1.56"
+rust-version = "1.59"
 
 [dependencies]
 argh = "0.1.7"
@@ -20,6 +20,9 @@ lfs-core = "0.11.0"
 serde = "1.0"
 serde_json = "1.0"
 termimad = "0.20.0"
+
+[profile.release]
+strip = true
 
 [patch.crates-io]
 # minimad = { path = "../minimad" }

@@ -1,3 +1,6 @@
+### next
+- with `--csv`, the table is written in CSV. The `--csv-separator` argument lets you change the separator. Filters, sorting, and column choices work for CSV output too - Fix #42
+
 <a name="v2.4.0"></a>
 ### v2.4.0 - 2022/03/04
 - 'unreachable' information available in JSON and in the table (in the 'use' column). This mostly concerns disconnected remote filesystems.

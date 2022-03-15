@@ -28,6 +28,8 @@ The default display of **lfs** is a table, which can be configured with the colu
 
 See [Table](./table) for the definition of the columns and the syntax for choosing them, or on how to [sort rows](./table#sort).
 
+The table can also be exported in [CSV](./table#csv).
+
 # JSON
 
 `lfs --json` outputs the result as JSON which can be used for your own scripts or programs.

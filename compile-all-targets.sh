@@ -20,7 +20,6 @@ echo "   build cleaned"
 target="x86_64-linux"
 echo -e "${H2}Compiling the linux version - $target${EH}"
 cargo build --release 
-strip target/release/lfs
 mkdir "build/$target/"
 cp target/release/lfs "build/$target/"
 

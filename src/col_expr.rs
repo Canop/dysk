@@ -86,7 +86,7 @@ impl ColExpr {
                 &self.value,
             ),
             Col::Label => self.operator.eval_option_str(
-                mount.fs_label.as_ref().map(|s| s.as_str()),
+                mount.fs_label.as_deref(),
                 &self.value,
             ),
             Col::Type => self.operator.eval_str(

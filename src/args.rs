@@ -47,6 +47,14 @@ pub struct Args {
     #[argh(option, default = "Default::default()", short = 's')]
     pub sort: Sorting,
 
+    /// output as CSV
+    #[argh(switch)]
+    pub csv: bool,
+
+    /// CSV separator (default: ',')
+    #[argh(option, default = "','")]
+    pub csv_separator: char,
+
     /// output as JSON
     #[argh(switch, short = 'j')]
     pub json: bool,

@@ -35,8 +35,15 @@ Complete documentation lives at **[https://dystroy.org/lfs](https://dystroy.org/
 
 ![screenshot](website/docs/img/json-jq-tour.png)
 
+(you can output the table as CSV too)
+
 ### Filters
 
 ![screenshot](website/docs/img/filters.png)
+
+### Sort
+
+![screenshot](website/docs/img/s=free-d.png)
+
 
 

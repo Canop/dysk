@@ -249,7 +249,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lfs"
-version = "2.4.0"
+version = "2.5.0-dev"
 dependencies = [
  "argh",
  "bet",

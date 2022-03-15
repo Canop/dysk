@@ -2,6 +2,7 @@ mod args;
 mod col;
 mod col_expr;
 mod cols;
+mod csv;
 mod filter;
 mod json;
 mod list_cols;
@@ -66,6 +67,10 @@ fn main() {
             return;
         }
     };
+    if args.csv {
+        csv::print(&mounts, &args).expect("writing csv failed");
+        return;
+    }
     if args.json {
         println!(
             "{}",
