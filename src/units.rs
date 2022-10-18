@@ -3,8 +3,9 @@
 /// The Units system used for sizes
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Units {
-    Si, // Units according to the SI system
-    Binary, // Old binary based units
+    Si, // Units according to the SI system, based on multiples of 1000
+    Binary, // Old binary based units, based on multiples of 1024
+    Bytes, // Just the raw byte counts, with commas separating thousands
 }
 
 impl Default for Units {
@@ -38,6 +39,16 @@ impl Units {
                     }
                 }
             }
+            Self::Bytes => {
+                let mut rev: Vec<char> = Vec::new();
+                for (i, c) in size.to_string().chars().rev().enumerate() {
+                    if i>0 && i%3==0 {
+                        rev.push(',');
+                    }
+                    rev.push(c);
+                }
+                rev.drain(..).rev().collect()
+            }
         }
     }
 }
@@ -58,4 +69,22 @@ fn test_fmt_binary() {
     check(1_000_000_000, "954Mi");
     check(1_073_741_824, "1.0Gi");
     check(1_234_567_890, "1.1Gi");
+}
+
+#[test]
+fn test_fmt_bytes() {
+    fn check(v: u64, s: &str) {
+        assert_eq!(&Units::Bytes.fmt(v), s);
+    }
+    check(0, "0");
+    check(1, "1");
+    check(456, "456");
+    check(1456, "1,456");
+    check(9_999, "9,999");
+    check(10_000, "10,000");
+    check(12_345, "12,345");
+    check(123_456, "123,456");
+    check(1_234_567, "1,234,567");
+    check(1_000_000_000, "1,000,000,000");
+    check(1_234_567_890, "1,234,567,890");
 }

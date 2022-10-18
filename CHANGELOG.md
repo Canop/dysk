@@ -1,3 +1,6 @@
+### next
+- you can get the "precise" number of bytes with `--units bytes` - Fix #51
+
 <a name="v2.5.0"></a>
 ### v2.5.0 - 2022/03/15
 - with `--csv`, the table is written in CSV. The `--csv-separator` argument lets you change the separator. Filters, sorting, and column choices work for CSV output too - Fix #42
