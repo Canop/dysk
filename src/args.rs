@@ -60,7 +60,7 @@ pub struct Args {
     pub json: bool,
 
     #[argh(option, default = "Default::default()")]
-    /// units: 'SI' (default) or 'binary'
+    /// units: 'SI' (default), 'binary' (1024 based), or 'bytes' (the raw number)
     pub units: Units,
 
     #[argh(positional)]
@@ -94,7 +94,8 @@ impl argh::FromArgValue for Units {
         match value.to_lowercase().as_ref() {
             "si" => Ok(Self::Si),
             "binary" => Ok(Self::Binary),
-            _ => Err(format!("Illegal value: {:?} - valid values are 'SI' and 'binary'", value)),
+            "bytes" => Ok(Self::Bytes),
+            _ => Err(format!("Illegal value: {:?} - valid values are 'SI', 'binary', and 'bytes'", value)),
         }
     }
 }

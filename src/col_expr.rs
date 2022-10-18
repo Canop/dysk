@@ -134,7 +134,7 @@ impl ColExpr {
                 parse_integer(&self.value)?,
             ),
             Col::MountPoint => self.operator.eval_str(
-                &mount.info.mount_point.to_string_lossy().to_string(),
+                &mount.info.mount_point.to_string_lossy(),
                 &self.value,
             ),
         })
@@ -274,7 +274,7 @@ fn parse_integer(input: &str) -> Result<u64, EvalExprError> {
         Some(s) => (s, true),
         None => (s, false),
     };
-    let cut = s.find(|c: char| !(c.is_digit(10) || c=='.'));
+    let cut = s.find(|c: char| !(c.is_ascii_digit() || c=='.'));
     let (digits, factor): (&str, u64) = match cut {
         Some(idx) => (
             &s[..idx],
