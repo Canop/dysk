@@ -1,4 +1,5 @@
-### next
+<a name="v2.6.0"></a>
+### v2.6.0 - 2022/10/19
 - you can get the "precise" number of bytes with `--units bytes` - Fix #51
 
 <a name="v2.5.0"></a>
