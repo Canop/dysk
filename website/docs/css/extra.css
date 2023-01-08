@@ -31,6 +31,24 @@ body {
 	color: var(--text);
 }
 
+body {
+	background-image:
+		linear-gradient(to right, rgba(22, 32, 32, 0.67) 0%, #162020 25%, #162020 75%, rgba(22, 32, 32, 0.67) 100%),
+		url("../img/RitrattoMuseoFerranteImperato.jpg");
+	background-position: repeat;
+	background-size: initial;
+    background-attachment: fixed;
+}
+@media (max-width: 800px) {
+	body {
+		background-image:
+			linear-gradient(to right, rgba(255,255,255,0.1) 0%, #162020 10%, #162020 90%, rgba(255,255,255,0.1) 100%),
+			url("../img/RitrattoMuseoFerranteImperato.jpg");
+		background-position: repeat;
+		background-size: initial;
+        background-attachment: fixed;
+	}
+}
 p.logo {
 	text-align: center;
 }

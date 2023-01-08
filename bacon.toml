@@ -44,7 +44,11 @@ on_success = "back" # so that we don't open the browser at each change
 # way. Don't forget the `--color always` part or the errors won't be
 # properly parsed.
 [jobs.run]
-command = ["cargo", "run", "--color", "always", "--", "--color", "yes"]
+command = [
+    "cargo", "run", "--color", "always",
+    "--",
+    "--color", "yes",
+]
 need_stdout = true
 allow_warnings = true
 
