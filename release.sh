@@ -27,6 +27,9 @@ mkdir build
 echo "This is lfs. More info and installation instructions on https://github.com/Canop/lfs" > build/README.md
 cp CHANGELOG.md build
 
+# publish version number
+echo "$version" > build/version
+
 # prepare the release archive
 rm lfs_*.zip
 zip -r "lfs_$version.zip" build/*

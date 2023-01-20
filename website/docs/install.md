@@ -1,6 +1,25 @@
 
 **lfs** only works on linux.
 
+Current version: **<a id=current-version href=../download>download</a>**
+<script>
+console.log("in script");
+fetch("../download/version")
+    .then(response => response.text())
+    .then(version => {
+        console.log(`version: #${version}#`);
+        version = version.trim();
+        if (!/^\d+(\.\d+)*(-\w+)?$/.test(version)) {
+            console.warn("invalid version in download/version");
+            return;
+        }
+        document.getElementById("current-version").textContent = version;
+    })
+</script>
+
+[CHANGELOG](https://github.com/Canop/lfs/blob/main/CHANGELOG.md)
+
+
 # Precompiled binaries
 
 Binaries are made available at every release in [download](https://dystroy.org/lfs/download).
