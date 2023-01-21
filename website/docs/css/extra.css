@@ -39,6 +39,13 @@ body {
 	background-size: initial;
     background-attachment: fixed;
 }
+
+body .col-md-9 p img {
+	background-color: transparent;
+	box-shadow: none;
+	margin: 50px 0 0 0;
+}
+
 @media (max-width: 800px) {
 	body {
 		background-image:

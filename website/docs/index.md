@@ -1,4 +1,8 @@
 
+<p align=center>
+<img src="img/logo-lfs.png" width=160px>
+</p>
+
 # Purpose
 
 **lfs** is a linux utility listing your filesystems.
