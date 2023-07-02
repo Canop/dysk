@@ -22,6 +22,7 @@ pub struct Filter {
 }
 
 impl Filter {
+    #[allow(clippy::match_like_matches_macro)]
     pub fn eval(&self, mount: &Mount) -> Result<bool, EvalExprError> {
         self.expr.eval_faillible(
             // leaf evaluation

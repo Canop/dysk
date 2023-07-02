@@ -26,25 +26,25 @@ Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org
 
 ### Default table
 
-![screenshot](website/docs/img/standard.png)
+![screenshot](website/docs/img/dysk.png)
 
 ### Custom choice of column
 
-![screenshot](website/docs/img/c=label+default+dev.png)
+![screenshot](website/docs/img/dysk_c=label+default+dev.png)
 
 ### JSON output
 
-![screenshot](website/docs/img/json-jq-tour.png)
+![screenshot](website/docs/img/dysk-json-jq.png)
 
 (you can output the table as CSV too)
 
 ### Filters
 
-![screenshot](website/docs/img/filters.png)
+![screenshot](website/docs/img/dysk_filters.png)
 
 ### Sort
 
-![screenshot](website/docs/img/s=free-d.png)
+![screenshot](website/docs/img/dysk_s=free-d.png)
 
 
 

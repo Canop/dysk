@@ -98,7 +98,7 @@ impl ColExpr {
                 parse_bool(&self.value)?,
             ),
             Col::Disk => self.operator.eval_option_str(
-                mount.disk.as_ref().map(|d| d.name.as_str()),
+                mount.disk.as_ref().map(|d| d.disk_type()),
                 &self.value,
             ),
             Col::Used => self.operator.eval_option(
@@ -229,6 +229,7 @@ fn test_col_filter_parsing() {
 }
 
 #[derive(Debug, PartialEq)]
+#[allow(clippy::enum_variant_names)]
 pub enum EvalExprError {
     NotANumber(String),
     NotAnId(String),

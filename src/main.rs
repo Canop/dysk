@@ -23,6 +23,7 @@ use {
     },
 };
 
+#[allow(clippy::match_like_matches_macro)]
 fn main() {
     let args: Args = argh::from_env();
     if args.version {

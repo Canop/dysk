@@ -1,3 +1,8 @@
+<a name="v2.6.1"></a>
+### v2.6.1 - 2023/07/02
+- lfs renamed to dysk
+- fix bad filtering on the 'disk' column
+
 <a name="v2.6.0"></a>
 ### v2.6.0 - 2022/10/19
 - you can get the "precise" number of bytes with `--units bytes` - Fix #51
