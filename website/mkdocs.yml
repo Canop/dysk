@@ -1,6 +1,6 @@
-site_name: lfs
-site_description: 'lfs, like df but better'
-site_url: https://dystroy.org/lfs
+site_name: dysk
+site_description: 'dysk, like df but better'
+site_url: https://dystroy.org/dysk
 repo_url: https://github.com/Canop/lfs
 edit_uri: ''
 

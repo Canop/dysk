@@ -270,7 +270,7 @@ impl fmt::Display for ParseColError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "{:?} can't be parsed as a column; use 'lfs --list-cols' to see all column names",
+            "{:?} can't be parsed as a column; use 'dysk --list-cols' to see all column names",
             self.raw,
         )
     }

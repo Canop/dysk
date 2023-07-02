@@ -19,7 +19,7 @@ Here are the rules of the current heuristics, in order: a filesystem
 1. is included when it's remote
 1. is excluded when no underlying disk was found
 
-To see *all* filesystems of your system, do `lfs --all`:
+To see *all* filesystems of your system, do `dysk --all`:
 
 ![screen](img/rows-all.png)
 
@@ -29,7 +29,7 @@ This list can be quite big with virtual file systems, docker use, etc.
 
 If you're only interested in the device on which some file is, give the path as argument.
 
-For example, for the current device, use `lfs .`:
+For example, for the current device, use `dysk .`:
 
 ![screen](img/rows-current.png)
 
@@ -39,7 +39,7 @@ The `--filter` argument, shortened in `-f`, lets you specify a constraint, or co
 
 A constraint can be related to any [column](../table#all-columns).
 
-You can for example fetch the filesystems with a given type with `lfs -f 'type=xfs'`.
+You can for example fetch the filesystems with a given type with `dysk -f 'type=xfs'`.
 
 The operators you can apply to a column are the following ones:
 
@@ -58,7 +58,7 @@ You can combine several column conditions with boolean operators `|` (or), `&` (
 For example you may want to select the volumes with not enough space with
 
 ```bash
-lfs -f 'free<100G | use>75%'
+dysk -f 'free<100G | use>75%'
 ```
 
 Examples:

@@ -1,15 +1,18 @@
 [package]
-name = "lfs"
+name = "dysk"
 version = "2.6.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
-keywords = ["linux", "filesystem", "fs"]
+keywords = ["linux", "filesystem", "fs", "lfs", "disk"]
 license = "MIT"
 categories = ["filesystem", "command-line-utilities"]
 description = "give information on mounted filesystems"
 repository = "https://github.com/Canop/lfs"
+homepage = "https://dystroy.org/dysk"
+documentation = "https://dystroy.org/dysk"
 readme = "README.md"
 rust-version = "1.59"
+exclude = ["website", "dysk*.zip"]
 
 [dependencies]
 argh = "0.1.7"

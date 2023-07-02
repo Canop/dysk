@@ -1,5 +1,5 @@
 
-This website is live at https://dystroy.org/lfs
+This website is live at https://dystroy.org/dysk
 
 It's built using [mkdocs](https://www.mkdocs.org/) (minimal version: 1.0.4).
 

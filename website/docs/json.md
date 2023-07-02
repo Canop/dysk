@@ -1,5 +1,5 @@
 
-With `lfs --json` (shortened in `lfs -j`) you get a JSON structure that can be used in other programs.
+With `dysk --json` (shortened in `dysk -j`) you get a JSON structure that can be used in other programs.
 
 # JSON output
 
@@ -8,7 +8,7 @@ The normal output is an array of all filesystem matching the filter.
 In order to make a sample fitting this site, I extracted the first filesystem with
 
 ```bash
-lfs -j | jq '.[0]' > disk.json
+dysk -j | jq '.[0]' > disk.json
 ```
 
 Here it is:
@@ -61,11 +61,11 @@ Note that fields may be *added* in any version.
 
 As for the table view, the JSON is by default limited to "normal" storage devices.
 
-You can get the complete list with `lfs --json --all`.
+You can get the complete list with `dysk --json --all`.
 
 # Pipe
 
-The output of `lfs -j` can be piped into another program.
+The output of `dysk -j` can be piped into another program.
 
 You can for example use [jq](https://stedolan.github.io/jq/) to filter or extract data:
 

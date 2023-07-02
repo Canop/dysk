@@ -26,7 +26,7 @@ use {
 fn main() {
     let args: Args = argh::from_env();
     if args.version {
-        println!("lfs {}", env!("CARGO_PKG_VERSION"));
+        println!("dysk {}", env!("CARGO_PKG_VERSION"));
         return;
     }
     if args.list_cols {

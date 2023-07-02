@@ -13,7 +13,7 @@ use {
 #[derive(FromArgs)]
 /// List your filesystems.
 ///
-/// Documentation at https://dystroy.org/lfs
+/// Documentation at https://dystroy.org/dysk
 pub struct Args {
     /// print the version
     #[argh(switch, short = 'v')]

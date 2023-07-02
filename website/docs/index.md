@@ -1,11 +1,9 @@
 
-<p align=center>
-<img src="img/logo-lfs.png" width=160px>
-</p>
+*dysk was previously known as lfs but was renamed because that name was used by too many things.*
 
 # Purpose
 
-**lfs** is a linux utility listing your filesystems.
+**dysk** is a linux utility listing your filesystems.
 
 ![standard](img/standard.png)
 
@@ -26,7 +24,7 @@ All sizes are normally based on the current SI recommendations (1M is one millio
 
 # Tables
 
-The default display of **lfs** is a table, which can be configured with the columns of your choice.
+The default display of **dysk** is a table, which can be configured with the columns of your choice.
 
 ![screen](img/c=label+.png)
 
@@ -36,7 +34,7 @@ The table can also be exported in [CSV](./table#csv).
 
 # JSON
 
-`lfs --json` outputs the result as JSON which can be used for your own scripts or programs.
+`dysk --json` outputs the result as JSON which can be used for your own scripts or programs.
 
 ![screen](img/json-jq-tour.png)
 

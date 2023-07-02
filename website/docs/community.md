@@ -1,11 +1,11 @@
 
-**lfs** is developed by [Denys Séguret](https://twitter.com/DenysSeguret), also known as [Canop](https://github.com/Canop) or [dystroy](https://dystroy.org).
+**dysk** is developed by [Denys Séguret](https://twitter.com/DenysSeguret), also known as [Canop](https://github.com/Canop) or [dystroy](https://dystroy.org).
 
 # Chat
 
-The best place to chat about lfs, to talk about features or bugs, is the Miaou chat.
+The best place to chat about dysk, to talk about features or bugs, is the Miaou chat.
 
-* [Rust & lfs room on Miaou](https://miaou.dystroy.org/3490?rust)
+* [Rust & dysk room on Miaou](https://miaou.dystroy.org/3490?rust)
 * [French Programmers room on Miaou](https://miaou.dystroy.org/3)
 
 # Issues
@@ -16,11 +16,11 @@ Before posting a new issue, check your problem hasn't already been raised and in
 
 # Licence
 
-**lfs** is licenced under the [MIT](https://raw.githubusercontent.com/Canop/lfs/master/LICENSE). Enjoy freely.
+**dysk** is licenced under the [MIT](https://raw.githubusercontent.com/Canop/lfs/master/LICENSE). Enjoy freely.
 
 # API
 
-**lfs** is built on top of [lfs-core](https://docs.rs/lfs-core/).
+**dysk** is built on top of [lfs-core](https://docs.rs/lfs-core/).
 
 If you want to display the same data in your Rust application, consider using this crate directly.
 

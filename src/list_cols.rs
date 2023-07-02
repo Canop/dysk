@@ -7,13 +7,13 @@ use {
 };
 
 static MD: &str = r#"
-The `--cols` launch argument lets you specify the columns of the **lfs** table.
+The `--cols` launch argument lets you specify the columns of the **dysk** table.
 
-You can give the explicit list of all columns: `lfs -c dev+fs`
+You can give the explicit list of all columns: `dysk -c dev+fs`
 
-You can add columns to the default ones: `lfs -c +dev+size`
+You can add columns to the default ones: `dysk -c +dev+size`
 
-Complete syntax at https://dystroy.org/lfs/table
+Complete syntax at https://dystroy.org/dysk/table
 
 |:-:|:-:|:-:|:-
 |column | aliases | default | content

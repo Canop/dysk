@@ -9,7 +9,7 @@ H2="\n\e[30;104m\e[1K\n\e[A" # style second header
 EH="\e[00m\n\e[2K" # end header
 
 version=$(./version.sh)
-echo -e "${H1}Compilation of all targets for lfs $version${EH}"
+echo -e "${H1}Compilation of all targets for dysk $version${EH}"
  
 # clean previous build
 rm -rf build
@@ -21,7 +21,7 @@ target="x86_64-linux"
 echo -e "${H2}Compiling the linux version - $target${EH}"
 cargo build --release 
 mkdir "build/$target/"
-cp target/release/lfs "build/$target/"
+cp target/release/dysk "build/$target/"
 
 # build versions for other platforms using cargo cross
 cross_build() {
@@ -30,7 +30,7 @@ cross_build() {
     echo -e "${H2}Compiling the $name / $target version${EH}"
     cross build --target "$target" --release
     mkdir "build/$target"
-    cp "target/$target/release/lfs" "build/$target/"
+    cp "target/$target/release/dysk" "build/$target/"
 }
 cross_build "Raspberry 32" "armv7-unknown-linux-gnueabihf"
 cross_build "Android" "aarch64-linux-android"

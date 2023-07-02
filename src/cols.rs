@@ -43,7 +43,7 @@ impl Cols {
     ///
     /// This makes it possible to add a set while keeping
     /// the order of the previous columns, for example
-    /// `lfs -c disk+`
+    /// `dysk -c disk+`
     pub fn add_set(&mut self, col_set: &[Col]) {
         if self.0 == ALL_COLS {
             for &col in col_set {
@@ -169,7 +169,7 @@ mod cols_parsing {
     fn bad_cols(){
         assert_eq!(
             "nothing".parse::<Cols>().unwrap_err().to_string(),
-            r#""nothing" can't be parsed as a column; use 'lfs --list-cols' to see all column names"#,
+            r#""nothing" can't be parsed as a column; use 'dysk --list-cols' to see all column names"#,
         );
     }
 

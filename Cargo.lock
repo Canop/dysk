@@ -172,6 +172,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
+name = "dysk"
+version = "2.6.0"
+dependencies = [
+ "argh",
+ "bet",
+ "crossterm",
+ "file-size",
+ "lfs-core",
+ "serde",
+ "serde_json",
+ "termimad",
+]
+
+[[package]]
 name = "file-size"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -210,20 +224,6 @@ dependencies = [
  "quote",
  "regex",
  "syn",
-]
-
-[[package]]
-name = "lfs"
-version = "2.6.0"
-dependencies = [
- "argh",
- "bet",
- "crossterm",
- "file-size",
- "lfs-core",
- "serde",
- "serde_json",
- "termimad",
 ]
 
 [[package]]

@@ -1,5 +1,5 @@
 
-**lfs** only works on linux.
+**dysk** only works on linux.
 
 Current version: **<a id=current-version href=../download>download</a>**
 <script>
@@ -22,34 +22,34 @@ fetch("../download/version")
 
 # Precompiled binaries
 
-Binaries are made available at every release in [download](https://dystroy.org/lfs/download).
+Binaries are made available at every release in [download](https://dystroy.org/dysk/download).
 
 Direct links:
 
 Target|Files
 -|-
-Android | [aarch64-linux-android](https://dystroy.org/lfs/download/aarch64-linux-android/lfs)
-Linux | [x86_64-linux](https://dystroy.org/lfs/download/x86_64-linux/lfs)
-Linux/musl | [x86_64-unknown-linux-musl](https://dystroy.org/lfs/download/x86_64-unknown-linux-musl/lfs)
-Raspberry | [armv7-unknown-linux-gnueabihf](https://dystroy.org/lfs/download/armv7-unknown-linux-gnueabihf/lfs)
+Android | [aarch64-linux-android](https://dystroy.org/dysk/download/aarch64-linux-android/dysk)
+Linux | [x86_64-linux](https://dystroy.org/dysk/download/x86_64-linux/dysk)
+Linux/musl | [x86_64-unknown-linux-musl](https://dystroy.org/dysk/download/x86_64-unknown-linux-musl/dysk)
+Raspberry | [armv7-unknown-linux-gnueabihf](https://dystroy.org/dysk/download/armv7-unknown-linux-gnueabihf/dysk)
 
-You may download previous releases on [GitHub releases](https://github.com/Canop/lfs/releases).
+You may download previous releases on [GitHub releases](https://github.com/Canop/dysk/releases).
 
-When you download executable files, you'll have to ensure the shell can find them. An easy solution is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x lfs`.
+When you download executable files, you'll have to ensure the shell can find them. An easy solution is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 
 # From crates.io
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed and up to date.
 
-Once it's installed, use cargo to install lfs:
+Once it's installed, use cargo to install dysk:
 
-    cargo install lfs
+    cargo install dysk
 
 # From source
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed.
 
-Fetch the [Canop/lfs](https://github.com/Canop/lfs) repository, move to the lfs directory, then run
+Fetch the [Canop/dysk](https://github.com/Canop/lfs) repository, move to the lfs directory, then run
 
 ```bash
 cargo install --path .
@@ -64,9 +64,12 @@ Those packages are maintained by third parties and may be less up to date.
 
 ## Arch Linux
 
-**lfs** can be installed from the [community repository](https://archlinux.org/packages/community/x86_64/lfs/):
+(with its previous name, "lfs")
+
+**dysk** can be installed from the [community repository](https://archlinux.org/packages/community/x86_64/lfs/):
 
 ```
 pacman -S lfs
 ```
+
 

@@ -1,6 +1,7 @@
 /target
 /build
 /releases
+/dysk_*.zip
 /lfs_*.zip
 /trav
 /deploy.sh

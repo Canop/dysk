@@ -1,10 +1,10 @@
 
-The standard output of lfs is a table with a default set of columns and only the "normal looking" filesystems.
+The standard output of dysk is a table with a default set of columns and only the "normal looking" filesystems.
 You can modify it easily.
 
 # Columns
 
-You can run `lfs --list-cols` for the list of all columns.
+You can run `dysk --list-cols` for the list of all columns.
 
 ## All columns
 
@@ -44,30 +44,30 @@ With `-c all`, you may see all available columns, but that's normally too much f
 
 The most obvious use of the `--cols` argument is the explicit definition of the columns to display.
 
-For example `lfs -c label+use+size+disk+mount` will show the `label`, `use`, `size`, `disk`, and `mount` columns, in that order:
+For example `dysk -c label+use+size+disk+mount` will show the `label`, `use`, `size`, `disk`, and `mount` columns, in that order:
 
 ![screen](img/c=label+use+size+disk+mount.png)
 
 All the default columns (see [table above](#columns)) can be inserted with just `default`.
 
-Here's adding the label at the start and the device id at the end, with `lfs -c label+default+dev`:
+Here's adding the label at the start and the device id at the end, with `dysk -c label+default+dev`:
 
 ![screen](img/c=label+default+dev.png)
 
 
 If the `--cols` argument starts or ends with `+` or `-`, the `default` set of columns is implied.
-To add the device id and the share of inodes used to the default columns, you do `lfs -c +dev+inodes`:
+To add the device id and the share of inodes used to the default columns, you do `dysk -c +dev+inodes`:
 
 ![screen](img/c=+dev+inodes.png)
 
-To preprend the `label` column before the default ones, use `lfs -c label+`:
+To preprend the `label` column before the default ones, use `dysk -c label+`:
 
 ![screen](img/c=label+.png)
 
 The `-` sign removes columns.
 And adding an already present column moves it to the end (there's never duplicates).
 
-Here's removing the `fs` column and moving the `type` column to the end, with `lfs -c -fs+type`:
+Here's removing the `fs` column and moving the `type` column to the end, with `dysk -c -fs+type`:
 
 ![screen](img/c=-fs+type.png)
 
@@ -76,7 +76,7 @@ Here's removing the `fs` column and moving the `type` column to the end, with `l
 
 With the `--sort` launch argument, shortened as `-s`, you can specify the order of displayed rows.
 
-The argument's value must be either a column name, for example `lfs -s dev`, or a column name and a direction, for example `lfs --sort size-desc`.
+The argument's value must be either a column name, for example `dysk -s dev`, or a column name and a direction, for example `dysk --sort size-desc`.
 
 The `desc` and `asc` directions can be abbreviated into `d` and `a`.
 
@@ -90,10 +90,10 @@ Or sorting on the remaining free space, in descending order:
 
 # CSV
 
-With the `--csv` argument, you can ask lfs to output the table in CSV:
+With the `--csv` argument, you can ask dysk to output the table in CSV:
 
 ```bash
-lfs --csv > mounts.csv
+dysk --csv > mounts.csv
 ```
 
 You may choose the separator with the `--csv-separator` argument.
@@ -101,7 +101,7 @@ You may choose the separator with the `--csv-separator` argument.
 Filters, sorting, and column selection work the same than for standard tables so you may do this:
 
 ```bash
-lfs --csv -f 'size>100G' -c remote+default+inodes > mounts.csv
+dysk --csv -f 'size>100G' -c remote+default+inodes > mounts.csv
 ```
 which would give something like this:
 
