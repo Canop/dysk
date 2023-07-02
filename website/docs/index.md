@@ -1,11 +1,11 @@
 
-*dysk was previously known as lfs but was renamed because that name was used by too many things.*
+*dysk was previously known as lfs but was renamed because that name was found to be used by previous programs.*
 
 # Purpose
 
 **dysk** is a linux utility listing your filesystems.
 
-![standard](img/standard.png)
+![standard](img/dysk.png)
 
 Usage is shown in a graphical way.
 
@@ -26,7 +26,7 @@ All sizes are normally based on the current SI recommendations (1M is one millio
 
 The default display of **dysk** is a table, which can be configured with the columns of your choice.
 
-![screen](img/c=label+.png)
+![screen](img/dysk_c=label+.png)
 
 See [Table](./table) for the definition of the columns and the syntax for choosing them, or on how to [sort rows](./table#sort).
 
@@ -36,10 +36,10 @@ The table can also be exported in [CSV](./table#csv).
 
 `dysk --json` outputs the result as JSON which can be used for your own scripts or programs.
 
-![screen](img/json-jq-tour.png)
+![screen](img/dysk-json-jq.png)
 
 # Filters
 
 The query syntax lets you specify the filesystems you want:
 
-![screen](img/filters.png)
+![screen](img/dysk_filters.png)

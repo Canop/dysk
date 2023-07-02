@@ -69,5 +69,5 @@ The output of `dysk -j` can be piped into another program.
 
 You can for example use [jq](https://stedolan.github.io/jq/) to filter or extract data:
 
-![jq](img/json-jq.png)
+![jq](img/dysk-json-jq.png)
 

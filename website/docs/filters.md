@@ -9,7 +9,7 @@ There are several ways to choose the filesystems of either the table or the JSON
 
 The default selection of filesystems showcases your storage, avoiding any filesystem which both have no "disk" and aren't remote ones, bound to another filesystem, etc.
 
-![screen](img/rows-standard.png)
+![screen](img/dysk_rows-standard.png)
 
 Here are the rules of the current heuristics, in order: a filesystem
 
@@ -21,7 +21,7 @@ Here are the rules of the current heuristics, in order: a filesystem
 
 To see *all* filesystems of your system, do `dysk --all`:
 
-![screen](img/rows-all.png)
+![screen](img/dysk_rows-all.png)
 
 This list can be quite big with virtual file systems, docker use, etc.
 
@@ -31,7 +31,7 @@ If you're only interested in the device on which some file is, give the path as 
 
 For example, for the current device, use `dysk .`:
 
-![screen](img/rows-current.png)
+![screen](img/dysk_rows-current.png)
 
 # Filter argument
 
@@ -40,6 +40,8 @@ The `--filter` argument, shortened in `-f`, lets you specify a constraint, or co
 A constraint can be related to any [column](../table#all-columns).
 
 You can for example fetch the filesystems with a given type with `dysk -f 'type=xfs'`.
+
+Or remote volumes with `dysk -f 'remote=true'`.
 
 The operators you can apply to a column are the following ones:
 
@@ -58,12 +60,12 @@ You can combine several column conditions with boolean operators `|` (or), `&` (
 For example you may want to select the volumes with not enough space with
 
 ```bash
-dysk -f 'free<100G | use>75%'
+dysk -f 'free<100G | use>65%'
 ```
 
 Examples:
 
-![screen](img/filters.png)
+![screen](img/dysk_filters.png)
 
 !!! Note
     Only *normal* filesystems are shown unless you use `-a`. This applies even when you use the `--filter` argument.

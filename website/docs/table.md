@@ -36,40 +36,40 @@ With the `--cols` launch argument, shortened as `-c`, you can change the display
 
 The default set is defined for the casual usage of checking the available volumes and their filling level:
 
-![screen](img/c=default.png)
+![screen](img/dysk_c=default.png)
 
 With `-c all`, you may see all available columns, but that's normally too much for convenience:
 
-![screen](img/c=all.png)
+![screen](img/dysk_c=all.png)
 
 The most obvious use of the `--cols` argument is the explicit definition of the columns to display.
 
 For example `dysk -c label+use+size+disk+mount` will show the `label`, `use`, `size`, `disk`, and `mount` columns, in that order:
 
-![screen](img/c=label+use+size+disk+mount.png)
+![screen](img/dysk_c=label+use+size+disk+mount.png)
 
 All the default columns (see [table above](#columns)) can be inserted with just `default`.
 
 Here's adding the label at the start and the device id at the end, with `dysk -c label+default+dev`:
 
-![screen](img/c=label+default+dev.png)
+![screen](img/dysk_c=label+default+dev.png)
 
 
 If the `--cols` argument starts or ends with `+` or `-`, the `default` set of columns is implied.
 To add the device id and the share of inodes used to the default columns, you do `dysk -c +dev+inodes`:
 
-![screen](img/c=+dev+inodes.png)
+![screen](img/dysk_c=+dev+inodes.png)
 
 To preprend the `label` column before the default ones, use `dysk -c label+`:
 
-![screen](img/c=label+.png)
+![screen](img/dysk_c=label+.png)
 
 The `-` sign removes columns.
 And adding an already present column moves it to the end (there's never duplicates).
 
 Here's removing the `fs` column and moving the `type` column to the end, with `dysk -c -fs+type`:
 
-![screen](img/c=-fs+type.png)
+![screen](img/dysk_c=-fs+type.png)
 
 
 # Sort
@@ -82,11 +82,11 @@ The `desc` and `asc` directions can be abbreviated into `d` and `a`.
 
 For example, sorting on the device id:
 
-![screen](img/s=dev.png)
+![screen](img/dysk_s=dev.png)
 
 Or sorting on the remaining free space, in descending order:
 
-![screen](img/s=free-d.png)
+![screen](img/dysk_s=free-d.png)
 
 # CSV
 
