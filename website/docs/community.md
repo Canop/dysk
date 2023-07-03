@@ -18,13 +18,13 @@ The best place to chat about dysk, to talk about features or bugs, is the Miaou 
 
 # Issues
 
-We use [GitHub's issue manager](https://github.com/Canop/lfs/issues).
+We use [GitHub's issue manager](https://github.com/Canop/dysk/issues).
 
 Before posting a new issue, check your problem hasn't already been raised and in case of doubt please come first discuss it on the chat.
 
 # Licence
 
-**dysk** is licenced under the [MIT](https://raw.githubusercontent.com/Canop/lfs/master/LICENSE). Enjoy freely.
+**dysk** is licenced under the [MIT](https://raw.githubusercontent.com/Canop/dysk/master/LICENSE). Enjoy freely.
 
 # API
 

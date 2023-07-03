@@ -17,7 +17,7 @@ fetch("../download/version")
     })
 </script>
 
-[CHANGELOG](https://github.com/Canop/lfs/blob/main/CHANGELOG.md)
+[CHANGELOG](https://github.com/Canop/dysk/blob/main/CHANGELOG.md)
 
 
 # Precompiled binaries
@@ -49,7 +49,7 @@ Once it's installed, use cargo to install dysk:
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed.
 
-Fetch the [Canop/dysk](https://github.com/Canop/lfs) repository, move to the lfs directory, then run
+Fetch the [Canop/dysk](https://github.com/Canop/dysk) repository, move to the dysk directory, then run
 
 ```bash
 cargo install --path .

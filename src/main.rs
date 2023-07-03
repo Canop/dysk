@@ -80,7 +80,7 @@ fn main() {
         return;
     }
     if mounts.is_empty() {
-        println!("no mount to display - try\n    lfs -a");
+        println!("no mount to display - try\n    dysk -a");
         return;
     }
     table::print(&mounts, args.color(), &args);
