@@ -64,12 +64,10 @@ Those packages are maintained by third parties and may be less up to date.
 
 ## Arch Linux
 
-(with its previous name, "lfs")
-
-**dysk** can be installed from the [community repository](https://archlinux.org/packages/community/x86_64/lfs/):
+**dysk** can be installed from the [extra repository](https://archlinux.org/packages/extra/x86_64/dysk/):
 
 ```
-pacman -S lfs
+pacman -S dysk
 ```
 
 
