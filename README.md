@@ -22,7 +22,7 @@ Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org
 * **[Overview](https://dystroy.org/dysk/)**
 * **[Installation](https://dystroy.org/dysk/install)**
 
-**Note:** dysk was previously known as lfs
+dysk was previously known as lfs.
 
 ### Default table
 
@@ -32,11 +32,13 @@ Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org
 
 ![screenshot](website/docs/img/dysk_c=label+default+dev.png)
 
+![screenshot](website/docs/img/dysk_c=+dev+inodes.png)
+
 ### JSON output
 
 ![screenshot](website/docs/img/dysk-json-jq.png)
 
-(you can output the table as CSV too)
+You can output the table as CSV too.
 
 ### Filters
 
@@ -46,5 +48,8 @@ Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org
 
 ![screenshot](website/docs/img/dysk_s=free-d.png)
 
+### Library
 
+The data displayed by dysk is provided by the [lfs-core](github.com/Canop/lfs-core) crate.
+You may use it in your own Rust application.
 
