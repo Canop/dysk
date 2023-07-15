@@ -50,6 +50,6 @@ You can output the table as CSV too.
 
 ### Library
 
-The data displayed by dysk is provided by the [lfs-core](github.com/Canop/lfs-core) crate.
+The data displayed by dysk is provided by the [lfs-core](https://github.com/Canop/lfs-core) crate.
 You may use it in your own Rust application.
 
