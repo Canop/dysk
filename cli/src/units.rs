@@ -1,4 +1,6 @@
-
+use {
+    core::str::FromStr,
+};
 
 /// The Units system used for sizes
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -11,6 +13,17 @@ pub enum Units {
 impl Default for Units {
     fn default() -> Self {
         Self::Si
+    }
+}
+impl FromStr for Units {
+    type Err = String;
+    fn from_str(value: &str) -> Result<Self, String> {
+        match value.to_lowercase().as_ref() {
+            "si" => Ok(Self::Si),
+            "binary" => Ok(Self::Binary),
+            "bytes" => Ok(Self::Bytes),
+            _ => Err(format!("Illegal value: {:?} - valid values are 'SI', 'binary', and 'bytes'", value)),
+        }
     }
 }
 

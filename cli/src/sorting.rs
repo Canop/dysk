@@ -39,13 +39,13 @@ impl Sorting {
 #[derive(Debug)]
 pub struct ParseSortingError {
     raw: String,
-    reason: Box<dyn error::Error>,
+    reason: String,
 }
 impl ParseSortingError {
-    pub fn new<S: Into<String>>(raw: S, reason: Box<dyn error::Error>) -> Self {
+    pub fn new<S: Into<String>, E: ToString>(raw: S, reason: E) -> Self {
         Self {
             raw: raw.into(),
-            reason,
+            reason: reason.to_string(),
         }
     }
 }

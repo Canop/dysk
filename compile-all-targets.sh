@@ -23,6 +23,16 @@ cargo build --release
 mkdir "build/$target/"
 cp target/release/dysk "build/$target/"
 
+# Find, and copy the completion scripts and the man page
+# (they're built as part of the normal compilation by build.rs)
+# (this script uses broot, which is available on my computer...)
+echo -e "${H2}Copying completion scripts${EH}"
+mkdir build/completion
+cp "$(broot -c ":gi;release;:focus;/dysk.bash;:parent;:pp" target)/"* build/completion
+mkdir build/man
+mv build/completion/dysk.1 build/man
+echo "   Done"
+
 # build versions for other platforms using cargo cross
 cross_build() {
     name="$1"

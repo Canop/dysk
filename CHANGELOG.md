@@ -1,3 +1,9 @@
+<a name="v2.7.0"></a>
+### v2.6.1 - 2023/07/02
+- improved `--help`
+- man page generated in /build and included in downloadable archives
+- completion scripts generated in /build and included in downloadable archives
+
 <a name="v2.6.1"></a>
 ### v2.6.1 - 2023/07/02
 - lfs renamed to dysk

@@ -16,7 +16,7 @@ enum BoolOperator {
     Not,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct Filter {
     expr: BeTree<BoolOperator, ColExpr>,
 }

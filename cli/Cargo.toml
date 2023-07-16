@@ -1,0 +1,27 @@
+[package]
+name = "dysk-cli"
+version = "2.7.0"
+authors = ["dystroy <denys.seguret@gmail.com>"]
+edition = "2021"
+license = "MIT"
+rust-version = "1.59"
+
+[dependencies]
+bet = "1.0.0"
+clap = { version = "4.3", features = ["derive", "cargo"] }
+clap-help = "0.4.0"
+crossterm = "0.23.2"
+file-size = "1.0.3"
+lfs-core = "0.11.0"
+serde = "1.0"
+serde_json = "1.0"
+termimad = "0.20.5"
+
+[profile.release]
+strip = true
+
+[patch.crates-io]
+# minimad = { path = "../minimad" }
+# termimad = { path = "../termimad" }
+# clap-help = { path = "../clap-help" }
+# lfs-core = { path = "../lfs-core" }
