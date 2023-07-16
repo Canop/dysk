@@ -43,7 +43,7 @@ cross_build() {
     cp "target/$target/release/dysk" "build/$target/"
 }
 cross_build "Raspberry 32" "armv7-unknown-linux-gnueabihf"
-cross_build "Android" "aarch64-linux-android"
+# cross_build "Android" "aarch64-linux-android"
 cross_build "MUSL" "x86_64-unknown-linux-musl"
 cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 
