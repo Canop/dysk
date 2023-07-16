@@ -1,4 +1,5 @@
 /target
+/cli/target
 /build
 /releases
 /dysk_*.zip
