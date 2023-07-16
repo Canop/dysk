@@ -24,14 +24,14 @@ fetch("../download/version")
 
 Binaries are made available at every release in [download](https://dystroy.org/dysk/download).
 
+The archives also contain dysk's man page and shell completion scripts.
+
 Direct links:
 
 Target|Files
 -|-
-Android | [aarch64-linux-android](https://dystroy.org/dysk/download/aarch64-linux-android/dysk)
 Linux | [x86_64-linux](https://dystroy.org/dysk/download/x86_64-linux/dysk)
 Linux/musl | [x86_64-unknown-linux-musl](https://dystroy.org/dysk/download/x86_64-unknown-linux-musl/dysk)
-Raspberry | [armv7-unknown-linux-gnueabihf](https://dystroy.org/dysk/download/armv7-unknown-linux-gnueabihf/dysk)
 
 You may download previous releases on [GitHub releases](https://github.com/Canop/dysk/releases).
 
