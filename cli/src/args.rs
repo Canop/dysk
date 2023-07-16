@@ -14,7 +14,7 @@ use {
 ///
 /// Documentation at https://dystroy.org/dysk
 #[derive(Debug, Parser)]
-#[command(author, about, disable_version_flag = true, version, disable_help_flag = true)]
+#[command(author, about, name = "dysk", disable_version_flag = true, version, disable_help_flag = true)]
 pub struct Args {
 
     /// print help information
