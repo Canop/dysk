@@ -38,6 +38,7 @@ cross_build() {
     name="$1"
     target="$2"
     echo -e "${H2}Compiling the $name / $target version${EH}"
+    cargo clean
     cross build --target "$target" --release
     mkdir "build/$target"
     cp "target/$target/release/dysk" "build/$target/"
