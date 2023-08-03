@@ -1,3 +1,7 @@
+<a name="v2.7.2"></a>
+### v2.7.2 - 2023/08/03
+- examples in `--help`
+
 <a name="v2.7.1"></a>
 ### v2.7.1 - 2023/07/16
 - improved `--help`

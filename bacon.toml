@@ -6,10 +6,6 @@ default_job = "check"
 [jobs]
 
 [jobs.check]
-command = ["cargo", "check", "--color", "always"]
-need_stdout = false
-
-[jobs.check-all]
 command = ["cargo", "check", "--all-targets", "--color", "always"]
 need_stdout = false
 watch = ["tests", "benches", "examples"]
@@ -24,7 +20,7 @@ need_stdout = false
 watch = ["tests", "benches", "examples"]
 
 [jobs.test]
-command = ["cargo", "test", "--color", "always"]
+command = ["cargo", "test", "--all-targets", "--color", "always"]
 need_stdout = true
 watch = ["tests"]
 
