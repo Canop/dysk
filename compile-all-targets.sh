@@ -16,23 +16,6 @@ rm -rf build
 mkdir build
 echo "   build cleaned"
 
-# build the linux version
-target="x86_64-linux"
-echo -e "${H2}Compiling the linux version - $target${EH}"
-cargo build --release 
-mkdir "build/$target/"
-cp target/release/dysk "build/$target/"
-
-# Find, and copy the completion scripts and the man page
-# (they're built as part of the normal compilation by build.rs)
-# (this script uses broot, which is available on my computer...)
-echo -e "${H2}Copying completion scripts${EH}"
-mkdir build/completion
-cp "$(broot -c ":gi;release;:focus;/dysk.bash;:parent;:pp" target)/"* build/completion
-mkdir build/man
-mv build/completion/dysk.1 build/man
-echo "   Done"
-
 # build versions for other platforms using cargo cross
 cross_build() {
     name="$1"
@@ -47,5 +30,23 @@ cross_build "Raspberry 32" "armv7-unknown-linux-gnueabihf"
 # cross_build "Android" "aarch64-linux-android"
 cross_build "MUSL" "x86_64-unknown-linux-musl"
 cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
+
+# build the linux version
+target="x86_64-linux"
+echo -e "${H2}Compiling the linux version - $target${EH}"
+cargo clean
+cargo build --release 
+mkdir "build/$target/"
+cp target/release/dysk "build/$target/"
+
+# Find, and copy the completion scripts and the man page
+# (they're built as part of the normal compilation by build.rs)
+# (this script uses broot, which is available on my computer...)
+echo -e "${H2}Copying completion scripts${EH}"
+mkdir build/completion
+cp "$(broot -c ":gi;release;:focus;/dysk.bash;:parent;:pp" target)/"* build/completion
+mkdir build/man
+mv build/completion/dysk.1 build/man
+echo "   Done"
 
 echo -e "${H1}Compilations done${EH}"
