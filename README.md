@@ -1,6 +1,6 @@
 # dysk
 
-[![CI][s3]][l3] [![MIT][s2]][l2] [![Latest Version][s1]][l1] [![Chat on Miaou][s4]][l4]
+[![CI][s3]][l3] [![MIT][s2]][l2] [![Latest Version][s1]][l1] [![Chat on Miaou][s4]][l4] [![Packaging status][srep]][lrep]
 
 [s1]: https://img.shields.io/crates/v/dysk.svg
 [l1]: https://crates.io/crates/dysk
@@ -14,6 +14,8 @@
 [s4]: https://miaou.dystroy.org/static/shields/room.svg
 [l4]: https://miaou.dystroy.org/3768?Rust
 
+[srep]: https://repology.org/badge/tiny-repos/dysk.svg
+[lrep]: https://repology.org/project/dysk/versions
 
 A linux utility listing your filesystems.
 
