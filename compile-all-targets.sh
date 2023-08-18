@@ -38,6 +38,7 @@ cross_build "ARM 64 MUSL" "aarch64-unknown-linux-musl"
 # build the (local) linux version
 target="x86_64-linux"
 echo -e "${H2}Compiling the linux version - $target${EH}"
+cargo clean
 cargo build --release 
 mkdir "build/$target/"
 cp target/release/dysk "build/$target/"

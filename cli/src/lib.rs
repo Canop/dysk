@@ -4,6 +4,7 @@ pub mod col_expr;
 pub mod cols;
 pub mod csv;
 pub mod filter;
+pub mod help;
 pub mod json;
 pub mod list_cols;
 pub mod normal;
@@ -17,19 +18,12 @@ use {
         args::*,
         normal::*,
     },
-    clap::{CommandFactory, Parser},
+    clap::Parser,
     std::{
         fs,
         os::unix::fs::MetadataExt,
     },
 };
-
-static INTRO: &str = "
-
-**dysk** displays filesystem information in a pretty table.
-Complete documentation at https://dystroy.org/dysk
-
-";
 
 
 #[allow(clippy::match_like_matches_macro)]
@@ -40,10 +34,7 @@ pub fn run() {
         return;
     }
     if args.help {
-        clap_help::Printer::new(Args::command())
-            .with("introduction", INTRO)
-            .without("author")
-            .print_help();
+        help::print();
         return;
     }
     if args.list_cols {
