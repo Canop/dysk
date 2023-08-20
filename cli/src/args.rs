@@ -29,9 +29,13 @@ pub struct Args {
     #[arg(short, long)]
     pub all: bool,
 
-    /// Whether to have styles and colors
+    /// whether to have styles and colors
     #[arg(long, default_value="auto", value_name = "color")]
     pub color: TriBool,
+
+    /// use only ASCII characters for table rendering
+    #[arg(long)]
+    pub ascii: bool,
 
     /// fetch stats of remote volumes
     #[arg(long, default_value="auto", value_name = "choice")]

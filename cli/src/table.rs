@@ -45,32 +45,33 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
         }
         if let Some(stats) = mount.stats() {
             let use_share = stats.use_share();
-            let pb = ProgressBar::new(use_share as f32, BAR_WIDTH);
             sub
                 .set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
-                .set("bar", format!("{:<width$}", pb, width = BAR_WIDTH))
+                .set_md("bar", progress_bar_md(use_share, BAR_WIDTH, args.ascii))
                 .set("free", units.fmt(stats.available()));
             if let Some(inodes) = &stats.inodes {
                 let iuse_share = inodes.use_share();
-                let ipb = ProgressBar::new(iuse_share as f32, INODES_BAR_WIDTH);
                 sub
                     .set("inodes", inodes.files)
                     .set("iused", inodes.used())
                     .set("iuse-percents", format!("{:.0}%", 100.0 * iuse_share))
-                    .set("ibar", format!("{:<width$}", ipb, width = INODES_BAR_WIDTH))
+                    .set_md("ibar", progress_bar_md(iuse_share, INODES_BAR_WIDTH, args.ascii))
                     .set("ifree", inodes.favail);
             }
         } else if mount.is_unreachable() {
             sub.set("use-error", "unreachable");
         }
     }
-    let skin = if color {
+    let mut skin = if color {
         make_colored_skin()
     } else {
         MadSkin::no_style()
     };
+    if args.ascii {
+        skin.limit_to_ascii();
+    }
 
     let mut tbl = TableBuilder::default();
     for col in args.cols.cols() {
@@ -86,13 +87,13 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                     Col::Type => "${type}",
                     Col::Remote => "${remote}",
                     Col::Used => "~~${used}~~",
-                    Col::Use => "~~${use-percents}~~ `${bar}`~~${use-error}~~",
+                    Col::Use => "~~${use-percents}~~ ${bar}~~${use-error}~~",
                     Col::UsePercent => "~~${use-percents}~~",
                     Col::Free => "*${free}*",
                     Col::Size => "**${size}**",
                     Col::InodesFree => "*${ifree}*",
                     Col::InodesUsed => "~~${iused}~~",
-                    Col::InodesUse => "~~${iuse-percents}~~ `${ibar}`",
+                    Col::InodesUse => "~~${iuse-percents}~~ ${ibar}",
                     Col::InodesUsePercent => "~~${iuse-percents}~~",
                     Col::InodesCount => "**${inodes}**",
                     Col::MountPoint => "${mount-point}",
@@ -113,6 +114,24 @@ fn make_colored_skin() -> MadSkin {
         strikeout: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
         italic: CompoundStyle::with_fg(AnsiValue(AVAI_COLOR)), // available
         ..Default::default()
+    }
+}
+
+fn progress_bar_md(
+    share: f64,
+    bar_width: usize,
+    ascii: bool,
+) -> String {
+    if ascii {
+        let count = (share * bar_width as f64).round() as usize;
+        let bar: String = std::iter::repeat('=')
+            .take(count).collect();
+        let no_bar: String = std::iter::repeat('-')
+            .take(bar_width-count).collect();
+        format!("~~{}~~*{}*", bar, no_bar)
+    } else {
+        let pb = ProgressBar::new(share as f32, bar_width);
+        format!("`{:<width$}`", pb, width = bar_width)
     }
 }
 
