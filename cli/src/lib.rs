@@ -34,11 +34,11 @@ pub fn run() {
         return;
     }
     if args.help {
-        help::print();
+        help::print(args.ascii);
         return;
     }
     if args.list_cols {
-        list_cols::print(args.color());
+        list_cols::print(args.color(), args.ascii);
         return;
     }
     let mut options = lfs_core::ReadOptions::default();

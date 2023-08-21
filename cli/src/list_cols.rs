@@ -25,7 +25,7 @@ ${column
 "#;
 
 /// Print an help text describing columns
-pub fn print(color: bool) {
+pub fn print(color: bool, ascii: bool) {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for &col in ALL_COLS {
@@ -35,11 +35,14 @@ pub fn print(color: bool) {
             .set("default", if col.is_default() { "x" } else { "" })
             .set("description", col.description());
     }
-    let skin = if color {
+    let mut skin = if color {
         MadSkin::default()
     } else {
         MadSkin::no_style()
     };
+    if ascii {
+        skin.limit_to_ascii();
+    }
     skin.print_owning_expander_md(&expander, MD);
 }
 

@@ -1,3 +1,6 @@
+### next
+- `--ascii` - Fix #43
+
 <a name="v2.7.2"></a>
 ### v2.7.2 - 2023/08/03
 - examples in `--help`

@@ -75,12 +75,15 @@ static EXAMPLES: &[Example] = &[
     ),
 ];
 
-pub fn print() {
+pub fn print(ascii: bool) {
     let mut printer = clap_help::Printer::new(Args::command())
         .with("introduction", INTRO_TEMPLATE)
         .without("author");
     printer.template_keys_mut().push("examples");
     printer.set_template("examples", EXAMPLES_TEMPLATE);
+    if ascii {
+        printer.skin_mut().limit_to_ascii();
+    }
     for (i, example) in EXAMPLES.iter().enumerate() {
         printer
             .expander_mut()

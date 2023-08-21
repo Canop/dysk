@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "aho-corasick"
-version = "0.7.20"
+version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc936419f96fa211c1b9166887b38e5e40b19958e5b895be7c1f93adec7071ac"
+checksum = "6748e8def348ed4d14996fa801f4122cd763fff530258cdc03f64b25f89d3a5a"
 dependencies = [
  "memchr",
 ]
@@ -109,12 +109,12 @@ dependencies = [
 
 [[package]]
 name = "clap-help"
-version = "0.6.2"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f06bd287cb07754f8337478ac48ce3737ddbcf729345a607338ffcdff0d908c"
+checksum = "542031cd21cd56842924c779171af859783a04063e2ede297aa9fa0ffbb8a9b3"
 dependencies = [
  "clap",
- "termimad 0.23.2",
+ "termimad",
  "terminal-light",
 ]
 
@@ -303,7 +303,7 @@ dependencies = [
  "lfs-core",
  "serde",
  "serde_json",
- "termimad 0.20.5",
+ "termimad",
 ]
 
 [[package]]
@@ -368,7 +368,18 @@ version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae9656bf98b413727b974a451039bc00ce546c3de9440cb4a7b65222b71e17cc"
 dependencies = [
- "lazy-regex-proc_macros",
+ "lazy-regex-proc_macros 2.3.1",
+ "once_cell",
+ "regex",
+]
+
+[[package]]
+name = "lazy-regex"
+version = "3.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "57451d19ad5e289ff6c3d69c2a2424652995c42b79dafa11e9c4d5508c913c01"
+dependencies = [
+ "lazy-regex-proc_macros 3.0.1",
  "once_cell",
  "regex",
 ]
@@ -386,12 +397,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "lazy-regex-proc_macros"
+version = "3.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0f0a1d9139f0ee2e862e08a9c5d0ba0470f2aa21cd1e1aa1b1562f83116c725f"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "regex",
+ "syn 2.0.26",
+]
+
+[[package]]
 name = "lfs-core"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c4441d37490f59d2fdc631e6be973ce8712435e4bfebe9615125b11603cd41f"
 dependencies = [
- "lazy-regex",
+ "lazy-regex 2.3.1",
  "libc",
  "snafu",
 ]
@@ -453,18 +476,9 @@ dependencies = [
 
 [[package]]
 name = "minimad"
-version = "0.9.1"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "277639f0198568f70f8fe4ab88a52a67c96bca12f27ba5c17a76acdcb8b45834"
-dependencies = [
- "once_cell",
-]
-
-[[package]]
-name = "minimad"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38b136454924e4d020e55c4992e07c105b40d5c41b84662862f0e15bc0a2efef"
+checksum = "f6c4610f430e49b882fcaad0186134150d4d74fc76080b0a61f7000460c2e268"
 dependencies = [
  "once_cell",
 ]
@@ -552,9 +566,21 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.7.0"
+version = "1.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e076559ef8e241f2ae3479e36f97bd5741c0330689e217ad51ce2c76808b868a"
+checksum = "81bc1d4caf89fac26a70747fe603c130093b53c773888797a6329091246d651a"
+dependencies = [
+ "aho-corasick",
+ "memchr",
+ "regex-automata",
+ "regex-syntax",
+]
+
+[[package]]
+name = "regex-automata"
+version = "0.3.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fed1ceff11a1dddaee50c9dc8e4938bd106e9d89ae372f192311e7da498e3b69"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -563,9 +589,9 @@ dependencies = [
 
 [[package]]
 name = "regex-syntax"
-version = "0.6.28"
+version = "0.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "456c603be3e8d448b072f410900c09faf164fbce2d480456f50eea6e25f9c848"
+checksum = "e5ea92a5b6195c6ef2a0295ea818b312502c6fc94dde986c5553242e18fd4ce2"
 
 [[package]]
 name = "roff"
@@ -603,6 +629,20 @@ name = "serde"
 version = "1.0.150"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e326c9ec8042f1b5da33252c8a37e9ffbd2c9bef0155215b6e6c80c790e05f91"
+dependencies = [
+ "serde_derive",
+]
+
+[[package]]
+name = "serde_derive"
+version = "1.0.150"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42a3df25b0713732468deadad63ab9da1f1fd75a48a15024b50363f128db627e"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.105",
+]
 
 [[package]]
 name = "serde_json"
@@ -703,28 +743,16 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.20.5"
+version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eebc2b56ff63378c3f6c99245ca8e8f910f08ef441c5c89854d63e7f687f1f04"
+checksum = "29bffc8a18091227aeac7ccbf7ccc0359a4b7d4c0b53a4a7680050aae05a0b31"
 dependencies = [
  "coolor",
  "crossbeam",
  "crossterm",
- "minimad 0.9.1",
- "thiserror",
- "unicode-width",
-]
-
-[[package]]
-name = "termimad"
-version = "0.23.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e32883199fc52cda7e431958dee8bc3ec6898afabc152b76959b9e0e74e2202"
-dependencies = [
- "coolor",
- "crossbeam",
- "crossterm",
- "minimad 0.12.0",
+ "lazy-regex 3.0.1",
+ "minimad",
+ "serde",
  "thiserror",
  "unicode-width",
 ]
