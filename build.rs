@@ -7,9 +7,11 @@ use {
     dysk_cli::args::Args,
     clap::CommandFactory,
     clap_complete::{Generator, Shell},
+    serde::Deserialize,
     std::{
         env,
         ffi::OsStr,
+        fs,
         path::PathBuf,
     },
 };
@@ -49,7 +51,49 @@ fn build_man_page() -> std::io::Result<()> {
     Ok(())
 }
 
+/// Check that all dysk versions are the same
+///
+/// See https://github.com/Canop/dysk/issues/65
+fn check_version_consistency() -> std::io::Result<()> {
+    #[derive(Deserialize)]
+    struct Package {
+        version: String,
+    }
+    #[derive(Deserialize)]
+    struct DependencyRef {
+        version: String,
+    }
+    #[derive(Deserialize)]
+    struct Dependencies {
+        #[serde(alias = "dysk-cli")]
+        dysk_cli: DependencyRef,
+    }
+    #[derive(Deserialize)]
+    struct MainCargo {
+        package: Package,
+        dependencies: Dependencies,
+        #[serde(alias = "build-dependencies")]
+        build_dependencies: Dependencies,
+    }
+    #[derive(Deserialize)]
+    struct CliCargo {
+        package: Package,
+    }
+    let version = env::var("CARGO_PKG_VERSION").expect("cargo pkg version not available");
+    let s = fs::read_to_string("Cargo.toml").unwrap();
+    let main_cargo: MainCargo = toml::from_str(&s).unwrap();
+    let s = fs::read_to_string("cli/Cargo.toml").unwrap();
+    let cli_cargo: CliCargo = toml::from_str(&s).unwrap();
+    println!("VERSION MISMATCH - All dysk and dysk-cli versions must be the same");
+    assert_eq!(&version, &main_cargo.package.version);
+    assert_eq!(&version, &main_cargo.dependencies.dysk_cli.version);
+    assert_eq!(&version, &main_cargo.build_dependencies.dysk_cli.version);
+    assert_eq!(&version, &cli_cargo.package.version);
+    Ok(())
+}
+
 fn main() -> std::io::Result<()> {
+    check_version_consistency()?;
     build_completion_scripts();
     build_man_page()?;
     Ok(())
