@@ -28,10 +28,18 @@ The archives also contain dysk's man page and shell completion scripts.
 
 Direct links:
 
-Target|Files
--|-
-Linux | [x86_64-linux](https://dystroy.org/dysk/download/x86_64-linux/dysk)
-Linux/musl | [x86_64-unknown-linux-musl](https://dystroy.org/dysk/download/x86_64-unknown-linux-musl/dysk)
+
+Target|Details|Download
+-|-|-
+x86-64 Linux | Intel/AMD, needs a recent enough linux  | [x86_64-linux](https://dystroy.org/dysk/download/x86_64-linux/dysk)
+x86-64 Linux old glibc | Intel/AMD, compatible with older glibc | [x86_64-unknown-linux-gnu](https://dystroy.org/dysk/download/x86_64-unknown-linux-gnu/dysk)
+x86-64 Linux musl | Intel/AMD, very compatible | [x86_64-unknown-linux-musl](https://dystroy.org/dysk/download/x86_64-unknown-linux-musl/dysk)
+ARM32 Linux |  | [armv7-unknown-linux-gnueabihf](https://dystroy.org/dysk/download/armv7-unknown-linux-gnueabihf/dysk)
+ARM32 Linux musl |  | [armv7-unknown-linux-musleabi](https://dystroy.org/dysk/download/armv7-unknown-linux-musleabi/dysk)
+ARM64 Linux |  | [aarch64-unknown-linux-gnu](https://dystroy.org/dysk/download/aarch64-unknown-linux-gnu/dysk)
+ARM64 Linux musl |  | [aarch64-unknown-linux-musl](https://dystroy.org/dysk/download/aarch64-unknown-linux-musl/dysk)
+x86-64 NetBSD | | [x86_64-unknown-netbsd](https://dystroy.org/dysk/download/x86_64-unknown-netbsd/dysk)
+
 
 You may download previous releases on [GitHub releases](https://github.com/Canop/dysk/releases).
 
@@ -43,7 +51,10 @@ You'll need to have the [Rust development environment](https://www.rustup.rs) in
 
 Once it's installed, use cargo to install dysk:
 
-    cargo install dysk
+    cargo install --locked dysk
+
+!!! Note
+	If there's a compilation error, it most often means either that you're missing some compilation dependency (on ubuntu/debian try `sudo apt install build-essential`) or that you have an old version of the compiler, and you should update it (for example with `rustup update`).
 
 # From source
 
@@ -52,22 +63,12 @@ You'll need to have the [Rust development environment](https://www.rustup.rs) in
 Fetch the [Canop/dysk](https://github.com/Canop/dysk) repository, move to the dysk directory, then run
 
 ```bash
-cargo install --path .
+cargo install --locked --path .
 ```
-
-!!! Note
-	If there's a compilation error, it most often means either that you're missing some compilation dependency (on ubuntu/debian try `sudo apt install build-essential`) or that you have an old version of the compiler, and you should update it (for example with `rustup update`).
 
 # Third party repositories
 
 Those packages are maintained by third parties and may be less up to date.
 
-## Arch Linux
-
-**dysk** can be installed from the [extra repository](https://archlinux.org/packages/extra/x86_64/dysk/):
-
-```
-pacman -S dysk
-```
-
+[![Packaging status](https://repology.org/badge/vertical-allrepos/dysk.svg)](https://repology.org/project/dysk/versions)
 

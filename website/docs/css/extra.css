@@ -7,6 +7,7 @@
 	--accent: #ff875f;
 	/*--accent: #5f875f;*/
 	--dark-accent: #5f875f;
+	--dark-border: #5f875f59;
 	--bg: #222;
 	--sidenav-bg: linear-gradient(#444,#222);
 	--top-nav-bg: var(--sidenav-bg);
@@ -251,7 +252,8 @@ body .navbar-brand {
 	background: transparent;
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-    border-top: 1px solid var(--dark-accent);
+    border-top: 1px solid var(--dark-border);
+	color: var(--text);
 }
 .table-hover > tbody > tr:hover {
 	background: transparent;
@@ -300,7 +302,7 @@ body .toc-header {
 .admonition.note {
     color: var(--text);
     background: var(--note-bg);
-    border-color: var(--dark-accent);
+    border-color: var(--dark-border);
 }
 
 td code {
@@ -314,7 +316,6 @@ td code {
 code.no-wrap {
 	white-space: normal;
 }
-
 
 body #toc-collapse ul.nav.flex-column.bs-sidenav {
 	overflow-y: auto;

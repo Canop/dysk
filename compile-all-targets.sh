@@ -28,12 +28,12 @@ cross_build() {
 }
 
 cross_build "Linux GLIBC" "x86_64-unknown-linux-gnu"
-cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 cross_build "MUSL" "x86_64-unknown-linux-musl"
 cross_build "ARM 32" "armv7-unknown-linux-gnueabihf"
 cross_build "ARM 32 MUSL" "armv7-unknown-linux-musleabi"
 cross_build "ARM 64" "aarch64-unknown-linux-gnu"
 cross_build "ARM 64 MUSL" "aarch64-unknown-linux-musl"
+cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 
 # build the (local) linux version
 target="x86_64-linux"
