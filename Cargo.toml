@@ -16,13 +16,13 @@ exclude = ["website", "dysk*.zip"]
 build = "build.rs"
 
 [dependencies]
-dysk-cli = { version = "2.7.2", path = "cli" } # beware: version is also in build dependencies
+dysk-cli = { version = "2.8.0", path = "cli" } # beware: version is also in build dependencies
 
 [build-dependencies]
 clap = { version = "4.3", features = ["derive", "cargo"] }
 clap_complete = "4.3"
 clap_mangen = "0.2.12"
-dysk-cli = { version = "2.7.2", path = "cli" }
+dysk-cli = { version = "2.8.0", path = "cli" }
 
 [profile.release]
 strip = true
