@@ -1,6 +1,4 @@
 
-*dysk was previously known as lfs but was renamed because that name was found to be used by previous programs.*
-
 # Purpose
 
 **dysk** is a linux utility listing your filesystems.

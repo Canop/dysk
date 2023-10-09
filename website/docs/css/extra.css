@@ -2,23 +2,35 @@
 /* standard classes */
 
 :root {
-	--text: #bbb;
+	--text: #333;
 	--title-fg: var(--text);
-	--accent: #ff875f;
-	/*--accent: #5f875f;*/
-	--dark-accent: #5f875f;
+	--page-bg-color: 255, 255, 255;
+	//--page-bg-color: 212, 175, 55;
+	--page-sides-bg: rgba(var(--page-bg-color), .8);
+	--page-center-bg: rgba(var(--page-bg-color), .97);
+	--page-bg-gradient: linear-gradient(to right, var(--page-sides-bg) 0%, var(--page-center-bg) 25%, var(--page-center-bg) 75%, var(--page-sides-bg) 100%);
+	--page-bg-img: url("../img/RitrattoMuseoFerranteImperato.jpg");
+	--accent-rgb: 255, 135, 95;
+	--accent: rgb(var(--accent-rgb));
+	--dark-accent-rgb: 95, 135, 95;
+	--dark-accent: rgb(var(--dark-accent-rgb));
 	--dark-border: #5f875f59;
 	--bg: #222;
 	--sidenav-bg: linear-gradient(#444,#222);
 	--top-nav-bg: var(--sidenav-bg);
 	--sidenav-fg: #eee;
-	--link-fg: #fff;
-	--link-bg: var(--dark-accent);
+	--link-fg: #000;
+	--link-bg: rgba(var(--dark-accent-rgb), 0.5);
 	--code-fg: #ccc;
 	--code-bg: #282828;
 	--note-bg: #1c393542;
 	--inline-code-border: solid 1px #333;
 	--hovered-menu-bg: linear-gradient(#444, var(--accent));
+	--h1-line-left: rgba(39, 39, 39, 1);
+	--h1-line-center: rgba(39, 39, 39, .2);
+	--h1-line-right: rgba(0, 0, 0, 0);
+	--col-max-width: 800px;
+	--p-max-width: 800px;
 }
 
 body::before {
@@ -33,10 +45,7 @@ body {
 }
 
 body {
-	background-image:
-		linear-gradient(to right, rgba(22, 32, 32, 0.67) 0%, #162020 25%, #162020 75%, rgba(22, 32, 32, 0.67) 100%),
-		url("../img/RitrattoMuseoFerranteImperato.jpg");
-	background-position: repeat;
+	background-image: var(--page-bg-gradient), var(--page-bg-img);
 	background-size: initial;
     background-attachment: fixed;
 }
@@ -71,16 +80,15 @@ body .card {
 	border: none;
 }
 
-
 h1 {
 	font-size: 22px;
 	border-bottom: solid 1px;
 	padding-bottom: 8px;
 	margin: 40px 0 25px 0;
-	/*border-image-source: linear-gradient(to right, var(--accent), var(--dark-accent));*/
-	border-image-source: linear-gradient(to right, var(--accent), var(--bg));
+	border-image-source: linear-gradient(to right, var(--h1-line-left) 0%, var(--h1-line-center) 50%, var(--h1-line-right) 100%);
 	border-image-slice: 1;
 	color: var(--title-fg);
+	max-width: var(--p-max-width);
 }
 h2 {
 	font-size: 19px;
@@ -183,7 +191,10 @@ kbd.b {
 }
 
 .col-md-9 {
-	max-width: 1000px;
+	max-width: var(--col-max-width);
+}
+p {
+	max-width: var(--p-max-width);
 }
 .col-md-9 img {
 	max-width: 100%;
