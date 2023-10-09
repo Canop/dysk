@@ -1,3 +1,7 @@
+<a name="v2.8.1"></a>
+### v2.8.1 - 2023/10/09
+- require rust 1.70 because that's what clap requires - Fix #69
+
 <a name="v2.8.0"></a>
 ### v2.8.0 - 2023/08/21
 - `--ascii` - Fix #43

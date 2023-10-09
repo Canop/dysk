@@ -82,13 +82,22 @@ fn check_version_consistency() -> std::io::Result<()> {
     let version = env::var("CARGO_PKG_VERSION").expect("cargo pkg version not available");
     let s = fs::read_to_string("Cargo.toml").unwrap();
     let main_cargo: MainCargo = toml::from_str(&s).unwrap();
-    let s = fs::read_to_string("cli/Cargo.toml").unwrap();
+    let Ok(s) = fs::read_to_string("cli/Cargo.toml") else {
+        // won't be visible unless run with -vv
+        eprintln!("No local cli/Cargo.toml -- Assuming a cargo publish compilation");
+        return Ok(());
+    };
     let cli_cargo: CliCargo = toml::from_str(&s).unwrap();
-    println!("VERSION MISMATCH - All dysk and dysk-cli versions must be the same");
-    assert_eq!(&version, &main_cargo.package.version);
-    assert_eq!(&version, &main_cargo.dependencies.dysk_cli.version);
-    assert_eq!(&version, &main_cargo.build_dependencies.dysk_cli.version);
-    assert_eq!(&version, &cli_cargo.package.version);
+    let ok =
+        (&version == &main_cargo.package.version)
+        && (&version == &main_cargo.dependencies.dysk_cli.version)
+        && (&version == &main_cargo.build_dependencies.dysk_cli.version)
+        && (&version == &cli_cargo.package.version);
+    if ok {
+        eprintln!("Checked consistency of dysk and dysk-cli versions: OK");
+    } else {
+        panic!("VERSION MISMATCH - All dysk and dysk-cli versions must be the same");
+    }
     Ok(())
 }
 
