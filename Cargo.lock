@@ -12,6 +12,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "ansi_colours"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a1558bd2075d341b9ca698ec8eb6fcc55a746b1fc4255585aad5b141d918a80"
+dependencies = [
+ "rgb",
+]
+
+[[package]]
 name = "anstream"
 version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -78,6 +87,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
+name = "bytemuck"
+version = "1.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "374d28ec25809ee0e23827c2ab573d729e293f281dfe393500e7ad618baa61c6"
+
+[[package]]
 name = "cc"
 version = "1.0.79"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -101,9 +116,9 @@ dependencies = [
 
 [[package]]
 name = "clap-help"
-version = "0.7.0"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "542031cd21cd56842924c779171af859783a04063e2ede297aa9fa0ffbb8a9b3"
+checksum = "4b3a08fe055ca94ba53737ef3c876c5258cfead4162befe5f26b4070e01418cc"
 dependencies = [
  "clap",
  "termimad",
@@ -170,7 +185,14 @@ name = "coolor"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af4d7a805ca0d92f8c61a31c809d4323fdaa939b0b440e544d21db7797c5aaad"
+
+[[package]]
+name = "coolor"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fb59643927bb051e6c0ce8f0824dee73f07c63c5e06306053e4c35e468169182"
 dependencies = [
+ "ansi_colours",
  "crossterm",
 ]
 
@@ -274,7 +296,7 @@ checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
 name = "dysk"
-version = "2.8.1"
+version = "2.8.2"
 dependencies = [
  "clap",
  "clap_complete",
@@ -286,12 +308,11 @@ dependencies = [
 
 [[package]]
 name = "dysk-cli"
-version = "2.8.1"
+version = "2.8.2"
 dependencies = [
  "bet",
  "clap",
  "clap-help",
- "crossterm",
  "file-size",
  "lfs-core",
  "serde",
@@ -341,36 +362,13 @@ checksum = "4217ad341ebadf8d8e724e264f13e593e0648f5b3e94b3896a5df283be015ecc"
 
 [[package]]
 name = "lazy-regex"
-version = "2.3.1"
+version = "3.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae9656bf98b413727b974a451039bc00ce546c3de9440cb4a7b65222b71e17cc"
+checksum = "e723bd417b2df60a0f6a2b6825f297ea04b245d4ba52b5a22cb679bdf58b05fa"
 dependencies = [
- "lazy-regex-proc_macros 2.3.1",
+ "lazy-regex-proc_macros",
  "once_cell",
  "regex",
-]
-
-[[package]]
-name = "lazy-regex"
-version = "3.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57451d19ad5e289ff6c3d69c2a2424652995c42b79dafa11e9c4d5508c913c01"
-dependencies = [
- "lazy-regex-proc_macros 3.0.1",
- "once_cell",
- "regex",
-]
-
-[[package]]
-name = "lazy-regex-proc_macros"
-version = "2.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da3c3042a5f73640f091fda4175798f2b51c2107deeab18e3017873a4772dd36"
-dependencies = [
- "proc-macro2",
- "quote",
- "regex",
- "syn 1.0.105",
 ]
 
 [[package]]
@@ -387,11 +385,11 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.11.1"
+version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c4441d37490f59d2fdc631e6be973ce8712435e4bfebe9615125b11603cd41f"
+checksum = "75aa9f1a56e1178a04270bdd6f28b3a9cc34bc5429a3139cd03e2eae2ecb455a"
 dependencies = [
- "lazy-regex 2.3.1",
+ "lazy-regex",
  "libc",
  "snafu",
 ]
@@ -565,6 +563,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5ea92a5b6195c6ef2a0295ea818b312502c6fc94dde986c5553242e18fd4ce2"
 
 [[package]]
+name = "rgb"
+version = "0.8.36"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20ec2d3e3fc7a92ced357df9cebd5a10b6fb2aa1ee797bf7e9ce2f17dffc8f59"
+dependencies = [
+ "bytemuck",
+]
+
+[[package]]
 name = "roff"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -710,14 +717,14 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.25.0"
+version = "0.25.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "29bffc8a18091227aeac7ccbf7ccc0359a4b7d4c0b53a4a7680050aae05a0b31"
+checksum = "6b9d2967327d765fe6534b851fe7faa933858b2638152808da2de5b9ad7a43db"
 dependencies = [
- "coolor",
+ "coolor 0.6.1",
  "crossbeam",
  "crossterm",
- "lazy-regex 3.0.1",
+ "lazy-regex",
  "minimad",
  "serde",
  "thiserror",
@@ -730,7 +737,7 @@ version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9077b39afb70f12391e4c1fcf46319999cfc32b45d605a668052bc4d1b4511af"
 dependencies = [
- "coolor",
+ "coolor 0.5.0",
  "crossterm",
  "thiserror",
  "xterm-query",

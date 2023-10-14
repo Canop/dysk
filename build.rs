@@ -89,10 +89,10 @@ fn check_version_consistency() -> std::io::Result<()> {
     };
     let cli_cargo: CliCargo = toml::from_str(&s).unwrap();
     let ok =
-        (&version == &main_cargo.package.version)
-        && (&version == &main_cargo.dependencies.dysk_cli.version)
-        && (&version == &main_cargo.build_dependencies.dysk_cli.version)
-        && (&version == &cli_cargo.package.version);
+        (version == main_cargo.package.version)
+        && (version == main_cargo.dependencies.dysk_cli.version)
+        && (version == main_cargo.build_dependencies.dysk_cli.version)
+        && (version == cli_cargo.package.version);
     if ok {
         eprintln!("Checked consistency of dysk and dysk-cli versions: OK");
     } else {

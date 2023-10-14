@@ -6,7 +6,7 @@ use {
         sorting::Sorting,
     },
     clap::{Parser, ValueEnum},
-    crossterm::tty::IsTty,
+    termimad::crossterm::tty::IsTty,
     std::path::PathBuf,
 };
 

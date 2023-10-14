@@ -1,22 +1,26 @@
 [package]
 name = "dysk-cli"
-version = "2.8.1"
+version = "2.8.2"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
 license = "MIT"
 description = "the dysk cli as a library"
 rust-version = "1.70"
+resolver = "1"
 
 [dependencies]
-bet = "1.0.0"
+bet = "1.0.2"
 clap = { version = "4.4", features = ["derive", "cargo"] }
-clap-help = "0.7.0"
-crossterm = "0.23.2"
+clap-help = "1.0"
 file-size = "1.0.3"
-lfs-core = "0.11.0"
+lfs-core = "0.11.2"
 serde = "1.0"
 serde_json = "1.0"
-termimad = "0.25.0"
+termimad = "0.25.4"
 
 [profile.release]
 strip = true
+
+[patch.crates-io]
+# termimad = { path = "../termimad" }
+

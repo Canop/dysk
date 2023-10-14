@@ -2,9 +2,9 @@ use {
     crate::{
         Args, col::Col,
     },
-    crossterm::style::Color::*,
     lfs_core::*,
     termimad::{
+        crossterm::style::Color::*,
         minimad::{self, OwningTemplateExpander, TableBuilder},
         CompoundStyle, MadSkin, ProgressBar,
     },

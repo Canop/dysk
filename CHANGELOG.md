@@ -1,3 +1,7 @@
+<a name="v2.8.2"></a>
+### v2.8.2 - 2023/10/14
+- cross-project dependency versions harmonization to ease vetting
+
 <a name="v2.8.1"></a>
 ### v2.8.1 - 2023/10/09
 - require rust 1.70 because that's what clap requires - Fix #69
