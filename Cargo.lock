@@ -188,9 +188,9 @@ checksum = "af4d7a805ca0d92f8c61a31c809d4323fdaa939b0b440e544d21db7797c5aaad"
 
 [[package]]
 name = "coolor"
-version = "0.6.1"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb59643927bb051e6c0ce8f0824dee73f07c63c5e06306053e4c35e468169182"
+checksum = "cc3d3f3bce5c226c7e51b7d80532e5fc375c70a58e7834bcce9e50e06ef05e86"
 dependencies = [
  "ansi_colours",
  "crossterm",
@@ -717,11 +717,11 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.25.4"
+version = "0.25.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b9d2967327d765fe6534b851fe7faa933858b2638152808da2de5b9ad7a43db"
+checksum = "3719560d9146e727ecc480825be32ed99af0144fd16827066b86c8133bbdb922"
 dependencies = [
- "coolor 0.6.1",
+ "coolor 0.7.0",
  "crossbeam",
  "crossterm",
  "lazy-regex",
