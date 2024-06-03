@@ -70,6 +70,7 @@ pub fn print(mounts: &[&Mount], args: &Args) -> Result<(), std::io::Error> {
                 Col::Use => csv.cell_opt(mount.stats().map(|s| s.use_share())),
                 Col::UsePercent => csv.cell_opt(mount.stats().map(|s| format!("{:.0}%", 100.0 * s.use_share()))),
                 Col::Free => csv.cell_opt(mount.stats().map(|s| units.fmt(s.available()))),
+                Col::FreePercent => csv.cell_opt(mount.stats().map(|s| format!("{:.0}%", 100.0 * (1.0 - s.use_share())))),
                 Col::Size => csv.cell_opt(mount.stats().map(|s| units.fmt(s.size()))),
                 Col::InodesUsed => csv.cell_opt(mount.inodes().map(|i| i.used())),
                 Col::InodesUse => csv.cell_opt(mount.inodes().map(|i| i.use_share())),

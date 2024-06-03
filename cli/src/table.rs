@@ -45,12 +45,14 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
         }
         if let Some(stats) = mount.stats() {
             let use_share = stats.use_share();
+            let free_share = 1.0 - use_share;
             sub
                 .set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set_md("bar", progress_bar_md(use_share, BAR_WIDTH, args.ascii))
-                .set("free", units.fmt(stats.available()));
+                .set("free", units.fmt(stats.available()))
+                .set("free-percents", format!("{:.0}%", 100.0 * free_share));
             if let Some(inodes) = &stats.inodes {
                 let iuse_share = inodes.use_share();
                 sub
@@ -90,6 +92,7 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                     Col::Use => "~~${use-percents}~~ ${bar}~~${use-error}~~",
                     Col::UsePercent => "~~${use-percents}~~",
                     Col::Free => "*${free}*",
+                    Col::FreePercent => "*${free-percents}*",
                     Col::Size => "**${size}**",
                     Col::InodesFree => "*${ifree}*",
                     Col::InodesUsed => "~~${iused}~~",

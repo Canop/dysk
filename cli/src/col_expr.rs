@@ -109,7 +109,7 @@ impl ColExpr {
                 mount.stats().as_ref().map(|s| s.use_share()),
                 parse_float(&self.value)?,
             ),
-            Col::Free => self.operator.eval_option(
+            Col::Free | Col::FreePercent => self.operator.eval_option(
                 mount.stats().as_ref().map(|s| s.available()),
                 parse_integer(&self.value)?,
             ),

@@ -21,6 +21,7 @@ used | ✓ | cumulated size of the occupied blocks
 use | ✓ | graphical view of the use share
 use_percent |  | percentage of occupied blocks
 free | ✓ | cumulated size of the available blocks
+free_percent |  | percentage of available blocks
 size | ✓ | size of the volume
 inodesfree |  | available inodes
 inodesused |  | inodes used
