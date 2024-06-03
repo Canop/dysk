@@ -296,7 +296,7 @@ checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
 name = "dysk"
-version = "2.8.2"
+version = "2.9.0"
 dependencies = [
  "clap",
  "clap_complete",
@@ -308,7 +308,7 @@ dependencies = [
 
 [[package]]
 name = "dysk-cli"
-version = "2.8.2"
+version = "2.9.0"
 dependencies = [
  "bet",
  "clap",
