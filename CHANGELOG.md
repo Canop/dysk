@@ -1,4 +1,5 @@
-### next
+<a name="v2.9.0"></a>
+### v2.9.0 - 2024/06/03
 - new column: `free_percent` - Fix #74
 
 <a name="v2.8.2"></a>
