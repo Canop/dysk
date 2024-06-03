@@ -1,3 +1,6 @@
+### next
+- new column: `free_percent` - Fix #74
+
 <a name="v2.8.2"></a>
 ### v2.8.2 - 2023/10/14
 - cross-project dependency versions harmonization to ease vetting

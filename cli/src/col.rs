@@ -95,6 +95,7 @@ col_enum!(
     Use "use": "use" default,
     UsePercent "use_percent": "use%",
     Free "free": "free" default,
+    FreePercent "free_percent": "free%",
     Size "size": "size" default,
     InodesUsed "inodes_used" "iused": "used inodes",
     InodesUse "inodes" "ino" "inodes_use" "iuse": "inodes",
@@ -125,6 +126,7 @@ impl Col {
             Self::Use => Alignment::Right,
             Self::UsePercent => Alignment::Right,
             Self::Free => Alignment::Right,
+            Self::FreePercent => Alignment::Right,
             Self::Size => Alignment::Right,
             Self::InodesUsed => Alignment::Right,
             Self::InodesUse => Alignment::Right,
@@ -147,6 +149,7 @@ impl Col {
             Self::Use => "usage graphical view",
             Self::UsePercent => "percentage of blocks used",
             Self::Free => "free bytes",
+            Self::FreePercent => "percentage of free blocks",
             Self::Size => "total size",
             Self::InodesUsed => "number of inodes used",
             Self::InodesUse => "graphical view of inodes usage",
@@ -182,6 +185,8 @@ impl Col {
                 (None, None) => Ordering::Equal,
             },
             Self::Use | Self::UsePercent =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+                // the 'use' column shows the percentage of used blocks, so it makes sense
+                // to sort by use_share for it
                 // SAFETY: use_share() doesn't return NaN
                 (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
                 (Some(_), None) => Ordering::Greater,
@@ -190,6 +195,12 @@ impl Col {
             },
             Self::Free =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.available().cmp(&b.available()),
+                (Some(_), None) => Ordering::Greater,
+                (None, Some(_)) => Ordering::Less,
+                (None, None) => Ordering::Equal,
+            },
+            Self::FreePercent =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+                (Some(a), Some(b)) => b.use_share().partial_cmp(&a.use_share()).unwrap(),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
@@ -241,6 +252,7 @@ impl Col {
             Self::Use => Order::Desc,
             Self::UsePercent => Order::Asc,
             Self::Free => Order::Asc,
+            Self::FreePercent => Order::Desc,
             Self::Size => Order::Desc,
             Self::InodesUsed => Order::Asc,
             Self::InodesUse => Order::Asc,
