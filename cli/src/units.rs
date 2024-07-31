@@ -37,9 +37,9 @@ impl Units {
                 if size < 10_000 {
                     size.to_string()
                 } else {
-                    let size = size as f64;
-                    let i: u32 = (size.ln() / 1024f64.ln()) as u32;
+                    let i = size.ilog2() / 10u32;
                     let idx = i as usize - 1;
+                    let size = size as f64;
                     if idx >= PREFIXES.len() {
                         "huge".to_string()
                     } else {
