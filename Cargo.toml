@@ -1,6 +1,6 @@
 [package]
 name = "dysk"
-version = "2.9.0"
+version = "2.9.1"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2018"
 keywords = ["linux", "filesystem", "fs", "lfs", "disk"]
@@ -17,13 +17,13 @@ build = "build.rs"
 resolver = "1"
 
 [dependencies]
-dysk-cli = { version = "2.9.0", path = "cli" } # beware: version is also in build dependencies
+dysk-cli = { version = "2.9.1", path = "cli" } # beware: version is also in build dependencies
 
 [build-dependencies]
 clap = { version = "4.4", features = ["derive", "cargo"] }
 clap_complete = "4.4"
 clap_mangen = "0.2.12"
-dysk-cli = { version = "2.9.0", path = "cli" }
+dysk-cli = { version = "2.9.1", path = "cli" }
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.7"
 
@@ -31,6 +31,7 @@ toml = "0.7"
 strip = true
 
 [patch.crates-io]
+# bet = { path = "../bet" }
 # minimad = { path = "../minimad" }
 # termimad = { path = "../termimad" }
 # clap-help = { path = "../clap-help" }

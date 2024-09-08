@@ -12,6 +12,7 @@ watch = ["tests", "benches", "examples"]
 
 [jobs.clippy]
 command = ["cargo", "clippy", "--color", "always"]
+watch = ["tests", "benches", "examples", "build.rs"]
 need_stdout = false
 
 [jobs.clippy-all]

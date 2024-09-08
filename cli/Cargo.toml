@@ -1,6 +1,6 @@
 [package]
 name = "dysk-cli"
-version = "2.9.0"
+version = "2.9.1"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
 license = "MIT"
@@ -9,14 +9,14 @@ rust-version = "1.70"
 resolver = "1"
 
 [dependencies]
-bet = "1.0.2"
+bet = "1.0.4"
 clap = { version = "4.4", features = ["derive", "cargo"] }
 clap-help = "1.0"
 file-size = "1.0.3"
 lfs-core = "0.11.2"
 serde = "1.0"
 serde_json = "1.0"
-termimad = "0.25.5"
+termimad = "0.30"
 
 [profile.release]
 strip = true

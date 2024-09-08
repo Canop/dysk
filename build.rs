@@ -43,7 +43,7 @@ fn build_man_page() -> std::io::Result<()> {
     let out_dir = PathBuf::from(out_dir);
     let cmd = Args::command();
     let man = clap_mangen::Man::new(cmd);
-    let mut buffer: Vec<u8> = Default::default();
+    let mut buffer = Vec::<u8>::default();
     man.render(&mut buffer)?;
     let file_path = out_dir.join("dysk.1");
     std::fs::write(&file_path, buffer)?;
@@ -53,7 +53,7 @@ fn build_man_page() -> std::io::Result<()> {
 
 /// Check that all dysk versions are the same
 ///
-/// See https://github.com/Canop/dysk/issues/65
+/// See <https://github.com/Canop/dysk/issues/65>
 fn check_version_consistency() -> std::io::Result<()> {
     #[derive(Deserialize)]
     struct Package {
