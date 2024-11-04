@@ -22,7 +22,7 @@
 	--link-fg: #000;
 	--link-bg: rgba(var(--dark-accent-rgb), 0.5);
 	--code-fg: #ccc;
-	--code-bg: #282828;
+	--code-bg: #353030;
 	--note-bg: #1c393542;
 	--inline-code-border: solid 1px #333;
 	--hovered-menu-bg: linear-gradient(#444, var(--accent));
@@ -226,7 +226,7 @@ body .navbar-brand {
 	//background: url(../img/logo-white.svg) no-repeat;
 	// background-position: 5px center;
 	// background-size: 70px 40px;
-	font-family: Monaco, Courier, serif;
+	// font-family: Monaco, Courier, serif;
 	padding-left: 85px;
 	color: var(--accent);
 	/*font-weight: bold;*/
@@ -320,6 +320,20 @@ td code {
 	white-space: nowrap;
 }
 
+.modal-title {
+	color: #eee;
+}
+.modal-dialog {
+	font-size: 15px;
+	color: #ccc;
+}
+.modal-dialog a {
+	color: var(--accent);
+}
+.modal-dialog a:hover {
+	text-decoration: underline;
+	color: var(--accent);
+}
 .modal-content {
 	background: #222;
 }
