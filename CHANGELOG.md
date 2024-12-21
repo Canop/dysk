@@ -1,3 +1,7 @@
+<a name="v2.10.0"></a>
+### v2.10.0 - 2024/12/21
+- add UUID and PARTUUID - Fix #82
+
 <a name="v2.9.1"></a>
 ### v2.9.1 - 2024/09/08
 - fix wrong parsing of some filters with successive operators without parenthesis
