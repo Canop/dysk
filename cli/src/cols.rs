@@ -201,7 +201,7 @@ mod cols_parsing {
     fn algebraic_cols() {
         check(
             "all - dev -inodes + label",
-            vec![Id, Filesystem, Type, Remote, Disk, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUsePercent, InodesFree, InodesCount, MountPoint, Label],
+            vec![Id, Filesystem, Type, Remote, Disk, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUsePercent, InodesFree, InodesCount, MountPoint, Uuid, PartUuid, Label],
         );
         check(
             "dev + dev +disk - use + size",
@@ -209,19 +209,19 @@ mod cols_parsing {
         );
         check(
             "all-default+use",
-            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Use],
+            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Uuid, PartUuid, Use],
         );
         check(
             "all+default", // special: all but default at the end
-            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint]
+            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Uuid, PartUuid, Filesystem, Type, Disk, Used, Use, Free, Size, MountPoint]
         );
         check(
             "fs dev all", // we want all column but fs and dev at the start
-            vec![Filesystem, Dev, Id, Label, Type, Remote, Disk, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
+            vec![Filesystem, Dev, Id, Label, Type, Remote, Disk, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint, Uuid, PartUuid],
         );
         check(
             "fs dev all -id-disk",
-            vec![Filesystem, Dev, Label, Type, Remote, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint],
+            vec![Filesystem, Dev, Label, Type, Remote, Used, Use, UsePercent, Free, FreePercent, Size, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, MountPoint, Uuid, PartUuid],
         );
     }
 
@@ -257,7 +257,7 @@ mod cols_parsing {
         );
         check(
             "all-",
-            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount],
+            vec![Id, Dev, Label, Remote, UsePercent, FreePercent, InodesUsed, InodesUse, InodesUsePercent, InodesFree, InodesCount, Uuid, PartUuid],
         );
         check(
             "-size+inodes_free+",
