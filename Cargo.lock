@@ -290,7 +290,7 @@ checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
 name = "dysk"
-version = "2.9.1"
+version = "2.10.0"
 dependencies = [
  "clap",
  "clap_complete",
@@ -302,7 +302,7 @@ dependencies = [
 
 [[package]]
 name = "dysk-cli"
-version = "2.9.1"
+version = "2.10.0"
 dependencies = [
  "bet",
  "clap",
@@ -407,9 +407,9 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.11.2"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75aa9f1a56e1178a04270bdd6f28b3a9cc34bc5429a3139cd03e2eae2ecb455a"
+checksum = "8e82a5cf0e76998e9851974c5dd150c290c3c15c43994ad8e6a8f14446f2bc5f"
 dependencies = [
  "lazy-regex",
  "libc",

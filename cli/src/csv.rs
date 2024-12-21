@@ -78,6 +78,8 @@ pub fn print(mounts: &[&Mount], args: &Args) -> Result<(), std::io::Error> {
                 Col::InodesFree => csv.cell_opt(mount.inodes().map(|i| i.favail)),
                 Col::InodesCount => csv.cell_opt(mount.inodes().map(|i| i.files)),
                 Col::MountPoint => csv.cell(&mount.info.mount_point.to_string_lossy()),
+                Col::Uuid => csv.cell(mount.uuid.as_ref().map_or("", |v| v)),
+                Col::PartUuid => csv.cell(mount.part_uuid.as_ref().map_or("", |v| v)),
             }?;
         }
         csv.end_line()?;

@@ -137,6 +137,14 @@ impl ColExpr {
                 &mount.info.mount_point.to_string_lossy(),
                 &self.value,
             ),
+            Col::Uuid => self.operator.eval_option_str(
+                mount.uuid.as_deref(),
+                &self.value,
+            ),
+            Col::PartUuid => self.operator.eval_option_str(
+                mount.part_uuid.as_deref(),
+                &self.value,
+            ),
         })
     }
 }

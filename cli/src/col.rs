@@ -103,6 +103,8 @@ col_enum!(
     InodesFree "inodes_free" "ifree": "free inodes",
     InodesCount "inodes_total" "inodes_count" "itotal": "inodes total",
     MountPoint "mount" "mount_point" "mp": "mount point" default,
+    Uuid "uuid": "UUID",
+    PartUuid "partuuid" "part_uuid": "PARTUUID",
 );
 
 impl Col {
@@ -134,6 +136,8 @@ impl Col {
             Self::InodesFree => Alignment::Right,
             Self::InodesCount => Alignment::Right,
             Self::MountPoint => Alignment::Left,
+            Self::Uuid => Alignment::Left,
+            Self::PartUuid => Alignment::Left,
         }
     }
     pub fn description(self) -> &'static str {
@@ -157,6 +161,8 @@ impl Col {
             Self::InodesFree => "number of free inodes",
             Self::InodesCount => "total count of inodes",
             Self::MountPoint => "mount point",
+            Self::Uuid => "filesystem UUID",
+            Self::PartUuid => "partition UUID",
         }
     }
     pub fn comparator(self) -> impl for<'a, 'b> FnMut(&'a Mount, &'b Mount) -> Ordering {
@@ -237,6 +243,18 @@ impl Col {
                 (None, None) => Ordering::Equal,
             },
             Self::MountPoint =>  |a: &Mount, b: &Mount| a.info.mount_point.cmp(&b.info.mount_point),
+            Self::Uuid => |a: &Mount, b: &Mount| match (&a.uuid, &b.uuid) {
+                (Some(a), Some(b)) => a.cmp(b),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
+            Self::PartUuid => |a: &Mount, b: &Mount| match (&a.part_uuid, &b.part_uuid) {
+                (Some(a), Some(b)) => a.cmp(b),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
         }
     }
     pub fn default_sort_order(self) -> Order {
@@ -260,6 +278,8 @@ impl Col {
             Self::InodesFree => Order::Asc,
             Self::InodesCount => Order::Asc,
             Self::MountPoint => Order::Asc,
+            Self::Uuid => Order::Asc,
+            Self::PartUuid => Order::Asc,
         }
     }
     pub fn default_sort_col() -> Self {

@@ -36,7 +36,9 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
             .set("filesystem", &mount.info.fs)
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("type", &mount.info.fs_type)
-            .set("mount-point", mount.info.mount_point.to_string_lossy());
+            .set("mount-point", mount.info.mount_point.to_string_lossy())
+            .set_option("uuid", mount.uuid.as_ref())
+            .set_option("part_uuid", mount.part_uuid.as_ref());
         if let Some(label) = &mount.fs_label {
             sub.set("label", label);
         }
@@ -100,6 +102,8 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                     Col::InodesUsePercent => "~~${iuse-percents}~~",
                     Col::InodesCount => "**${inodes}**",
                     Col::MountPoint => "${mount-point}",
+                    Col::Uuid => "${uuid}",
+                    Col::PartUuid => "${part_uuid}",
                 }
             )
             .align_content(col.content_align())
