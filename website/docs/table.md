@@ -29,6 +29,8 @@ inodes |  | inodes use share, graphical
 inodes_use_percent |  | inodes use share, in percents
 inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
+uuid |  | filesystem's UUID
+partuuid |  | partition's UUID
 
 
 ## Choose columns
