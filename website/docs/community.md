@@ -36,6 +36,3 @@ If you think you might help, as a tester or coder, you're welcome, but please re
 
 If you want to display the same data in your Rust application, consider using this crate directly.
 
-For example **[broot](https://dystroy.org/broot)** uses lfs-core to display the available size in each folder's device:
-
-![screen](img/broot-w.png)
