@@ -131,10 +131,8 @@ fn progress_bar_md(
 ) -> String {
     if ascii {
         let count = (share * bar_width as f64).round() as usize;
-        let bar: String = std::iter::repeat('=')
-            .take(count).collect();
-        let no_bar: String = std::iter::repeat('-')
-            .take(bar_width-count).collect();
+        let bar: String = "".repeat(count);
+        let no_bar: String = "-".repeat(bar_width-count);
         format!("~~{}~~*{}*", bar, no_bar)
     } else {
         let pb = ProgressBar::new(share as f32, bar_width);

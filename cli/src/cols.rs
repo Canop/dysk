@@ -87,7 +87,7 @@ impl FromStr for Cols {
                 must_create = true;
             }
         }
-        let mut cols = if let Some(first_token) = tokens.get(0) {
+        let mut cols = if let Some(first_token) = tokens.first() {
             if first_token == "+" || first_token == "-" {
                 // if it starts with an addition or removal, the
                 // default set is implied
