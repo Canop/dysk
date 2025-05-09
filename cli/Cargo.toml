@@ -11,12 +11,12 @@ resolver = "1"
 [dependencies]
 bet = "1.0.4"
 clap = { version = "4.4", features = ["derive", "cargo"] }
-clap-help = "1.0"
+clap-help = "1.4"
 file-size = "1.0.3"
 lfs-core = "0.12"
 serde = "1.0"
 serde_json = "1.0"
-termimad = "0.30"
+termimad = "0.32"
 
 [profile.release]
 strip = true
