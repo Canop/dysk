@@ -112,6 +112,7 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
     }
 
     skin.print_owning_expander_md(&expander, &tbl);
+    print!("\u{1b}[0m");
 }
 
 fn make_colored_skin() -> MadSkin {
