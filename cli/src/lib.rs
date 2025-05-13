@@ -35,10 +35,12 @@ pub fn run() {
     }
     if args.help {
         help::print(args.ascii);
+        csi_reset();
         return;
     }
     if args.list_cols {
         list_cols::print(args.color(), args.ascii);
+        csi_reset();
         return;
     }
     let mut options = lfs_core::ReadOptions::default();
@@ -88,5 +90,10 @@ pub fn run() {
         return;
     }
     table::print(&mounts, args.color(), &args);
+    csi_reset();
 }
 
+/// output a Reset CSI sequence
+fn csi_reset(){
+    print!("\u{1b}[0m");
+}
