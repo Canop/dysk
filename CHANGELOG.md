@@ -1,3 +1,7 @@
+<a name="v2.10.1"></a>
+### v2.10.1 - 2022/05/13
+- do a style reset after printing tables - Fix #85
+
 <a name="v2.10.0"></a>
 ### v2.10.0 - 2024/12/21
 - add UUID and PARTUUID - Fix #82

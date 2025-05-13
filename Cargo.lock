@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "dysk"
-version = "2.10.0"
+version = "2.10.1"
 dependencies = [
  "clap",
  "clap_complete",
@@ -343,7 +343,7 @@ dependencies = [
 
 [[package]]
 name = "dysk-cli"
-version = "2.10.0"
+version = "2.10.1"
 dependencies = [
  "bet",
  "clap",
