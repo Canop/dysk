@@ -34,6 +34,8 @@ cross_build "ARM 32 MUSL" "armv7-unknown-linux-musleabi"
 cross_build "ARM 64" "aarch64-unknown-linux-gnu"
 cross_build "ARM 64 MUSL" "aarch64-unknown-linux-musl"
 cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
+cross_build "RISC-V" "riscv64gc-unknown-linux-gnu"
+cross_build "RISC-V MUSL" "riscv64gc-unknown-linux-musl"
 
 # build the (local) linux version
 target="x86_64-linux"
