@@ -449,6 +449,7 @@ dependencies = [
 [[package]]
 name = "lfs-core"
 version = "0.12.0"
+source = "git+https://github.com/Canop/lfs-core.git?branch=mac-diskutil#cebda738ccdad78d96275f537f2a0aedf1e2e7d2"
 dependencies = [
  "lazy-regex",
  "libc",
