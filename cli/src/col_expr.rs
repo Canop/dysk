@@ -76,8 +76,15 @@ impl ColExpr {
                 self.value.parse::<MountId>()
                     .map_err(|_| EvalExprError::NotAnId(self.value.to_string()))?,
             ),
+            #[cfg(target_os = "macos")]
             Col::Dev => self.operator.eval(
                 mount.info.dev.to_string(),
+                self.value.parse::<DeviceId>()
+                    .map_err(|_| EvalExprError::NotADeviceId(self.value.to_string()))?,
+            ),
+            #[cfg(target_os = "linux")]
+            Col::Dev => self.operator.eval(
+                mount.info.dev,
                 self.value.parse::<DeviceId>()
                     .map_err(|_| EvalExprError::NotADeviceId(self.value.to_string()))?,
             ),
