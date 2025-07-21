@@ -23,7 +23,12 @@ pub fn is_normal(m: &Mount) -> bool {
 
 #[cfg(target_os="macos")]
 fn is_system_path(path: &Path) -> bool {
-    path.starts_with("/System") && !path.starts_with("/System/Volumes/Data")
+    let Some(path) = path.to_str() else { return false; };
+    if path == "/" {
+        return true;
+    }
+    path.starts_with("/System")
+        && !path.starts_with("/System/Volumes/Data")
 }
 
 #[cfg(target_os="linux")]
