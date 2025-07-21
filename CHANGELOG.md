@@ -1,3 +1,9 @@
+
+Breaking changes:
+- device id format is OS dependant, is printed as a simple string in JSON (was `{major,minor}`)
+Not Supported on Mac:
+- path argument
+
 <a name="v2.10.1"></a>
 ### v2.10.1 - 2022/05/13
 - do a style reset after printing tables - Fix #85

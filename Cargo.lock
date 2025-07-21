@@ -449,8 +449,6 @@ dependencies = [
 [[package]]
 name = "lfs-core"
 version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8e82a5cf0e76998e9851974c5dd150c290c3c15c43994ad8e6a8f14446f2bc5f"
 dependencies = [
  "lazy-regex",
  "libc",

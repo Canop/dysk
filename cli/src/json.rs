@@ -21,6 +21,7 @@ pub fn output_value(mounts: &[&Mount], units: Units) -> Value {
                     json!({
                         "bsize": s.bsize,
                         "blocks": s.blocks,
+                        "bused": s.bused,
                         "bfree": s.bfree,
                         "bavail": s.bavail,
                         "size": units.fmt(s.size()),
@@ -41,10 +42,7 @@ pub fn output_value(mounts: &[&Mount], units: Units) -> Value {
                 });
                 json!({
                     "id": mount.info.id,
-                    "dev": {
-                        "major": mount.info.dev.major,
-                        "minor": mount.info.dev.minor,
-                    },
+                    "dev": mount.info.dev.to_string(),
                     "fs": mount.info.fs,
                     "fs-label": mount.fs_label,
                     "fs-type": mount.info.fs_type,

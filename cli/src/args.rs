@@ -7,7 +7,6 @@ use {
     },
     clap::{Parser, ValueEnum},
     termimad::crossterm::tty::IsTty,
-    std::path::PathBuf,
 };
 
 /// List your filesystems.
@@ -74,6 +73,7 @@ pub struct Args {
     pub csv_separator: char,
 
     /// if provided, only the device holding this path will be shown
+    #[cfg(target_os="linux")]
     pub path: Option<PathBuf>,
 }
 

@@ -30,9 +30,8 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
     for mount in mounts {
         let sub = expander
             .sub("rows")
-            .set("id", mount.info.id)
-            .set("dev-major", mount.info.dev.major)
-            .set("dev-minor", mount.info.dev.minor)
+            .set("id", mount.info.id.as_ref().map_or("".to_string(), |i| i.to_string()))
+            .set("dev", &mount.info.dev)
             .set("filesystem", &mount.info.fs)
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("type", &mount.info.fs_type)
@@ -84,7 +83,7 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                 col.title(),
                 match col {
                     Col::Id => "${id}",
-                    Col::Dev => "${dev-major}:${dev-minor}",
+                    Col::Dev => "${dev}",
                     Col::Filesystem => "${filesystem}",
                     Col::Label => "${label}",
                     Col::Disk => "${disk}",

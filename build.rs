@@ -4,9 +4,12 @@
 //! Note: to see the eprintln messages, run cargo with
 //!     cargo -vv build --release
 use {
-    dysk_cli::args::Args,
     clap::CommandFactory,
-    clap_complete::{Generator, Shell},
+    clap_complete::{
+        Generator,
+        Shell,
+    },
+    dysk_cli::args::Args,
     serde::Deserialize,
     std::{
         env,
@@ -16,14 +19,13 @@ use {
     },
 };
 
-fn write_completions_file<G: Generator + Copy, P: AsRef<OsStr>>(generator: G, out_dir: P) {
+fn write_completions_file<G: Generator + Copy, P: AsRef<OsStr>>(
+    generator: G,
+    out_dir: P,
+) {
     let mut args = Args::command();
-    clap_complete::generate_to(
-        generator,
-        &mut args,
-        "dysk".to_string(),
-        &out_dir,
-    ).expect("clap complete generation failed");
+    clap_complete::generate_to(generator, &mut args, "dysk".to_string(), &out_dir)
+        .expect("clap complete generation failed");
 }
 
 /// write the shell completion scripts which will be added to
@@ -88,8 +90,7 @@ fn check_version_consistency() -> std::io::Result<()> {
         return Ok(());
     };
     let cli_cargo: CliCargo = toml::from_str(&s).unwrap();
-    let ok =
-        (version == main_cargo.package.version)
+    let ok = (version == main_cargo.package.version)
         && (version == main_cargo.dependencies.dysk_cli.version)
         && (version == main_cargo.build_dependencies.dysk_cli.version)
         && (version == cli_cargo.package.version);

@@ -71,13 +71,13 @@ impl ColExpr {
     }
     pub fn eval(&self, mount: &Mount) -> Result<bool, EvalExprError> {
         Ok(match self.col {
-            Col::Id => self.operator.eval(
+            Col::Id => self.operator.eval_option(
                 mount.info.id,
                 self.value.parse::<MountId>()
                     .map_err(|_| EvalExprError::NotAnId(self.value.to_string()))?,
             ),
             Col::Dev => self.operator.eval(
-                mount.info.dev,
+                mount.info.dev.to_string(),
                 self.value.parse::<DeviceId>()
                     .map_err(|_| EvalExprError::NotADeviceId(self.value.to_string()))?,
             ),

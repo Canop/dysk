@@ -35,4 +35,4 @@ strip = true
 # minimad = { path = "../minimad" }
 # termimad = { path = "../termimad" }
 # clap-help = { path = "../clap-help" }
-# lfs-core = { path = "../lfs-core" }
+lfs-core = { path = "../lfs-core" }
