@@ -87,8 +87,6 @@ pub struct Args {
     pub csv_separator: char,
 
     /// if provided, only the device holding this path will be shown
-    // TODO implement for mac probably by taking the device with the longest compatible mount path
-    #[cfg(target_os = "linux")]
     pub path: Option<std::path::PathBuf>,
 }
 
