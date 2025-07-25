@@ -1,8 +1,5 @@
-
-Breaking changes:
-- device id format is OS dependant, is printed as a simple string in JSON (was `{major,minor}`)
-Not Supported on Mac:
-- path argument
+### next
+dysk now works on Mac
 
 <a name="v2.10.1"></a>
 ### v2.10.1 - 2022/05/13

@@ -42,7 +42,10 @@ pub fn output_value(mounts: &[&Mount], units: Units) -> Value {
                 });
                 json!({
                     "id": mount.info.id,
-                    "dev": mount.info.dev.to_string(),
+                    "dev": {
+                        "major": mount.info.dev.major,
+                        "minor": mount.info.dev.minor,
+                    },
                     "fs": mount.info.fs,
                     "fs-label": mount.fs_label,
                     "fs-type": mount.info.fs_type,
