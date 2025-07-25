@@ -71,7 +71,7 @@ impl ColExpr {
     }
     pub fn eval(&self, mount: &Mount) -> Result<bool, EvalExprError> {
         Ok(match self.col {
-            Col::Id => self.operator.eval(
+            Col::Id => self.operator.eval_option(
                 mount.info.id,
                 self.value.parse::<MountId>()
                     .map_err(|_| EvalExprError::NotAnId(self.value.to_string()))?,

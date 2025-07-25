@@ -1,0 +1,5 @@
+edition = "2021"
+style_edition = "2024"
+imports_granularity = "One"
+imports_layout = "Vertical"
+fn_params_layout = "Vertical"

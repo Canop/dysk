@@ -30,7 +30,7 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
     for mount in mounts {
         let sub = expander
             .sub("rows")
-            .set("id", mount.info.id)
+            .set("id", mount.info.id.as_ref().map_or("".to_string(), |i| i.to_string()))
             .set("dev-major", mount.info.dev.major)
             .set("dev-minor", mount.info.dev.minor)
             .set("filesystem", &mount.info.fs)

@@ -2,21 +2,29 @@ use {
     crate::{
         cols::Cols,
         filter::Filter,
-        units::Units,
         sorting::Sorting,
+        units::Units,
     },
-    clap::{Parser, ValueEnum},
+    clap::{
+        Parser,
+        ValueEnum,
+    },
     termimad::crossterm::tty::IsTty,
-    std::path::PathBuf,
 };
 
 /// List your filesystems.
 ///
 /// Documentation at https://dystroy.org/dysk
 #[derive(Debug, Parser)]
-#[command(author, about, name = "dysk", disable_version_flag = true, version, disable_help_flag = true)]
+#[command(
+    author,
+    about,
+    name = "dysk",
+    disable_version_flag = true,
+    version,
+    disable_help_flag = true
+)]
 pub struct Args {
-
     /// print help information
     #[arg(long)]
     pub help: bool,
@@ -30,7 +38,7 @@ pub struct Args {
     pub all: bool,
 
     /// whether to have styles and colors
-    #[arg(long, default_value="auto", value_name = "color")]
+    #[arg(long, default_value = "auto", value_name = "color")]
     pub color: TriBool,
 
     /// use only ASCII characters for table rendering
@@ -38,7 +46,7 @@ pub struct Args {
     pub ascii: bool,
 
     /// fetch stats of remote volumes
-    #[arg(long, default_value="auto", value_name = "choice")]
+    #[arg(long, default_value = "auto", value_name = "choice")]
     pub remote_stats: TriBool,
 
     /// list the column names which can be used in -s, -f, or -c
@@ -46,7 +54,12 @@ pub struct Args {
     pub list_cols: bool,
 
     /// columns, eg `-c +inodes` or `-c id+dev+default`
-    #[arg(short, long, default_value = "fs+type+disk+used+use+free+size+mp", value_name = "columns")]
+    #[arg(
+        short,
+        long,
+        default_value = "fs+type+disk+used+use+free+size+mp",
+        value_name = "columns"
+    )]
     pub cols: Cols,
 
     /// filter, eg `-f '(size<35G | remote=false) & type=xfs'`
@@ -74,22 +87,24 @@ pub struct Args {
     pub csv_separator: char,
 
     /// if provided, only the device holding this path will be shown
-    pub path: Option<PathBuf>,
+    pub path: Option<std::path::PathBuf>,
 }
 
 /// This is an Option<bool> but I didn't find any way to configure
 /// clap to parse an Option<T> as I want
-#[derive(ValueEnum)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(ValueEnum, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TriBool {
     Auto,
     Yes,
     No,
 }
 impl TriBool {
-    pub fn unwrap_or_else<F>(self, f: F) -> bool
+    pub fn unwrap_or_else<F>(
+        self,
+        f: F,
+    ) -> bool
     where
-        F: FnOnce() -> bool
+        F: FnOnce() -> bool,
     {
         match self {
             Self::Auto => f(),

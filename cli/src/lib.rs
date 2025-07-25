@@ -19,10 +19,6 @@ use {
         normal::*,
     },
     clap::Parser,
-    std::{
-        fs,
-        os::unix::fs::MetadataExt,
-    },
 };
 
 
@@ -56,7 +52,8 @@ pub fn run() {
         mounts.retain(is_normal);
     }
     if let Some(path) = &args.path {
-        let md = match fs::metadata(path) {
+        use std:: os::unix::fs::MetadataExt;
+        let md = match std::fs::metadata(path) {
             Ok(md) => md,
             Err(e) => {
                 eprintln!("Can't read {:?} : {}", path, e);
