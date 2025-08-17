@@ -1,7 +1,7 @@
 
 # Purpose
 
-**dysk** is a linux utility listing your filesystems.
+**dysk** is a Linux/Mac utility listing your filesystems.
 
 ![standard](img/dysk.png)
 
