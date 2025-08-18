@@ -26,24 +26,10 @@ Binaries are made available at every release in [download](https://dystroy.org/d
 
 The archives also contain dysk's man page and shell completion scripts.
 
-Direct links:
-
-
-Target|Details|Download
--|-|-
-x86-64 Linux | Intel/AMD, needs a recent enough linux  | [x86_64-linux](https://dystroy.org/dysk/download/x86_64-linux/dysk)
-x86-64 Linux old glibc | Intel/AMD, compatible with older glibc | [x86_64-unknown-linux-gnu](https://dystroy.org/dysk/download/x86_64-unknown-linux-gnu/dysk)
-x86-64 Linux musl | Intel/AMD, very compatible | [x86_64-unknown-linux-musl](https://dystroy.org/dysk/download/x86_64-unknown-linux-musl/dysk)
-ARM32 Linux |  | [armv7-unknown-linux-gnueabihf](https://dystroy.org/dysk/download/armv7-unknown-linux-gnueabihf/dysk)
-ARM32 Linux musl |  | [armv7-unknown-linux-musleabi](https://dystroy.org/dysk/download/armv7-unknown-linux-musleabi/dysk)
-ARM64 Linux |  | [aarch64-unknown-linux-gnu](https://dystroy.org/dysk/download/aarch64-unknown-linux-gnu/dysk)
-ARM64 Linux musl |  | [aarch64-unknown-linux-musl](https://dystroy.org/dysk/download/aarch64-unknown-linux-musl/dysk)
-x86-64 NetBSD | | [x86_64-unknown-netbsd](https://dystroy.org/dysk/download/x86_64-unknown-netbsd/dysk)
-
 
 You may download previous releases on [GitHub releases](https://github.com/Canop/dysk/releases).
 
-When you download executable files, you'll have to ensure the shell can find them. An easy solution is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
+When you download executable files, you'll have to ensure the shell can find them. An easy solution on linux is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 
 # From crates.io
 
