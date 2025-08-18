@@ -1,5 +1,5 @@
 
-**dysk** only works on linux.
+**dysk** works on Linux and Mac.
 
 Current version: **<a id=current-version href=../download>download</a>**
 <script>
