@@ -9,7 +9,5 @@
 version=$(./version.sh)
 
 # # deploy on dystroy.org
-rm -rf ~/dev/www/dystroy/dysk/download/*
-cp -r build/* ~/dev/www/dystroy/dysk/download/
-cp "dysk_$version.zip"  ~/dev/www/dystroy/dysk/download/
-~/dev/www/dystroy/deploy.sh
+scp -r build/* dys@dystroy.org:~/prod/www.dystroy.org/dysk/download/
+scp "dysk_$version.zip"  dys@dystroy.org:~/prod/www.dystroy.org/dysk/download/

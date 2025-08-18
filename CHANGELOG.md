@@ -1,8 +1,9 @@
-### next
-dysk now works on Mac
+<a name="v3.0.0"></a>
+### v3.0.0 - 2025/08/18
+dysk now works on Mac too - Fix #24
 
 <a name="v2.10.1"></a>
-### v2.10.1 - 2022/05/13
+### v2.10.1 - 2025/05/13
 - do a style reset after printing tables - Fix #85
 
 <a name="v2.10.0"></a>
