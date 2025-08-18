@@ -37,9 +37,9 @@ cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 cross_build "RISC-V" "riscv64gc-unknown-linux-gnu"
 cross_build "RISC-V MUSL" "riscv64gc-unknown-linux-musl"
 
-# build the (local) linux version
-target="x86_64-linux"
-echo -e "${H2}Compiling the linux version - $target${EH}"
+# build the local version
+target=$(./target.sh)
+echo -e "${H2}Compiling the local target - $target${EH}"
 cargo clean
 cargo build --release 
 mkdir "build/$target/"
