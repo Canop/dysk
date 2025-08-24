@@ -27,7 +27,10 @@ impl Default for Sorting {
 }
 
 impl Sorting {
-    pub fn sort(self, mounts: &mut [Mount]) {
+    pub fn sort(
+        self,
+        mounts: &mut [Mount],
+    ) {
         let comparator = self.col.comparator();
         mounts.sort_by(comparator);
         if self.order == Order::Desc {
@@ -42,7 +45,10 @@ pub struct ParseSortingError {
     reason: String,
 }
 impl ParseSortingError {
-    pub fn new<S: Into<String>, E: ToString>(raw: S, reason: E) -> Self {
+    pub fn new<S: Into<String>, E: ToString>(
+        raw: S,
+        reason: E,
+    ) -> Self {
         Self {
             raw: raw.into(),
             reason: reason.to_string(),
@@ -50,8 +56,15 @@ impl ParseSortingError {
     }
 }
 impl fmt::Display for ParseSortingError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?} can't be parsed as a sort expression because {}", self.raw, self.reason)
+    fn fmt(
+        &self,
+        f: &mut fmt::Formatter<'_>,
+    ) -> fmt::Result {
+        write!(
+            f,
+            "{:?} can't be parsed as a sort expression because {}",
+            self.raw, self.reason
+        )
     }
 }
 impl error::Error for ParseSortingError {}
@@ -64,19 +77,17 @@ impl FromStr for Sorting {
             .find(|(_idx, c)| c.is_whitespace() || *c == '-')
             .map(|(idx, c)| (idx, c.len_utf8()));
         let (s_col, s_order) = match cut_idx_len {
-            Some((idx, len)) => (&s[..idx], Some(&s[idx+len..])),
+            Some((idx, len)) => (&s[..idx], Some(&s[idx + len..])),
             None => (s, None),
         };
-        let col: Col = s_col.parse()
+        let col: Col = s_col
+            .parse()
             .map_err(|pce| ParseSortingError::new(s, Box::new(pce)))?;
         let order = match s_order {
-            Some(s_order) => {
-                s_order.parse()
-                    .map_err(|poe| ParseSortingError::new(s, Box::new(poe)))?
-            }
-            None => {
-                col.default_sort_order()
-            }
+            Some(s_order) => s_order
+                .parse()
+                .map_err(|poe| ParseSortingError::new(s, Box::new(poe)))?,
+            None => col.default_sort_order(),
         };
         Ok(Self { col, order })
     }

@@ -1,8 +1,8 @@
 use {
     crate::col::ALL_COLS,
     termimad::{
-        minimad::OwningTemplateExpander,
         MadSkin,
+        minimad::OwningTemplateExpander,
     },
 };
 
@@ -25,11 +25,15 @@ ${column
 "#;
 
 /// Print an help text describing columns
-pub fn print(color: bool, ascii: bool) {
+pub fn print(
+    color: bool,
+    ascii: bool,
+) {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for &col in ALL_COLS {
-        expander.sub("column")
+        expander
+            .sub("column")
             .set("name", col.name())
             .set("aliases", col.aliases().join(", "))
             .set("default", if col.is_default() { "x" } else { "" })
@@ -45,4 +49,3 @@ pub fn print(color: bool, ascii: bool) {
     }
     skin.print_owning_expander_md(&expander, MD);
 }
-

@@ -86,6 +86,10 @@ pub struct Args {
     #[arg(long, default_value = ",", value_name = "sep")]
     pub csv_separator: char,
 
+    /// Strategy to use to find information, when several are available
+    #[arg(long)]
+    pub strategy: Option<String>,
+
     /// if provided, only the device holding this path will be shown
     pub path: Option<std::path::PathBuf>,
 }

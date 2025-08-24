@@ -21,7 +21,6 @@ use {
     clap::Parser,
 };
 
-
 #[allow(clippy::match_like_matches_macro)]
 pub fn run() {
     let args = Args::parse();
@@ -39,8 +38,19 @@ pub fn run() {
         csi_reset();
         return;
     }
-    let mut options = lfs_core::ReadOptions::default();
-    options.remote_stats(args.remote_stats.unwrap_or_else(||true));
+    let mut options =
+        lfs_core::ReadOptions::default()
+        .remote_stats(args.remote_stats.unwrap_or_else(|| true));
+    if let Some(strategy) = &args.strategy {
+        match strategy.parse() {
+            Ok(strategy) => {
+                options = options.strategy(strategy);
+            }
+            Err(_) => {
+                eprintln!("Ignoring unrecognized strategy");
+            }
+        }
+    }
     let mut mounts = match lfs_core::read_mounts(&options) {
         Ok(mounts) => mounts,
         Err(e) => {
@@ -52,7 +62,7 @@ pub fn run() {
         mounts.retain(is_normal);
     }
     if let Some(path) = &args.path {
-        use std:: os::unix::fs::MetadataExt;
+        use std::os::unix::fs::MetadataExt;
         let md = match std::fs::metadata(path) {
             Ok(md) => md,
             Err(e) => {
@@ -91,6 +101,6 @@ pub fn run() {
 }
 
 /// output a Reset CSI sequence
-fn csi_reset(){
+fn csi_reset() {
     print!("\u{1b}[0m");
 }
