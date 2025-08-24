@@ -1,6 +1,7 @@
 use {
     crate::{
-        Args, col::Col,
+        Args,
+        col::Col,
     },
     lfs_core::*,
     std::{
@@ -16,10 +17,16 @@ struct Csv<W: Write> {
 }
 
 impl<W: Write> Csv<W> {
-    pub fn new(separator: char, w: W) -> Self {
+    pub fn new(
+        separator: char,
+        w: W,
+    ) -> Self {
         Self { separator, w }
     }
-    pub fn cell<D: Display>(&mut self, content: D) -> Result<(), std::io::Error> {
+    pub fn cell<D: Display>(
+        &mut self,
+        content: D,
+    ) -> Result<(), std::io::Error> {
         let s = content.to_string();
         let needs_quotes = s.contains(self.separator) || s.contains('"') || s.contains('\n');
         if needs_quotes {
@@ -37,7 +44,10 @@ impl<W: Write> Csv<W> {
         }
         write!(self.w, "{}", self.separator)
     }
-    pub fn cell_opt<D: Display>(&mut self, content: Option<D>) -> Result<(), std::io::Error> {
+    pub fn cell_opt<D: Display>(
+        &mut self,
+        content: Option<D>,
+    ) -> Result<(), std::io::Error> {
         if let Some(c) = content {
             self.cell(c)
         } else {
@@ -49,7 +59,10 @@ impl<W: Write> Csv<W> {
     }
 }
 
-pub fn print(mounts: &[&Mount], args: &Args) -> Result<(), std::io::Error> {
+pub fn print(
+    mounts: &[&Mount],
+    args: &Args,
+) -> Result<(), std::io::Error> {
     let units = args.units;
     let mut csv = Csv::new(args.csv_separator, std::io::stdout());
     for col in args.cols.cols() {
@@ -68,13 +81,25 @@ pub fn print(mounts: &[&Mount], args: &Args) -> Result<(), std::io::Error> {
                 Col::Disk => csv.cell_opt(mount.disk.as_ref().map(|d| d.disk_type())),
                 Col::Used => csv.cell_opt(mount.stats().map(|s| units.fmt(s.used()))),
                 Col::Use => csv.cell_opt(mount.stats().map(|s| s.use_share())),
-                Col::UsePercent => csv.cell_opt(mount.stats().map(|s| format!("{:.0}%", 100.0 * s.use_share()))),
+                Col::UsePercent => csv.cell_opt(
+                    mount
+                        .stats()
+                        .map(|s| format!("{:.0}%", 100.0 * s.use_share())),
+                ),
                 Col::Free => csv.cell_opt(mount.stats().map(|s| units.fmt(s.available()))),
-                Col::FreePercent => csv.cell_opt(mount.stats().map(|s| format!("{:.0}%", 100.0 * (1.0 - s.use_share())))),
+                Col::FreePercent => csv.cell_opt(
+                    mount
+                        .stats()
+                        .map(|s| format!("{:.0}%", 100.0 * (1.0 - s.use_share()))),
+                ),
                 Col::Size => csv.cell_opt(mount.stats().map(|s| units.fmt(s.size()))),
                 Col::InodesUsed => csv.cell_opt(mount.inodes().map(|i| i.used())),
                 Col::InodesUse => csv.cell_opt(mount.inodes().map(|i| i.use_share())),
-                Col::InodesUsePercent => csv.cell_opt(mount.inodes().map(|i| format!("{:.0}%", 100.0 * i.use_share()))),
+                Col::InodesUsePercent => csv.cell_opt(
+                    mount
+                        .inodes()
+                        .map(|i| format!("{:.0}%", 100.0 * i.use_share())),
+                ),
                 Col::InodesFree => csv.cell_opt(mount.inodes().map(|i| i.favail)),
                 Col::InodesCount => csv.cell_opt(mount.inodes().map(|i| i.files)),
                 Col::MountPoint => csv.cell(mount.info.mount_point.to_string_lossy()),
@@ -100,7 +125,7 @@ fn test_csv() {
     let s = String::from_utf8(w.into_inner()).unwrap();
     assert_eq!(
         s,
-r#""1;2;3";"""";;
+        r#""1;2;3";"""";;
 3;"#,
     );
 }

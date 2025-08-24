@@ -1,10 +1,16 @@
 use {
     crate::units::Units,
     lfs_core::*,
-    serde_json::{json, Value},
+    serde_json::{
+        Value,
+        json,
+    },
 };
 
-pub fn output_value(mounts: &[&Mount], units: Units) -> Value {
+pub fn output_value(
+    mounts: &[&Mount],
+    units: Units,
+) -> Value {
     Value::Array(
         mounts
             .iter()

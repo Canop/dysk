@@ -169,28 +169,31 @@ impl Col {
         match self {
             Self::Id => |a: &Mount, b: &Mount| a.info.id.cmp(&b.info.id),
             Self::Dev => |a: &Mount, b: &Mount| a.info.dev.cmp(&b.info.dev),
-            Self::Filesystem =>  |a: &Mount, b: &Mount| a.info.fs.cmp(&b.info.fs),
-            Self::Label =>  |a: &Mount, b: &Mount| match (&a.fs_label, &b.fs_label) {
+            Self::Filesystem => |a: &Mount, b: &Mount| a.info.fs.cmp(&b.info.fs),
+            Self::Label => |a: &Mount, b: &Mount| match (&a.fs_label, &b.fs_label) {
                 (Some(a), Some(b)) => a.cmp(b),
                 (Some(_), None) => Ordering::Less,
                 (None, Some(_)) => Ordering::Greater,
                 (None, None) => Ordering::Equal,
             },
-            Self::Type =>  |a: &Mount, b: &Mount| a.info.fs_type.cmp(&b.info.fs_type),
-            Self::Remote =>  |a: &Mount, b: &Mount| a.info.is_remote().cmp(&b.info.is_remote()),
-            Self::Disk =>  |a: &Mount, b: &Mount| match (&a.disk, &b.disk) {
-                (Some(a), Some(b)) => a.disk_type().to_lowercase().cmp(&b.disk_type().to_lowercase()),
+            Self::Type => |a: &Mount, b: &Mount| a.info.fs_type.cmp(&b.info.fs_type),
+            Self::Remote => |a: &Mount, b: &Mount| a.info.is_remote().cmp(&b.info.is_remote()),
+            Self::Disk => |a: &Mount, b: &Mount| match (&a.disk, &b.disk) {
+                (Some(a), Some(b)) => a
+                    .disk_type()
+                    .to_lowercase()
+                    .cmp(&b.disk_type().to_lowercase()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Used =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+            Self::Used => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.used().cmp(&b.used()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Use | Self::UsePercent =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+            Self::Use | Self::UsePercent => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 // the 'use' column shows the percentage of used blocks, so it makes sense
                 // to sort by use_share for it
                 // SAFETY: use_share() doesn't return NaN
@@ -199,50 +202,52 @@ impl Col {
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Free =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+            Self::Free => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.available().cmp(&b.available()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::FreePercent =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+            Self::FreePercent => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => b.use_share().partial_cmp(&a.use_share()).unwrap(),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Size =>  |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+            Self::Size => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.size().cmp(&b.size()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::InodesUsed =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+            Self::InodesUsed => |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
                 (Some(a), Some(b)) => a.used().cmp(&b.used()),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::InodesUsePercent | Self::InodesUse  =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
-                // SAFETY: use_share() doesn't return NaN
-                (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
-                (Some(_), None) => Ordering::Greater,
-                (None, Some(_)) => Ordering::Less,
-                (None, None) => Ordering::Equal,
-            },
-            Self::InodesFree =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+            Self::InodesUsePercent | Self::InodesUse => {
+                |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+                    // SAFETY: use_share() doesn't return NaN
+                    (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
+                    (Some(_), None) => Ordering::Greater,
+                    (None, Some(_)) => Ordering::Less,
+                    (None, None) => Ordering::Equal,
+                }
+            }
+            Self::InodesFree => |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
                 (Some(a), Some(b)) => a.favail.cmp(&b.favail),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::InodesCount =>  |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
+            Self::InodesCount => |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
                 (Some(a), Some(b)) => a.files.cmp(&b.files),
                 (Some(_), None) => Ordering::Greater,
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::MountPoint =>  |a: &Mount, b: &Mount| a.info.mount_point.cmp(&b.info.mount_point),
+            Self::MountPoint => |a: &Mount, b: &Mount| a.info.mount_point.cmp(&b.info.mount_point),
             Self::Uuid => |a: &Mount, b: &Mount| match (&a.uuid, &b.uuid) {
                 (Some(a), Some(b)) => a.cmp(b),
                 (Some(_), None) => Ordering::Less,
@@ -287,7 +292,6 @@ impl Col {
     }
 }
 
-
 #[derive(Debug)]
 pub struct ParseColError {
     /// the string which couldn't be parsed
@@ -299,7 +303,10 @@ impl ParseColError {
     }
 }
 impl fmt::Display for ParseColError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut fmt::Formatter<'_>,
+    ) -> fmt::Result {
         write!(
             f,
             "{:?} can't be parsed as a column; use 'dysk --list-cols' to see all column names",
@@ -308,4 +315,3 @@ impl fmt::Display for ParseColError {
     }
 }
 impl std::error::Error for ParseColError {}
-

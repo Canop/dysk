@@ -21,17 +21,18 @@ pub fn is_normal(m: &Mount) -> bool {
     && !is_system_path(&m.info.mount_point)
 }
 
-#[cfg(target_os="macos")]
+#[cfg(target_os = "macos")]
 fn is_system_path(path: &Path) -> bool {
-    let Some(path) = path.to_str() else { return false; };
+    let Some(path) = path.to_str() else {
+        return false;
+    };
     if path == "/" {
         return true;
     }
-    path.starts_with("/System")
-        && !path.starts_with("/System/Volumes/Data")
+    path.starts_with("/System") && !path.starts_with("/System/Volumes/Data")
 }
 
-#[cfg(target_os="linux")]
+#[cfg(target_os = "linux")]
 fn is_system_path(path: &Path) -> bool {
     path.starts_with("/boot")
 }

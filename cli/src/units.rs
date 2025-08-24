@@ -1,13 +1,11 @@
-use {
-    core::str::FromStr,
-};
+use core::str::FromStr;
 
 /// The Units system used for sizes
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Units {
-    Si, // Units according to the SI system, based on multiples of 1000
+    Si,     // Units according to the SI system, based on multiples of 1000
     Binary, // Old binary based units, based on multiples of 1024
-    Bytes, // Just the raw byte counts, with commas separating thousands
+    Bytes,  // Just the raw byte counts, with commas separating thousands
 }
 
 impl Default for Units {
@@ -22,7 +20,10 @@ impl FromStr for Units {
             "si" => Ok(Self::Si),
             "binary" => Ok(Self::Binary),
             "bytes" => Ok(Self::Bytes),
-            _ => Err(format!("Illegal value: {:?} - valid values are 'SI', 'binary', and 'bytes'", value)),
+            _ => Err(format!(
+                "Illegal value: {:?} - valid values are 'SI', 'binary', and 'bytes'",
+                value
+            )),
         }
     }
 }
@@ -30,7 +31,10 @@ impl FromStr for Units {
 static PREFIXES: &[char] = &['K', 'M', 'G', 'T', 'P'];
 
 impl Units {
-    pub fn fmt(self, size: u64) -> String {
+    pub fn fmt(
+        self,
+        size: u64,
+    ) -> String {
         match self {
             Self::Si => file_size::fit_4(size),
             Self::Binary => {
@@ -55,7 +59,7 @@ impl Units {
             Self::Bytes => {
                 let mut rev: Vec<char> = Vec::new();
                 for (i, c) in size.to_string().chars().rev().enumerate() {
-                    if i>0 && i%3==0 {
+                    if i > 0 && i % 3 == 0 {
                         rev.push(',');
                     }
                     rev.push(c);
@@ -68,7 +72,10 @@ impl Units {
 
 #[test]
 fn test_fmt_binary() {
-    fn check(v: u64, s: &str) {
+    fn check(
+        v: u64,
+        s: &str,
+    ) {
         assert_eq!(&Units::Binary.fmt(v), s);
     }
     check(0, "0");
@@ -86,7 +93,10 @@ fn test_fmt_binary() {
 
 #[test]
 fn test_fmt_bytes() {
-    fn check(v: u64, s: &str) {
+    fn check(
+        v: u64,
+        s: &str,
+    ) {
         assert_eq!(&Units::Bytes.fmt(v), s);
     }
     check(0, "0");

@@ -1,12 +1,19 @@
 use {
     crate::{
-        Args, col::Col,
+        Args,
+        col::Col,
     },
     lfs_core::*,
     termimad::{
+        CompoundStyle,
+        MadSkin,
+        ProgressBar,
         crossterm::style::Color::*,
-        minimad::{self, OwningTemplateExpander, TableBuilder},
-        CompoundStyle, MadSkin, ProgressBar,
+        minimad::{
+            self,
+            OwningTemplateExpander,
+            TableBuilder,
+        },
     },
 };
 
@@ -20,7 +27,11 @@ static SIZE_COLOR: u8 = 172;
 static BAR_WIDTH: usize = 5;
 static INODES_BAR_WIDTH: usize = 5;
 
-pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
+pub fn print(
+    mounts: &[&Mount],
+    color: bool,
+    args: &Args,
+) {
     if args.cols.is_empty() {
         return;
     }
@@ -30,7 +41,14 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
     for mount in mounts {
         let sub = expander
             .sub("rows")
-            .set("id", mount.info.id.as_ref().map_or("".to_string(), |i| i.to_string()))
+            .set(
+                "id",
+                mount
+                    .info
+                    .id
+                    .as_ref()
+                    .map_or("".to_string(), |i| i.to_string()),
+            )
             .set("dev-major", mount.info.dev.major)
             .set("dev-minor", mount.info.dev.minor)
             .set("filesystem", &mount.info.fs)
@@ -48,8 +66,7 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
         if let Some(stats) = mount.stats() {
             let use_share = stats.use_share();
             let free_share = 1.0 - use_share;
-            sub
-                .set("size", units.fmt(stats.size()))
+            sub.set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
                 .set_md("bar", progress_bar_md(use_share, BAR_WIDTH, args.ascii))
@@ -57,11 +74,13 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                 .set("free-percents", format!("{:.0}%", 100.0 * free_share));
             if let Some(inodes) = &stats.inodes {
                 let iuse_share = inodes.use_share();
-                sub
-                    .set("inodes", inodes.files)
+                sub.set("inodes", inodes.files)
                     .set("iused", inodes.used())
                     .set("iuse-percents", format!("{:.0}%", 100.0 * iuse_share))
-                    .set_md("ibar", progress_bar_md(iuse_share, INODES_BAR_WIDTH, args.ascii))
+                    .set_md(
+                        "ibar",
+                        progress_bar_md(iuse_share, INODES_BAR_WIDTH, args.ascii),
+                    )
                     .set("ifree", inodes.favail);
             }
         } else if mount.is_unreachable() {
@@ -104,10 +123,10 @@ pub fn print(mounts: &[&Mount], color: bool, args: &Args) {
                     Col::MountPoint => "${mount-point}",
                     Col::Uuid => "${uuid}",
                     Col::PartUuid => "${part_uuid}",
-                }
+                },
             )
             .align_content(col.content_align())
-            .align_header(col.header_align())
+            .align_header(col.header_align()),
         );
     }
 
@@ -118,7 +137,7 @@ fn make_colored_skin() -> MadSkin {
     MadSkin {
         bold: CompoundStyle::with_fg(AnsiValue(SIZE_COLOR)), // size
         inline_code: CompoundStyle::with_fgbg(AnsiValue(USED_COLOR), AnsiValue(AVAI_COLOR)), // use bar
-        strikeout: CompoundStyle::with_fg(AnsiValue(USED_COLOR)), // use%
+        strikeout: CompoundStyle::with_fg(AnsiValue(USED_COLOR)),                            // use%
         italic: CompoundStyle::with_fg(AnsiValue(AVAI_COLOR)), // available
         ..Default::default()
     }
@@ -132,11 +151,10 @@ fn progress_bar_md(
     if ascii {
         let count = (share * bar_width as f64).round() as usize;
         let bar: String = "".repeat(count);
-        let no_bar: String = "-".repeat(bar_width-count);
+        let no_bar: String = "-".repeat(bar_width - count);
         format!("~~{}~~*{}*", bar, no_bar)
     } else {
         let pb = ProgressBar::new(share as f32, bar_width);
         format!("`{:<width$}`", pb, width = bar_width)
     }
 }
-

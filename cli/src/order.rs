@@ -1,8 +1,6 @@
-use {
-    std::{
-        fmt,
-        str::FromStr,
-    },
+use std::{
+    fmt,
+    str::FromStr,
 };
 
 /// one of the two sorting directions
@@ -11,7 +9,6 @@ pub enum Order {
     Asc,
     Desc,
 }
-
 
 #[derive(Debug)]
 pub struct ParseOrderError {
@@ -24,8 +21,15 @@ impl ParseOrderError {
     }
 }
 impl fmt::Display for ParseOrderError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?} can't be parsed as a sort order. Use 'asc' or 'desc' (or nothing)", self.raw)
+    fn fmt(
+        &self,
+        f: &mut fmt::Formatter<'_>,
+    ) -> fmt::Result {
+        write!(
+            f,
+            "{:?} can't be parsed as a sort order. Use 'asc' or 'desc' (or nothing)",
+            self.raw
+        )
     }
 }
 impl std::error::Error for ParseOrderError {}
@@ -37,7 +41,7 @@ impl FromStr for Order {
         match s.as_ref() {
             "a" | "asc" => Ok(Self::Asc),
             "d" | "desc" => Ok(Self::Desc),
-            _ => Err(ParseOrderError::new(s))
+            _ => Err(ParseOrderError::new(s)),
         }
     }
 }
