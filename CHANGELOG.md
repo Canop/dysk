@@ -1,3 +1,7 @@
+### next
+- default strategy on Mac is much faster
+- strategy can be chosen with `--strategy diskutil` or `--strategy iokit` (default)
+
 <a name="v3.0.0"></a>
 ### v3.0.0 - 2025/08/18
 dysk now works on Mac too - Fix #24

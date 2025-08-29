@@ -5,6 +5,7 @@ authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2021"
 license = "MIT"
 description = "the dysk cli as a library"
+homepage = "https://dystroy.org/dysk"
 rust-version = "1.70"
 resolver = "1"
 
@@ -13,10 +14,12 @@ bet = "1.0.4"
 clap = { version = "4.4", features = ["derive", "cargo"] }
 clap-help = "1.4"
 file-size = "1.0.3"
-lfs-core = { git = "https://github.com/Canop/lfs-core.git", version = "0.13.3", branch = "iokit" }
+#lfs-core = { git = "https://github.com/Canop/lfs-core.git", branch = "iokit" }
+#lfs-core = { path = "../../lfs-core" }
+lfs-core = "0.14.1"
 serde = "1.0"
 serde_json = "1.0"
-termimad = "0.32"
+termimad = "0.34"
 
 [profile.release]
 strip = true
