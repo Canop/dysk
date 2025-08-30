@@ -1,3 +1,6 @@
+<p class=logo>
+<img class=logo width=400px src="img/dysk-homard-logo.svg">
+</p>
 
 # Purpose
 
