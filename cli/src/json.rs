@@ -56,6 +56,7 @@ pub fn output_value(
                     "fs-label": mount.fs_label,
                     "fs-type": mount.info.fs_type,
                     "mount-point": mount.info.mount_point,
+                    "options": mount.info.options_string(),
                     "disk": disk,
                     "stats": stats,
                     "bound": mount.info.bound,

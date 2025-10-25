@@ -105,6 +105,8 @@ pub fn print(
                 Col::MountPoint => csv.cell(mount.info.mount_point.to_string_lossy()),
                 Col::Uuid => csv.cell(mount.uuid.as_ref().map_or("", |v| v)),
                 Col::PartUuid => csv.cell(mount.part_uuid.as_ref().map_or("", |v| v)),
+                Col::MountOptions => csv.cell(mount.info.options_string()),
+                Col::CompressLevel => csv.cell_opt(mount.info.option_value("compress")),
             }?;
         }
         csv.end_line()?;

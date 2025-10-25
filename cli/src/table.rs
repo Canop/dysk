@@ -55,8 +55,13 @@ pub fn print(
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("type", &mount.info.fs_type)
             .set("mount-point", mount.info.mount_point.to_string_lossy())
+            .set("mount-options", mount.info.options_string())
             .set_option("uuid", mount.uuid.as_ref())
-            .set_option("part_uuid", mount.part_uuid.as_ref());
+            .set_option("part_uuid", mount.part_uuid.as_ref())
+            .set_option(
+                "compress-level",
+                mount.info.option_value("compress"),
+            );
         if let Some(label) = &mount.fs_label {
             sub.set("label", label);
         }
@@ -123,6 +128,8 @@ pub fn print(
                     Col::MountPoint => "${mount-point}",
                     Col::Uuid => "${uuid}",
                     Col::PartUuid => "${part_uuid}",
+                    Col::MountOptions => "${mount-options}",
+                    Col::CompressLevel => "${compress-level}",
                 },
             )
             .align_content(col.content_align())
