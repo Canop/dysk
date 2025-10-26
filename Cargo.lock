@@ -469,9 +469,9 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.15.0"
+version = "0.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04792cbe2f9dab1dfaed9b2efcae9a23ca4dbfc08b8a92f994632792b3c4c786"
+checksum = "6b43c224f89b0a7c54f7be6238acda8d2f05e50463f48ac4c49a975b2da77249"
 dependencies = [
  "core-foundation",
  "core-foundation-sys",
