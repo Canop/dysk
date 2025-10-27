@@ -12,7 +12,7 @@
 [l3]: https://travis-ci.org/Canop/dysk
 
 [s4]: https://miaou.dystroy.org/static/shields/room.svg
-[l4]: https://miaou.dystroy.org/3768?Rust
+[l4]: https://miaou.dystroy.org/4847?dysk
 
 [srep]: https://repology.org/badge/tiny-repos/dysk.svg
 [lrep]: https://repology.org/project/dysk/versions

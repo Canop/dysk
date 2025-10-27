@@ -13,8 +13,8 @@ If it helps your company make money, consider helping me find time to add featur
 
 The best place to chat about dysk, to talk about features or bugs, is the Miaou chat.
 
-* [Rust & dysk room on Miaou](https://miaou.dystroy.org/3490?rust)
-* [French Programmers room on Miaou](https://miaou.dystroy.org/3)
+* [dysk room on Miaou](https://miaou.dystroy.org/4847?dysk)
+* [French Programmers room on Miaou](https://miaou.dystroy.org/3?Code_Croissants)
 
 # Issues
 

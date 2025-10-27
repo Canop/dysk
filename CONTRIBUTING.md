@@ -1,7 +1,7 @@
 
 Before you start, unless you're fixing a typo or proposing a trivial change, please
 
-- discuss the need and technical design first, either in an issue or on [miaou](https://miaou.dystroy.org/3768)
+- discuss the need and technical design first, either in an issue or on [miaou](https://miaou.dystroy.org/4847?dysk)
 - keep it simple and focused
 - don't touch more files or lines than necessary
 - apply the standard formatting of the project
