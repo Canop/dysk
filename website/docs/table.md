@@ -31,6 +31,8 @@ inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
 uuid |  | filesystem's UUID
 partuuid |  | partition's UUID
+options |  | linux mount options
+compress |  | compression algorithm/level
 
 
 ## Choose columns

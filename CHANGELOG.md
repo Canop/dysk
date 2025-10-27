@@ -1,3 +1,7 @@
+### next
+- new `options` column: linux mount options
+- new `compress` column: compression algorithm & level - Fix #98
+
 <a name="v3.1.0"></a>
 ### v3.1.0 - 2025/08/29
 - default strategy on Mac is much faster

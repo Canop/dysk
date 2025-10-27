@@ -105,6 +105,8 @@ col_enum!(
     MountPoint "mount" "mount_point" "mp": "mount point" default,
     Uuid "uuid": "UUID",
     PartUuid "partuuid" "part_uuid": "PARTUUID",
+    MountOptions "options" "mount_options": "mount options",
+    CompressLevel "compress" "compress_level": "compress",
 );
 
 impl Col {
@@ -112,6 +114,7 @@ impl Col {
         match self {
             Self::Label => Alignment::Left,
             Self::MountPoint => Alignment::Left,
+            Self::MountOptions => Alignment::Left,
             _ => Alignment::Center,
         }
     }
@@ -138,6 +141,8 @@ impl Col {
             Self::MountPoint => Alignment::Left,
             Self::Uuid => Alignment::Left,
             Self::PartUuid => Alignment::Left,
+            Self::MountOptions => Alignment::Left,
+            Self::CompressLevel => Alignment::Center,
         }
     }
     pub fn description(self) -> &'static str {
@@ -163,6 +168,8 @@ impl Col {
             Self::MountPoint => "mount point",
             Self::Uuid => "filesystem UUID",
             Self::PartUuid => "partition UUID",
+            Self::MountOptions => "mount options (linux only)",
+            Self::CompressLevel => "compress algo/level",
         }
     }
     pub fn comparator(self) -> impl for<'a, 'b> FnMut(&'a Mount, &'b Mount) -> Ordering {
@@ -260,6 +267,14 @@ impl Col {
                 (None, Some(_)) => Ordering::Greater,
                 (None, None) => Ordering::Equal,
             },
+            Self::MountOptions => |a: &Mount, b: &Mount| a.info.options_string()
+                .cmp(&b.info.options_string()),
+            Self::CompressLevel => |a: &Mount, b: &Mount| match (a.info.option_value("compress"), b.info.option_value("compress")) {
+                (Some(a), Some(b)) => a.cmp(b),
+                (Some(_), None) => Ordering::Less,
+                (None, Some(_)) => Ordering::Greater,
+                (None, None) => Ordering::Equal,
+            },
         }
     }
     pub fn default_sort_order(self) -> Order {
@@ -285,6 +300,8 @@ impl Col {
             Self::MountPoint => Order::Asc,
             Self::Uuid => Order::Asc,
             Self::PartUuid => Order::Asc,
+            Self::MountOptions => Order::Asc,
+            Self::CompressLevel => Order::Asc,
         }
     }
     pub fn default_sort_col() -> Self {
