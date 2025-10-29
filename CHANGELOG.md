@@ -1,4 +1,5 @@
-### next
+<a name="v3.2.0"></a>
+### v3.2.0 - 2025/10/29
 - experimental Windows support - Thanks @acieslewicz
 - new `options` column: linux mount options
 - new `compress` column: compression algorithm & level - Fix #98
@@ -10,7 +11,7 @@
 
 <a name="v3.0.0"></a>
 ### v3.0.0 - 2025/08/18
-dysk now works on Mac too - Fix #24
+- dysk now works on Mac too - Fix #24
 
 <a name="v2.10.1"></a>
 ### v2.10.1 - 2025/05/13
