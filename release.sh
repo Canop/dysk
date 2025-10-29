@@ -21,7 +21,7 @@ rm -rf build
 mkdir build
 
 # compile all targets
-./compile-all-targets.sh
+./build-all-targets.sh
 
 # add the readme and changelog in the build directory
 echo "This is dysk. More info and installation instructions on https://github.com/Canop/dysk" > build/README.md
