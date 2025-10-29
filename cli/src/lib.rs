@@ -61,6 +61,7 @@ pub fn run() {
     if !args.all {
         mounts.retain(is_normal);
     }
+    #[cfg(unix)]
     if let Some(path) = &args.path {
         use std::os::unix::fs::MetadataExt;
         let md = match std::fs::metadata(path) {

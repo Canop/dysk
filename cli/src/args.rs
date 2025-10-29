@@ -91,6 +91,7 @@ pub struct Args {
     pub strategy: Option<String>,
 
     /// if provided, only the device holding this path will be shown
+    #[cfg(unix)]
     pub path: Option<std::path::PathBuf>,
 }
 

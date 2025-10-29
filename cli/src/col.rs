@@ -184,7 +184,7 @@ impl Col {
                 (None, None) => Ordering::Equal,
             },
             Self::Type => |a: &Mount, b: &Mount| a.info.fs_type.cmp(&b.info.fs_type),
-            Self::Remote => |a: &Mount, b: &Mount| a.info.is_remote().cmp(&b.info.is_remote()),
+            Self::Remote => |a: &Mount, b: &Mount| a.is_remote().cmp(&b.is_remote()),
             Self::Disk => |a: &Mount, b: &Mount| match (&a.disk, &b.disk) {
                 (Some(a), Some(b)) => a
                     .disk_type()

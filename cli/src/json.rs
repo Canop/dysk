@@ -24,18 +24,32 @@ pub fn output_value(
                             "used-percent": format!("{:.0}%", 100.0*inodes.use_share()),
                         })
                     });
-                    json!({
-                        "bsize": s.bsize,
-                        "blocks": s.blocks,
-                        "bused": s.bused,
-                        "bfree": s.bfree,
-                        "bavail": s.bavail,
-                        "size": units.fmt(s.size()),
-                        "used": units.fmt(s.used()),
-                        "used-percent": format!("{:.0}%", 100.0*s.use_share()),
-                        "available": units.fmt(s.available()),
-                        "inodes": inodes,
-                    })
+                    #[cfg(not(windows))]
+                    {
+                        json!({
+                            "bsize": s.bsize,
+                            "blocks": s.blocks,
+                            "bused": s.bused,
+                            "bfree": s.bfree,
+                            "bavail": s.bavail,
+                            "size": units.fmt(s.size()),
+                            "used": units.fmt(s.used()),
+                            "used-percent": format!("{:.0}%", 100.0*s.use_share()),
+                            "available": units.fmt(s.available()),
+                            "inodes": inodes,
+                        })
+                    }
+                    #[cfg(windows)]
+                    {
+                        json!({
+                            "size": units.fmt(s.size()),
+                            "used": units.fmt(s.used()),
+                            "used-percent": format!("{:.0}%", 100.0*s.use_share()),
+                            "available": units.fmt(s.available()),
+                            "free": units.fmt(s.available()),
+                            "inodes": inodes,
+                        })
+                    }
                 });
                 let disk = mount.disk.as_ref().map(|d| {
                     json!({
@@ -46,12 +60,22 @@ pub fn output_value(
                         "ram": d.ram,
                     })
                 });
+                let dev = {
+                    #[cfg(not(windows))]
+                    {
+                        json!({
+                            "major": mount.info.dev.major,
+                            "minor": mount.info.dev.minor,
+                        })
+                    }
+                    #[cfg(windows)]
+                    {
+                        mount.info.dev.to_string()
+                    }
+                };
                 json!({
                     "id": mount.info.id,
-                    "dev": {
-                        "major": mount.info.dev.major,
-                        "minor": mount.info.dev.minor,
-                    },
+                    "dev": dev,
                     "fs": mount.info.fs,
                     "fs-label": mount.fs_label,
                     "fs-type": mount.info.fs_type,
@@ -60,7 +84,7 @@ pub fn output_value(
                     "disk": disk,
                     "stats": stats,
                     "bound": mount.info.bound,
-                    "remote": mount.info.is_remote(),
+                    "remote": mount.is_remote(),
                     "unreachable": mount.is_unreachable(),
                 })
             })

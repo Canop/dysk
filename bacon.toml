@@ -10,6 +10,13 @@ command = ["cargo", "check", "--all-targets", "--color", "always"]
 need_stdout = false
 watch = ["tests", "benches", "examples"]
 
+[jobs.check-win]
+command = [
+	"cross", "build",
+	"--target", "x86_64-pc-windows-gnu",
+	"--release",
+]
+
 [jobs.clippy]
 command = ["cargo", "clippy", "--color", "always"]
 watch = ["tests", "benches", "examples", "build.rs"]
