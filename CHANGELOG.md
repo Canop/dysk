@@ -1,4 +1,5 @@
 ### next
+- experimental Windows support - Thanks @acieslewicz
 - new `options` column: linux mount options
 - new `compress` column: compression algorithm & level - Fix #98
 
