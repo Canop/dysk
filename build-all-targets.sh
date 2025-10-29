@@ -18,10 +18,10 @@ echo "   build cleaned"
 
 # build versions for other platforms using cargo cross
 cross_build() {
-    name="$1"
+    target_name="$1"
     target="$2"
     cargo clean
-    echo -e "${H2}Compiling the $name / $target version${EH}"
+    echo -e "${H2}Compiling the $name / $target_name version${EH}"
     cross build --target "$target" --release
     mkdir "build/$target"
     if [[ $target_name == 'Windows' ]]
