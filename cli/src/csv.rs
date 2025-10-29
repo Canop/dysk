@@ -77,7 +77,7 @@ pub fn print(
                 Col::Filesystem => csv.cell(&mount.info.fs),
                 Col::Label => csv.cell_opt(mount.fs_label.as_ref()),
                 Col::Type => csv.cell(&mount.info.fs_type),
-                Col::Remote => csv.cell(if mount.info.is_remote() { "yes" } else { "no" }),
+                Col::Remote => csv.cell(if mount.is_remote() { "yes" } else { "no" }),
                 Col::Disk => csv.cell_opt(mount.disk.as_ref().map(|d| d.disk_type())),
                 Col::Used => csv.cell_opt(mount.stats().map(|s| units.fmt(s.used()))),
                 Col::Use => csv.cell_opt(mount.stats().map(|s| s.use_share())),

@@ -24,7 +24,13 @@ cross_build() {
     echo -e "${H2}Compiling the $name / $target version${EH}"
     cross build --target "$target" --release
     mkdir "build/$target"
-    cp "target/$target/release/dysk" "build/$target/"
+    if [[ $target_name == 'Windows' ]]
+    then
+        exec="$NAME.exe"
+    else
+        exec="$NAME"
+    fi
+    cp "target/$target/release/$exec" "build/$target/"
 }
 
 # cross_build "Linux GLIBC" "x86_64-unknown-linux-gnu"
@@ -36,6 +42,7 @@ cross_build "ARM 64 MUSL" "aarch64-unknown-linux-musl"
 # cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 cross_build "RISC-V" "riscv64gc-unknown-linux-gnu"
 # cross_build "RISC-V MUSL" "riscv64gc-unknown-linux-musl"
+cross_build "Windows" "x86_64-pc-windows-gnu"
 
 # use zig with docker to build a Mac version
 target="aarch64-apple-darwin"

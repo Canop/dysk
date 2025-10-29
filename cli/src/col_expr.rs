@@ -111,7 +111,7 @@ impl ColExpr {
             Col::Type => self.operator.eval_str(&mount.info.fs_type, &self.value),
             Col::Remote => self
                 .operator
-                .eval(mount.info.is_remote(), parse_bool(&self.value)?),
+                .eval(mount.is_remote(), parse_bool(&self.value)?),
             Col::Disk => self
                 .operator
                 .eval_option_str(mount.disk.as_ref().map(|d| d.disk_type()), &self.value),

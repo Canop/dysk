@@ -13,7 +13,7 @@ pub fn is_normal(m: &Mount) -> bool {
     && (
         m.disk.is_some() // by default only fs with disks are shown
         || m.info.fs_type == "zfs" // unless it's zfs - see https://github.com/Canop/dysk/issues/32
-        || m.info.is_remote()
+        || m.is_remote()
     )
     && m.disk.as_ref().is_none_or(|d| !d.image) // not real
     && !m.info.bound // removing bound mounts
@@ -35,4 +35,9 @@ fn is_system_path(path: &Path) -> bool {
 #[cfg(target_os = "linux")]
 fn is_system_path(path: &Path) -> bool {
     path.starts_with("/boot")
+}
+
+#[cfg(target_os = "windows")]
+fn is_system_path(_path: &Path) -> bool {
+    false
 }

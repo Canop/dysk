@@ -49,8 +49,7 @@ pub fn print(
                     .as_ref()
                     .map_or("".to_string(), |i| i.to_string()),
             )
-            .set("dev-major", mount.info.dev.major)
-            .set("dev-minor", mount.info.dev.minor)
+            .set("dev", mount.info.dev)
             .set("filesystem", &mount.info.fs)
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
             .set("type", &mount.info.fs_type)
@@ -65,7 +64,7 @@ pub fn print(
         if let Some(label) = &mount.fs_label {
             sub.set("label", label);
         }
-        if mount.info.is_remote() {
+        if mount.is_remote() {
             sub.set("remote", "x");
         }
         if let Some(stats) = mount.stats() {
@@ -108,7 +107,7 @@ pub fn print(
                 col.title(),
                 match col {
                     Col::Id => "${id}",
-                    Col::Dev => "${dev-major}:${dev-minor}",
+                    Col::Dev => "${dev}",
                     Col::Filesystem => "${filesystem}",
                     Col::Label => "${label}",
                     Col::Disk => "${disk}",
