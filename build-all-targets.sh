@@ -7,7 +7,7 @@
 H1="\n\e[30;104;1m\e[2K\n\e[A" # style first header
 H2="\n\e[30;104m\e[1K\n\e[A" # style second header
 EH="\e[00m\n\e[2K" # end header
-
+NAME=dysk
 version=$(./version.sh)
 echo -e "${H1}Compilation of all targets for dysk $version${EH}"
  
@@ -27,7 +27,7 @@ cross_build() {
     cp "target/$target/release/dysk" "build/$target/"
 }
 
-cross_build "Linux GLIBC" "x86_64-unknown-linux-gnu"
+# cross_build "Linux GLIBC" "x86_64-unknown-linux-gnu"
 cross_build "MUSL" "x86_64-unknown-linux-musl"
 cross_build "ARM 32" "armv7-unknown-linux-gnueabihf"
 cross_build "ARM 32 MUSL" "armv7-unknown-linux-musleabi"
@@ -36,6 +36,16 @@ cross_build "ARM 64 MUSL" "aarch64-unknown-linux-musl"
 # cross_build "NetBSD/amd64" "x86_64-unknown-netbsd"
 cross_build "RISC-V" "riscv64gc-unknown-linux-gnu"
 # cross_build "RISC-V MUSL" "riscv64gc-unknown-linux-musl"
+
+# use zig with docker to build a Mac version
+target="aarch64-apple-darwin"
+echo -e "${H2}Compiling for $target version${EH}"
+docker run \
+    --rm -it -v $(pwd):/io -w /io ghcr.io/rust-cross/cargo-zigbuild \
+    cargo zigbuild --release --target "$target" --target-dir "zigbuild"
+mkdir "build/$target"
+cp "zigbuild/$target/release/$NAME" "build/$target/"
+echo "   Done"
 
 # build the local version
 target=$(./target.sh)
