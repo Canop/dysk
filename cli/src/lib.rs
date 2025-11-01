@@ -61,17 +61,14 @@ pub fn run() {
     if !args.all {
         mounts.retain(is_normal);
     }
-    #[cfg(unix)]
     if let Some(path) = &args.path {
-        use std::os::unix::fs::MetadataExt;
-        let md = match std::fs::metadata(path) {
-            Ok(md) => md,
+        let dev = match lfs_core::DeviceId::of_path(path) {
+            Ok(dev) => dev,
             Err(e) => {
-                eprintln!("Can't read {:?} : {}", path, e);
+                eprintln!("Error getting device of path {}: {}", path.display(), e);
                 return;
             }
         };
-        let dev = lfs_core::DeviceId::from(md.dev());
         mounts.retain(|m| m.info.dev == dev);
     }
     args.sort.sort(&mut mounts);

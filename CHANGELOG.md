@@ -1,3 +1,6 @@
+### next
+- support for getting info by path on windows (eg `dysk some/file`)
+
 <a name="v3.2.0"></a>
 ### v3.2.0 - 2025/10/29
 - experimental Windows support - Thanks @acieslewicz
