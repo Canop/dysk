@@ -1,5 +1,6 @@
-### next
-- support for getting info by path on windows (eg `dysk some/file`)
+<a name="v3.3.0"></a>
+### v3.3.0 - 2025/11/02
+- support for getting info by path on windows, eg `dysk some/file` (was already possible on Linux and Mac)
 - hide the `--strategy` argument: there's no reason to use it today
 
 <a name="v3.2.0"></a>
