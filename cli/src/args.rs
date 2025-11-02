@@ -87,7 +87,7 @@ pub struct Args {
     pub csv_separator: char,
 
     /// Strategy to use to find information, when several are available
-    #[arg(long)]
+    #[arg(long, hide = true)]
     pub strategy: Option<String>,
 
     /// if provided, only the device holding this path will be shown

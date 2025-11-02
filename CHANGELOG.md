@@ -1,5 +1,6 @@
 ### next
 - support for getting info by path on windows (eg `dysk some/file`)
+- hide the `--strategy` argument: there's no reason to use it today
 
 <a name="v3.2.0"></a>
 ### v3.2.0 - 2025/10/29
