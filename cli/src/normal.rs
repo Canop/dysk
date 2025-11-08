@@ -29,7 +29,13 @@ fn is_system_path(path: &Path) -> bool {
     if path == "/" {
         return true;
     }
-    path.starts_with("/System") && !path.starts_with("/System/Volumes/Data")
+    if path.starts_with("/System") && !path.starts_with("/System/Volumes/Data") {
+        return true;
+    }
+    if path.starts_with("/Library/Developer") {
+        return true;
+    }
+    false
 }
 
 #[cfg(target_os = "linux")]
