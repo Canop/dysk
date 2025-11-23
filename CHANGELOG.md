@@ -1,3 +1,6 @@
+### next
+- Windows: detect storage spaces - Thanks @mokurin000 and @acieslewicz
+
 <a name="v3.4.0"></a>
 ### v3.4.0 - 2025/11/08
 - more mounts are detected on Mac (eg remote SMB volumes)
