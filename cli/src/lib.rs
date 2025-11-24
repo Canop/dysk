@@ -19,24 +19,36 @@ use {
         normal::*,
     },
     clap::Parser,
+    std::io::{
+        self,
+        Write,
+    },
 };
 
+/// Print according to launch arguments
+///
+/// # Errors
+/// Returns an `io::Error` if writing to stdout fails
 #[allow(clippy::match_like_matches_macro)]
-pub fn run() {
+pub fn run() -> io::Result<()> {
+    let mut w = io::stdout();
     let args = Args::parse();
     if args.version {
-        println!("dysk {}", env!("CARGO_PKG_VERSION"));
-        return;
+        return writeln!(&mut w, "dysk {}", env!("CARGO_PKG_VERSION"));
     }
     if args.help {
         help::print(args.ascii);
-        csi_reset();
-        return;
+        if args.color() {
+            csi_reset();
+        }
+        return Ok(());
     }
     if args.list_cols {
-        list_cols::print(args.color(), args.ascii);
-        csi_reset();
-        return;
+        list_cols::write(&mut w, args.color(), args.ascii)?;
+        if args.color() {
+            csi_reset();
+        }
+        return Ok(());
     }
     let mut options =
         lfs_core::ReadOptions::default()
@@ -55,7 +67,7 @@ pub fn run() {
         Ok(mounts) => mounts,
         Err(e) => {
             eprintln!("Error reading mounts: {}", e);
-            return;
+            return Ok(());
         }
     };
     if !args.all {
@@ -66,7 +78,7 @@ pub fn run() {
             Ok(dev) => dev,
             Err(e) => {
                 eprintln!("Error getting device of path {}: {}", path.display(), e);
-                return;
+                return Ok(());
             }
         };
         mounts.retain(|m| m.info.dev == dev);
@@ -76,29 +88,31 @@ pub fn run() {
         Ok(mounts) => mounts,
         Err(e) => {
             eprintln!("Error in filter evaluation: {}", e);
-            return;
+            return Ok(());
         }
     };
     if args.csv {
-        csv::print(&mounts, &args).expect("writing csv failed");
-        return;
+        return csv::write(&mut w, &mounts, &args);
     }
     if args.json {
-        println!(
+        return writeln!(
+            &mut w,
             "{}",
             serde_json::to_string_pretty(&json::output_value(&mounts, args.units)).unwrap()
         );
-        return;
     }
     if mounts.is_empty() {
-        println!("no mount to display - try\n    dysk -a");
-        return;
+        return writeln!(&mut w, "no mount to display - try\n    dysk -a");
     }
-    table::print(&mounts, args.color(), &args);
-    csi_reset();
+    table::write(&mut w, &mounts, args.color(), &args)?;
+    if args.color() {
+        csi_reset();
+    }
+    Ok(())
 }
 
 /// output a Reset CSI sequence
 fn csi_reset() {
     print!("\u{1b}[0m");
 }
+
