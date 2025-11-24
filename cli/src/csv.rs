@@ -59,12 +59,13 @@ impl<W: Write> Csv<W> {
     }
 }
 
-pub fn print(
+pub fn write<W: Write>(
+    w: &mut W,
     mounts: &[&Mount],
     args: &Args,
-) -> Result<(), std::io::Error> {
+) -> std::io::Result<()> {
     let units = args.units;
-    let mut csv = Csv::new(args.csv_separator, std::io::stdout());
+    let mut csv = Csv::new(args.csv_separator, w);
     for col in args.cols.cols() {
         csv.cell(col.title())?;
     }

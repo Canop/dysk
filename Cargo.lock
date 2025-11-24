@@ -369,7 +369,7 @@ dependencies = [
  "lfs-core",
  "serde",
  "serde_json",
- "termimad 0.34.0",
+ "termimad 0.34.1",
 ]
 
 [[package]]
@@ -536,6 +536,15 @@ name = "minimad"
 version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9c5d708226d186590a7b6d4a9780e2bdda5f689e0d58cd17012a298efd745d2"
+dependencies = [
+ "once_cell",
+]
+
+[[package]]
+name = "minimad"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df8b688969b16915f3ecadc7829d5b7779dee4977e503f767f34136803d5c06f"
 dependencies = [
  "once_cell",
 ]
@@ -829,7 +838,7 @@ dependencies = [
  "crokey",
  "crossbeam",
  "lazy-regex",
- "minimad",
+ "minimad 0.13.1",
  "serde",
  "thiserror 2.0.15",
  "unicode-width",
@@ -837,15 +846,15 @@ dependencies = [
 
 [[package]]
 name = "termimad"
-version = "0.34.0"
+version = "0.34.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68ff5ca043d65d4ea43b65cdb4e3aba119657d0d12caf44f93212ec3168a8e20"
+checksum = "889a9370996b74cf46016ce35b96c248a9ac36d69aab1d112b3e09bc33affa49"
 dependencies = [
  "coolor",
  "crokey",
  "crossbeam",
  "lazy-regex",
- "minimad",
+ "minimad 0.14.0",
  "serde",
  "thiserror 2.0.15",
  "unicode-width",

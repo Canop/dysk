@@ -4,6 +4,10 @@ use {
         MadSkin,
         minimad::OwningTemplateExpander,
     },
+    std::io::{
+        self,
+        Write,
+    },
 };
 
 static MD: &str = r#"
@@ -25,10 +29,11 @@ ${column
 "#;
 
 /// Print an help text describing columns
-pub fn print(
+pub fn write<W: Write>(
+    w: &mut W,
     color: bool,
     ascii: bool,
-) {
+) -> io::Result<()> {
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
     for &col in ALL_COLS {
@@ -47,5 +52,5 @@ pub fn print(
     if ascii {
         skin.limit_to_ascii();
     }
-    skin.print_owning_expander_md(&expander, MD);
+    skin.write_owning_expander_md(w, &expander, MD)
 }

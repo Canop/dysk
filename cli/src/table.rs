@@ -4,6 +4,7 @@ use {
         col::Col,
     },
     lfs_core::*,
+    std::io::Write,
     termimad::{
         CompoundStyle,
         MadSkin,
@@ -27,13 +28,14 @@ static SIZE_COLOR: u8 = 172;
 static BAR_WIDTH: usize = 5;
 static INODES_BAR_WIDTH: usize = 5;
 
-pub fn print(
+pub fn write<W: Write>(
+    w: &mut W,
     mounts: &[&Mount],
     color: bool,
     args: &Args,
-) {
+) -> std::io::Result<()> {
     if args.cols.is_empty() {
-        return;
+        return Ok(());
     }
     let units = args.units;
     let mut expander = OwningTemplateExpander::new();
@@ -136,7 +138,7 @@ pub fn print(
         );
     }
 
-    skin.print_owning_expander_md(&expander, &tbl);
+    skin.write_owning_expander_md(w, &expander, &tbl)
 }
 
 fn make_colored_skin() -> MadSkin {
