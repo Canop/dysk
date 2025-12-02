@@ -6,7 +6,18 @@ default_job = "check"
 [jobs]
 
 [jobs.check]
-command = ["cargo", "check", "--all-targets", "--color", "always"]
+command = ["cargo", "check", "--all-targets"]
+need_stdout = false
+watch = ["tests", "benches", "examples"]
+
+# A task dedicated to checking cargo can be compiled with the MSRV
+[jobs.check-msrv]
+command = [
+    "cargo",
+    "+1.75", # adjust depending on the MSRV
+    "check",
+    "--all-targets",
+]
 need_stdout = false
 watch = ["tests", "benches", "examples"]
 
@@ -67,3 +78,4 @@ c = "job:clippy"
 d = "job:doc-open"
 t = "job:test"
 r = "job:run"
+v = "job:check-msrv"

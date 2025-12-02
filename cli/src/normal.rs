@@ -15,7 +15,7 @@ pub fn is_normal(m: &Mount) -> bool {
         || m.info.fs_type == "zfs" // unless it's zfs - see https://github.com/Canop/dysk/issues/32
         || m.is_remote()
     )
-    && m.disk.as_ref().is_none_or(|d| !d.image) // not real
+    && m.disk.as_ref().map_or(true, |d| !d.image) // not real
     && !m.info.bound // removing bound mounts
     && m.info.fs_type != "squashfs" // quite ad-hoc...
     && !is_system_path(&m.info.mount_point)

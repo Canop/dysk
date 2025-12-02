@@ -56,7 +56,7 @@ fn build_man_page() -> std::io::Result<()> {
 /// Check that all dysk versions are the same
 ///
 /// See <https://github.com/Canop/dysk/issues/65>
-fn check_version_consistency() -> std::io::Result<()> {
+fn check_version_consistency() {
     #[derive(Deserialize)]
     struct Package {
         version: String,
@@ -87,7 +87,7 @@ fn check_version_consistency() -> std::io::Result<()> {
     let Ok(s) = fs::read_to_string("cli/Cargo.toml") else {
         // won't be visible unless run with -vv
         eprintln!("No local cli/Cargo.toml -- Assuming a cargo publish compilation");
-        return Ok(());
+        return;
     };
     let cli_cargo: CliCargo = toml::from_str(&s).unwrap();
     let ok = (version == main_cargo.package.version)
@@ -99,11 +99,10 @@ fn check_version_consistency() -> std::io::Result<()> {
     } else {
         panic!("VERSION MISMATCH - All dysk and dysk-cli versions must be the same");
     }
-    Ok(())
 }
 
 fn main() -> std::io::Result<()> {
-    check_version_consistency()?;
+    check_version_consistency();
     build_completion_scripts();
     build_man_page()?;
     Ok(())

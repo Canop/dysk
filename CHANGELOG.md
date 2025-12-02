@@ -1,5 +1,8 @@
-### next
+<a name="v3.5.0"></a>
+### v3.5.0 - 2025/12/02
 - Windows: detect storage spaces - Thanks @mokurin000 and @acieslewicz
+- silently handle broken pipe on printing to stdout - Fix #104
+- don't print a TTY Reset when called with `--color no` or piped to a non TTY stream - Fix #105
 
 <a name="v3.4.0"></a>
 ### v3.4.0 - 2025/11/08
