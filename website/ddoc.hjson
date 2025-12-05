@@ -1,0 +1,52 @@
+
+# This is a configuration file for the ddoc static site generator.
+# For details and instruction, see https://dystroy.org/ddoc/
+
+title: "dysk"
+description: "give information on mounted filesystems"
+favicon: img/favicon.ico
+
+pages: {
+    Overview: index.md
+    Install: install.md
+    Table: table.md
+    JSON: json.md
+    Filters: filters.md
+    Community: community.md
+}
+
+// Nav links can have { img, url, class, label}, all optional
+// URL starting with '/' are relative to the site's root
+nav_links: {
+    before_menu: [
+        {
+            img: img/dystroy-rust-white.svg
+            url: https://dystroy.org
+            alt: dystroy.org homepage
+            class: external-nav-link
+        }
+        {
+            img: img/dysk-homard-logo.svg
+            label: dysk
+            url: /index.md
+            alt: dysk homepage
+            class: home-link
+        }
+    ]
+    after_menu: [
+        {
+            img: img/github-mark-white.svg
+            class: external-nav-link
+            alt: GitHub
+            url: https://github.com/Canop/dysk
+        }
+    ]
+}
+
+// UI options
+ui: {
+    // if true, the generated HTML includes a checkbox which
+    // can be styled into a hamburger menu for small screens
+    hamburger_checkbox: true
+}
+

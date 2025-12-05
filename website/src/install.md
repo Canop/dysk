@@ -39,8 +39,8 @@ Once it's installed, use cargo to install dysk:
 
     cargo install --locked dysk
 
-!!! Note
-	If there's a compilation error, it most often means either that you're missing some compilation dependency (on ubuntu/debian try `sudo apt install build-essential`) or that you have an old version of the compiler, and you should update it (for example with `rustup update`).
+**Note:**
+If there's a compilation error, it most often means either that you're missing some compilation dependency (on ubuntu/debian try `sudo apt install build-essential`) or that you have an old version of the compiler, and you should update it (for example with `rustup update`).
 
 # From source
 

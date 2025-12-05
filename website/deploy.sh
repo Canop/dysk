@@ -1,4 +1,5 @@
-mkdocs build
+ddoc
+
 cp -r site/* ~/dev/www/dystroy/dysk/
 
 # deploy on dystroy.org

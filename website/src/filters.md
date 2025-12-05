@@ -67,6 +67,6 @@ Examples:
 
 ![screen](img/dysk_filters.png)
 
-!!! Note
-    Only *normal* filesystems are shown unless you use `-a`. This applies even when you use the `--filter` argument.
+**Note:**
+Only *normal* filesystems are shown unless you use `-a`. This applies even when you use the `--filter` argument.
 
