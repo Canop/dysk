@@ -35,6 +35,12 @@ nav_links: {
     ]
     after_menu: [
         {
+            img: img/ddoc-search.svg
+            href: --search
+            class: search-opener
+            alt: Search
+        }
+        {
             img: img/github-mark-white.svg
             class: external-nav-link
             alt: GitHub
