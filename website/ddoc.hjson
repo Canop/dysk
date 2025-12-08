@@ -1,4 +1,3 @@
-
 # This is a configuration file for the ddoc static site generator.
 # For details and instruction, see https://dystroy.org/ddoc/
 
@@ -17,8 +16,8 @@ pages: {
 
 // Nav links can have { img, url, class, label}, all optional
 // URL starting with '/' are relative to the site's root
-nav_links: {
-    before_menu: [
+header: {
+    before-menu: [
         {
             img: img/dystroy-rust-white.svg
             url: https://dystroy.org
@@ -33,7 +32,8 @@ nav_links: {
             class: home-link
         }
     ]
-    after_menu: [
+    middle: menu
+    after-menu: [
         {
             img: img/ddoc-search.svg
             href: --search
