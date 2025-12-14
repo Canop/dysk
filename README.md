@@ -28,27 +28,27 @@ dysk was previously known as lfs.
 
 ### Default table
 
-![screenshot](website/docs/img/dysk.png)
+![screenshot](website/src/img/dysk.png)
 
 ### Custom choice of column
 
-![screenshot](website/docs/img/dysk_c=label+default+dev.png)
+![screenshot](website/src/img/dysk_c=label+default+dev.png)
 
-![screenshot](website/docs/img/dysk_c=+dev+inodes.png)
+![screenshot](website/src/img/dysk_c=+dev+inodes.png)
 
 ### JSON output
 
-![screenshot](website/docs/img/dysk-json-jq.png)
+![screenshot](website/src/img/dysk-json-jq.png)
 
 You can output the table as CSV too.
 
 ### Filters
 
-![screenshot](website/docs/img/dysk_filters.png)
+![screenshot](website/src/img/dysk_filters.png)
 
 ### Sort
 
-![screenshot](website/docs/img/dysk_s=free-d.png)
+![screenshot](website/src/img/dysk_s=free-d.png)
 
 ### Library
 
