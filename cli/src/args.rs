@@ -3,6 +3,7 @@ use {
         cols::Cols,
         filter::Filter,
         sorting::Sorting,
+        timeout::Timeout,
         units::Units,
     },
     clap::{
@@ -86,9 +87,13 @@ pub struct Args {
     #[arg(long, default_value = ",", value_name = "sep")]
     pub csv_separator: char,
 
-    /// Strategy to use to find information, when several are available
+    /// strategy to use to find information, when several are available
     #[arg(long, hide = true)]
     pub strategy: Option<String>,
+
+    /// timeout to use for some operations, eg `10s` or `5ms`
+    #[arg(long)]
+    pub timeout: Option<Timeout>,
 
     /// if provided, only the device holding this path will be shown
     pub path: Option<std::path::PathBuf>,

@@ -89,6 +89,8 @@ pub fn write<W: Write>(
                     )
                     .set("ifree", inodes.favail);
             }
+        } else if mount.is_timeout() {
+            sub.set("use-error", "timeout");
         } else if mount.is_unreachable() {
             sub.set("use-error", "unreachable");
         }
