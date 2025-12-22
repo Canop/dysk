@@ -11,6 +11,7 @@ pub mod normal;
 pub mod order;
 pub mod sorting;
 pub mod table;
+pub mod timeout;
 pub mod units;
 
 use {
@@ -53,6 +54,9 @@ pub fn run() -> io::Result<()> {
     let mut options =
         lfs_core::ReadOptions::default()
         .remote_stats(args.remote_stats.unwrap_or_else(|| true));
+    if let Some(timeout) = args.timeout {
+        options = options.stats_timeout(timeout.as_duration());
+    }
     if let Some(strategy) = &args.strategy {
         match strategy.parse() {
             Ok(strategy) => {
