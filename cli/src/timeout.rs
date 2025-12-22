@@ -3,14 +3,12 @@ use {
     std::str::FromStr,
 };
 
-pub const INFINITE_DURATION: Duration = Duration::from_hours(1); // that's enoug
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Timeout(Option<Duration>);
 
 impl Timeout {
-    pub fn as_duration(&self) -> Duration {
-        self.0.unwrap_or(INFINITE_DURATION)
+    pub fn as_duration(&self) -> Option<Duration> {
+        self.0
     }
     fn try_read(s: &str) -> Option<Self> {
         if s == "none" || s == "no" {
