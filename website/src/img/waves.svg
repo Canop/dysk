@@ -1,0 +1,74 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2c5f8d;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e07856;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#d66a4a;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a7ba7;stop-opacity:0.85" />
+      <stop offset="100%" style="stop-color:#5d9bc9;stop-opacity:0.85" />
+    </linearGradient>
+    
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4a261;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#e89b6d;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Shadow filters -->
+    <filter id="softShadow1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+      <feOffset dx="0" dy="10" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="softShadow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="15"/>
+      <feOffset dx="0" dy="8" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0f2540"/>
+  
+  <!-- Organic flowing shapes -->
+  <path d="M 0 150 Q 200 100 400 180 T 800 200 Q 1000 220 1200 180 L 1200 0 L 0 0 Z" 
+        fill="url(#grad1)" 
+        filter="url(#softShadow1)" 
+        opacity="0.9"/>
+  
+  <path d="M 0 350 Q 300 280 600 340 T 1200 380 L 1200 0 L 0 0 Z" 
+        fill="url(#grad3)" 
+        filter="url(#softShadow1)" 
+        opacity="0.7"/>
+  
+  <path d="M 0 450 Q 250 390 500 450 T 1000 480 Q 1100 470 1200 490 L 1200 800 L 0 800 Z" 
+        fill="url(#grad2)" 
+        filter="url(#softShadow2)" 
+        opacity="0.8"/>
+  
+  <path d="M 0 600 Q 350 540 700 590 T 1200 620 L 1200 800 L 0 800 Z" 
+        fill="url(#grad4)" 
+        filter="url(#softShadow2)" 
+        opacity="0.75"/>
+  
+</svg>

@@ -1,7 +1,7 @@
 /* standard classes and general style */
 
 :root {
-	--text: #444;
+	--text: #333;
 	--accent: #fff;
 	--bg: #fdfdfd;
 	--nav-bg: linear-gradient(#4965f2,#1835f6);
