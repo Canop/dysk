@@ -1,3 +1,6 @@
+### next
+- on linux, stats reading is time bounded, which avoids apparent freezes on unresponding remote volumes or some invalid mounts
+
 <a name="v3.5.0"></a>
 ### v3.5.0 - 2025/12/02
 - Windows: detect storage spaces - Thanks @mokurin000 and @acieslewicz
