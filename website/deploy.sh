@@ -1,8 +1,8 @@
 ddoc
 
-cp -r site/* ~/dev/www/dystroy/dysk/
+cp -r site/* $HOME/dev/www/dystroy/dysk/
 
 # deploy on dystroy.org
-~/dev/www/dystroy/deploy.sh
+$HOME/dev/www/dystroy/deploy.sh
 
 
