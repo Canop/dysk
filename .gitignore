@@ -9,3 +9,4 @@
 /.bacon-locations
 /zigbuild
 /.intentionally-empty-file.o
+/musl-build.sh

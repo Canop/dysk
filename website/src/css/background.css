@@ -1,0 +1,18 @@
+@media (min-width: 900px) { /* wide screens */
+    html body {
+        background-image: linear-gradient(
+            to right,
+            rgba(255,255,255,.49) 0%,
+            rgba(255,255,255,.58) calc( 50% - 450px ),
+            rgba(255,255,255,.58) calc( 50% - 400px ),
+            rgba(255,255,255,.58) calc( 50% + 400px ),
+            rgba(255,255,255,.58) calc( 50% + 450px ),
+            rgba(255,255,255,.49) 100%),
+            url("../img/waves.svg"
+        );
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+}

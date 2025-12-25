@@ -3,7 +3,7 @@ With `dysk --json` (shortened in `dysk -j`) you get a JSON structure that can be
 
 # JSON output
 
-The normal output is an array of all filesystem matching the filter.
+The normal output is an array of all filesystems matching the filter.
 
 In order to make a sample fitting this site, I extracted the first filesystem with
 
