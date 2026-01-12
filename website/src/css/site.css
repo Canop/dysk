@@ -154,9 +154,34 @@ header {
 	flex-direction: row;
 	align-items: center;
 	background: var(--nav-bg);
+	border-bottom: 1px solid var(--accent);
 	justify-content: space-between;
 	color: var(--nav-fg);
-	box-shadow: 0 2px 4px rgba(0,0,0,.6);
+}
+.nav-link img, .nav-link svg {
+	max-width: 40px;
+	max-height: 40px;
+	margin: 0 10px;
+}
+.nav-link svg, .nav-link svg path {
+    fill: var(--nav-fg);
+    stroke: var(--nav-fg);
+}
+.nav-link:hover {
+    color: var(--nav-fg-accent);
+}
+.nav-link.search-opener svg {
+	max-width: 30px;
+	max-height: 30px;
+	margin: 0 5px 0 5px;
+}
+.nav-link.previous-page-link svg, .nav-link.next-page-link svg {
+	max-width: 30px;
+	max-height: 30px;
+	margin: 0 0 0 10px;
+}
+.nav-link.github {
+	margin-left: 20px;
 }
 .nav-link.search-opener img {
 	transform: scale(0.7);
@@ -167,7 +192,7 @@ header {
 	margin: 0 0 0 10px;
 }
 .search-opener, .previous-page-link, .next-page-link {
-	opacity: 0.75;
+	opacity: 0.65;
 }
 .search-opener:hover, .previous-page-link:hover, .next-page-link:hover {
 	opacity: 1;
@@ -249,6 +274,9 @@ nav.site-nav .selected > a {
 	flex-direction: row;
 	align-items: center;
 }
+.nav-link.unexpanded,  .nav-link.unexpanded:hover {
+	opacity: 0.1;
+}
 .nav-link img {
 	max-width: 40px;
 	max-height: 40px;
@@ -262,7 +290,7 @@ nav.site-nav .selected > a {
 }
 
 .external-nav-link {
-	opacity: .3;
+	opacity: .6;
 	transition: opacity .5s;
 }
 .external-nav-link:hover {
@@ -351,6 +379,9 @@ nav.page-toc .toc-content {
 	box-shadow: 0 2px 4px rgba(0,0,0,.6);
 }
 
+nav.page-toc .toc-item.active {
+	background: var(--hovered-menu-bg);
+}
 nav.page-toc .toc-item:hover {
 	background: var(--hovered-menu-bg);
 }
