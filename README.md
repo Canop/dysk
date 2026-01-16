@@ -1,6 +1,6 @@
 # dysk
 
-[![CI][s3]][l3] [![MIT][s2]][l2] [![Latest Version][s1]][l1] [![Chat on Miaou][s4]][l4] [![Packaging status][srep]][lrep]
+[![CI][s3]][l3] [![MIT][s2]][l2] [![Latest Version][s1]][l1] [![Conda Version][s5]][l5] [![Chat on Miaou][s4]][l4] [![Packaging status][srep]][lrep]
 
 [s1]: https://img.shields.io/crates/v/dysk.svg
 [l1]: https://crates.io/crates/dysk
@@ -13,6 +13,9 @@
 
 [s4]: https://miaou.dystroy.org/static/shields/room.svg
 [l4]: https://miaou.dystroy.org/4847?dysk
+
+[s5]: https://img.shields.io/conda/vn/conda-forge/dysk.svg
+[l5]: https://anaconda.org/conda-forge/dysk
 
 [srep]: https://repology.org/badge/tiny-repos/dysk.svg
 [lrep]: https://repology.org/project/dysk/versions
