@@ -31,24 +31,6 @@ You may download previous releases on [GitHub releases](https://github.com/Canop
 
 When you download executable files, you'll have to ensure the shell can find them. An easy solution on linux is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 
-## From conda-forge
-
-dysk is available as a conda package [on conda-forge](https://github.com/conda-forge/dysk-feedstock) for the following platforms
-
-[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dysk.svg)](https://anaconda.org/conda-forge/dysk)
-
-and can be installed globally with [Pixi](https://pixi.sh/):
-
-    pixi global install dysk
-
-or into a particular project with Pixi:
-
-    pixi add dysk
-
-or with [conda](https://docs.conda.io/projects/conda/):
-
-    conda install --channel conda-forge dysk
-
 # From crates.io
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed and up to date.
@@ -70,7 +52,27 @@ Fetch the [Canop/dysk](https://github.com/Canop/dysk) repository, move to the dy
 cargo install --locked --path .
 ```
 
-# Third party repositories
+# Community maintained
+
+## conda-forge
+
+dysk is available as a conda package [on conda-forge](https://github.com/conda-forge/dysk-feedstock) for the following platforms
+
+[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dysk.svg)](https://anaconda.org/conda-forge/dysk)
+
+and can be installed globally with [Pixi](https://pixi.sh/):
+
+    pixi global install dysk
+
+or into a particular project with Pixi:
+
+    pixi add dysk
+
+or with [conda](https://docs.conda.io/projects/conda/):
+
+    conda install --channel conda-forge dysk
+
+## Other repositories
 
 Those packages are maintained by third parties and may be less up to date.
 
