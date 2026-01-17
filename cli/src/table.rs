@@ -25,8 +25,7 @@ static USED_COLOR: u8 = 209;
 static AVAI_COLOR: u8 = 65;
 static SIZE_COLOR: u8 = 172;
 
-static BAR_WIDTH: usize = 5;
-static INODES_BAR_WIDTH: usize = 5;
+
 
 pub fn write<W: Write>(
     w: &mut W,
@@ -75,7 +74,7 @@ pub fn write<W: Write>(
             sub.set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
-                .set_md("bar", progress_bar_md(use_share, BAR_WIDTH, args.ascii))
+                .set_md("bar", progress_bar_md(use_share, args.bar_width, args.ascii))
                 .set("free", units.fmt(stats.available()))
                 .set("free-percents", format!("{:.0}%", 100.0 * free_share));
             if let Some(inodes) = &stats.inodes {
@@ -85,7 +84,7 @@ pub fn write<W: Write>(
                     .set("iuse-percents", format!("{:.0}%", 100.0 * iuse_share))
                     .set_md(
                         "ibar",
-                        progress_bar_md(iuse_share, INODES_BAR_WIDTH, args.ascii),
+                        progress_bar_md(iuse_share, args.bar_width, args.ascii),
                     )
                     .set("ifree", inodes.favail);
             }

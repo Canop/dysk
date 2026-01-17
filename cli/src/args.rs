@@ -95,6 +95,10 @@ pub struct Args {
     #[arg(long)]
     pub timeout: Option<Timeout>,
 
+    /// width of the progress bar in the 'use' and 'inodes' columns
+    #[arg(long, default_value = "5", value_name = "width")]
+    pub bar_width: usize,
+
     /// if provided, only the device holding this path will be shown
     pub path: Option<std::path::PathBuf>,
 }
