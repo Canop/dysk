@@ -1,6 +1,6 @@
-use {
-    std::time::Duration,
-    std::str::FromStr,
+use std::{
+    str::FromStr,
+    time::Duration,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -31,8 +31,6 @@ impl FromStr for Timeout {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Self::try_read(s)
-            .ok_or(r#"Invalid timeout, expected "none" or <number>[s|ms]"#)
+        Self::try_read(s).ok_or(r#"Invalid timeout, expected "none" or <number>[s|ms]"#)
     }
 }
-

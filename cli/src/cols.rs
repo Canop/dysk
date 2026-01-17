@@ -221,6 +221,8 @@ mod cols_parsing {
                 MountPoint,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
                 Label,
             ],
         );
@@ -241,6 +243,8 @@ mod cols_parsing {
                 InodesCount,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
                 Use,
             ],
         );
@@ -260,6 +264,8 @@ mod cols_parsing {
                 InodesCount,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
                 Filesystem,
                 Type,
                 Disk,
@@ -294,6 +300,8 @@ mod cols_parsing {
                 MountPoint,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
             ],
         );
         check(
@@ -318,6 +326,8 @@ mod cols_parsing {
                 MountPoint,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
             ],
         );
     }
@@ -366,6 +376,8 @@ mod cols_parsing {
                 InodesCount,
                 Uuid,
                 PartUuid,
+                MountOptions,
+                CompressLevel,
             ],
         );
         check(

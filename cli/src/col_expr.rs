@@ -156,7 +156,9 @@ impl ColExpr {
             Col::PartUuid => self
                 .operator
                 .eval_option_str(mount.part_uuid.as_deref(), &self.value),
-            Col::MountOptions => self.operator.eval_str(&mount.info.options_string(), &self.value),
+            Col::MountOptions => self
+                .operator
+                .eval_str(&mount.info.options_string(), &self.value),
             Col::CompressLevel => self
                 .operator
                 .eval_option_str(mount.info.option_value("compress"), &self.value),

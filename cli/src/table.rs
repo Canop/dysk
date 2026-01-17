@@ -25,8 +25,6 @@ static USED_COLOR: u8 = 209;
 static AVAI_COLOR: u8 = 65;
 static SIZE_COLOR: u8 = 172;
 
-
-
 pub fn write<W: Write>(
     w: &mut W,
     mounts: &[&Mount],
@@ -58,10 +56,7 @@ pub fn write<W: Write>(
             .set("mount-options", mount.info.options_string())
             .set_option("uuid", mount.uuid.as_ref())
             .set_option("part_uuid", mount.part_uuid.as_ref())
-            .set_option(
-                "compress-level",
-                mount.info.option_value("compress"),
-            );
+            .set_option("compress-level", mount.info.option_value("compress"));
         if let Some(label) = &mount.fs_label {
             sub.set("label", label);
         }
@@ -74,7 +69,10 @@ pub fn write<W: Write>(
             sub.set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
-                .set_md("bar", progress_bar_md(use_share, args.bar_width, args.ascii))
+                .set_md(
+                    "bar",
+                    progress_bar_md(use_share, args.bar_width, args.ascii),
+                )
                 .set("free", units.fmt(stats.available()))
                 .set("free-percents", format!("{:.0}%", 100.0 * free_share));
             if let Some(inodes) = &stats.inodes {

@@ -1,12 +1,12 @@
 use {
     crate::col::ALL_COLS,
-    termimad::{
-        MadSkin,
-        minimad::OwningTemplateExpander,
-    },
     std::io::{
         self,
         Write,
+    },
+    termimad::{
+        MadSkin,
+        minimad::OwningTemplateExpander,
     },
 };
 

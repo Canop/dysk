@@ -1,18 +1,14 @@
 use core::str::FromStr;
 
 /// The Units system used for sizes
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub enum Units {
-    Si,     // Units according to the SI system, based on multiples of 1000
+    #[default]
+    Si, // Units according to the SI system, based on multiples of 1000
     Binary, // Old binary based units, based on multiples of 1024
     Bytes,  // Just the raw byte counts, with commas separating thousands
 }
 
-impl Default for Units {
-    fn default() -> Self {
-        Self::Si
-    }
-}
 impl FromStr for Units {
     type Err = String;
     fn from_str(value: &str) -> Result<Self, String> {

@@ -16,6 +16,12 @@ exclude = ["website", "dysk*.zip"]
 build = "build.rs"
 resolver = "2"
 
+[workspace]
+members = [
+    ".",
+    "cli",
+]
+
 [dependencies]
 dysk-cli = { version = "3.6.0", path = "cli" } # beware: version is also in build dependencies
 

@@ -52,8 +52,7 @@ pub fn run() -> io::Result<()> {
         return Ok(());
     }
     let mut options =
-        lfs_core::ReadOptions::default()
-        .remote_stats(args.remote_stats.unwrap_or_else(|| true));
+        lfs_core::ReadOptions::default().remote_stats(args.remote_stats.unwrap_or_else(|| true));
     if let Some(timeout) = args.timeout {
         options = options.stats_timeout(timeout.as_duration());
     }
@@ -119,4 +118,3 @@ pub fn run() -> io::Result<()> {
 fn csi_reset() {
     print!("\u{1b}[0m");
 }
-

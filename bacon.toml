@@ -29,17 +29,19 @@ command = [
 ]
 
 [jobs.clippy]
-command = ["cargo", "clippy", "--color", "always"]
+command = ["cargo", "clippy", "--workspace"]
 watch = ["tests", "benches", "examples", "build.rs"]
 need_stdout = false
 
 [jobs.clippy-all]
-command = ["cargo", "clippy", "--all-targets", "--color", "always"]
+command = ["cargo", "clippy", "--all-targets", "--workspace"]
 need_stdout = false
 watch = ["tests", "benches", "examples"]
 
 [jobs.test]
-command = ["cargo", "test", "--all-targets", "--color", "always"]
+command = [
+    "cargo", "test", "--all-targets", "--workspace",
+]
 need_stdout = true
 watch = ["tests"]
 

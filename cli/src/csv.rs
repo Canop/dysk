@@ -74,7 +74,7 @@ pub fn write<W: Write>(
         for col in args.cols.cols() {
             match col {
                 Col::Id => csv.cell_opt(mount.info.id),
-                Col::Dev => csv.cell(&mount.info.dev),
+                Col::Dev => csv.cell(mount.info.dev),
                 Col::Filesystem => csv.cell(&mount.info.fs),
                 Col::Label => csv.cell_opt(mount.fs_label.as_ref()),
                 Col::Type => csv.cell(&mount.info.fs_type),

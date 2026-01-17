@@ -267,9 +267,13 @@ impl Col {
                 (None, Some(_)) => Ordering::Greater,
                 (None, None) => Ordering::Equal,
             },
-            Self::MountOptions => |a: &Mount, b: &Mount| a.info.options_string()
-                .cmp(&b.info.options_string()),
-            Self::CompressLevel => |a: &Mount, b: &Mount| match (a.info.option_value("compress"), b.info.option_value("compress")) {
+            Self::MountOptions => {
+                |a: &Mount, b: &Mount| a.info.options_string().cmp(&b.info.options_string())
+            }
+            Self::CompressLevel => |a: &Mount, b: &Mount| match (
+                a.info.option_value("compress"),
+                b.info.option_value("compress"),
+            ) {
                 (Some(a), Some(b)) => a.cmp(b),
                 (Some(_), None) => Ordering::Less,
                 (None, Some(_)) => Ordering::Greater,
