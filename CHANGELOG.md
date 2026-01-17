@@ -1,3 +1,6 @@
+### next
+- `--bar-width` parameter - Fix #114 - Thanks @PeithonKing
+
 <a name="v3.6.0"></a>
 ### v3.6.0 - 2025/12/23
 - on linux, stats reading is time bounded, which avoids apparent freezes on unresponding remote volumes or some invalid mounts
