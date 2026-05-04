@@ -1,5 +1,7 @@
-### next
+<a name="v3.6.1"></a>
+### v3.6.1 - 2026/05/04
 - `--bar-width` parameter - Fix #114 - Thanks @PeithonKing
+- fix "use" column not taking into account some non-free space on linux - Fix #117
 
 <a name="v3.6.0"></a>
 ### v3.6.0 - 2025/12/23

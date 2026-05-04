@@ -348,7 +348,7 @@ dependencies = [
 
 [[package]]
 name = "dysk"
-version = "3.6.0"
+version = "3.6.1"
 dependencies = [
  "clap",
  "clap_complete",
@@ -360,7 +360,7 @@ dependencies = [
 
 [[package]]
 name = "dysk-cli"
-version = "3.6.0"
+version = "3.6.1"
 dependencies = [
  "bet",
  "clap",
@@ -469,9 +469,9 @@ dependencies = [
 
 [[package]]
 name = "lfs-core"
-version = "0.19.2"
+version = "0.19.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3a82bb0d309ee7cb41f0f87843945b1a03c48d13cfb4069a18bcc8d34e50ac5"
+checksum = "eadf1564093913eaedf0d203dee6987b0b86a5d09e75f5f4563c13fe37fc611e"
 dependencies = [
  "core-foundation",
  "core-foundation-sys",

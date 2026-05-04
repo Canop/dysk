@@ -27,7 +27,6 @@ body: {
                 label: dysk
                 href: /index.md
                 alt: dysk homepage
-                class: home-link
             }
         }
         ddoc-menu: {
