@@ -1,3 +1,6 @@
+### next
+- reduce the size of messages in 'use' column depending on heuristic to reduce wasted space
+
 <a name="v3.6.1"></a>
 ### v3.6.1 - 2026/05/04
 - `--bar-width` parameter - Fix #114 - Thanks @PeithonKing

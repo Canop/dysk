@@ -4,11 +4,15 @@ use {
         col::Col,
     },
     lfs_core::*,
-    std::io::Write,
+    std::{
+        borrow::Cow,
+        io::Write,
+    },
     termimad::{
         CompoundStyle,
         MadSkin,
         ProgressBar,
+        StrFit,
         crossterm::style::Color::*,
         minimad::{
             self,
@@ -24,6 +28,7 @@ use {
 static USED_COLOR: u8 = 209;
 static AVAI_COLOR: u8 = 65;
 static SIZE_COLOR: u8 = 172;
+static BAR_WIDTH_SPACE_THRESHOLD: usize = 4;
 
 pub fn write<W: Write>(
     w: &mut W,
@@ -37,6 +42,7 @@ pub fn write<W: Write>(
     let units = args.units;
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
+    let use_col_width = compute_use_col_width(args);
     for mount in mounts {
         let sub = expander
             .sub("rows")
@@ -66,6 +72,13 @@ pub fn write<W: Write>(
         if let Some(stats) = mount.stats() {
             let use_share = stats.use_share();
             let free_share = 1.0 - use_share;
+            if args.bar_width > BAR_WIDTH_SPACE_THRESHOLD {
+                sub.set("use-space", " ");
+            } else {
+                // if the bar has been set to a very small width, the user probably don't
+                // want space to be wasted
+                sub.set("use-space", "");
+            }
             sub.set("size", units.fmt(stats.size()))
                 .set("used", units.fmt(stats.used()))
                 .set("use-percents", format!("{:.0}%", 100.0 * use_share))
@@ -87,9 +100,12 @@ pub fn write<W: Write>(
                     .set("ifree", inodes.favail);
             }
         } else if mount.is_timeout() {
-            sub.set("use-error", "timeout");
+            sub.set("use-error", string_fitting_cols("timeout", use_col_width));
         } else if mount.is_unreachable() {
-            sub.set("use-error", "unreachable");
+            sub.set(
+                "use-error",
+                string_fitting_cols("unreachable", use_col_width),
+            );
         }
     }
     let mut skin = if color {
@@ -115,7 +131,7 @@ pub fn write<W: Write>(
                     Col::Type => "${type}",
                     Col::Remote => "${remote}",
                     Col::Used => "~~${used}~~",
-                    Col::Use => "~~${use-percents}~~ ${bar}~~${use-error}~~",
+                    Col::Use => "~~${use-percents}~~${use-space}${bar}~~${use-error}~~",
                     Col::UsePercent => "~~${use-percents}~~",
                     Col::Free => "*${free}*",
                     Col::FreePercent => "*${free-percents}*",
@@ -138,6 +154,41 @@ pub fn write<W: Write>(
     }
 
     skin.write_owning_expander_md(w, &expander, &tbl)
+}
+
+/// Use settings and heuristics to determine the max width to be used by errors messages
+/// in the "use" column, so that they don't break the layout too much.
+fn compute_use_col_width(args: &Args) -> usize {
+    const MAX: usize = 20; // basically no limit
+    let mut width = 3 + args.bar_width; // 3 for eg "97%"
+    if args.bar_width > BAR_WIDTH_SPACE_THRESHOLD {
+        width += 1;
+    }
+    if width < MAX {
+        if args.cols.len() < 3 {
+            return MAX;
+        }
+        let (terminal_width, _) = termimad::terminal_size();
+        if terminal_width > 150 {
+            return MAX;
+        }
+    }
+    width
+}
+
+/// Return a string potentially shortened with an ellipsis, so that it fits in the given number of
+/// columns. To avoid importing a crate like unicode_width, all characters are assumed to have a
+/// width of 1. To ease enforcing this assumption, only static string are used.
+fn string_fitting_cols(
+    s: &'static str,
+    cols: usize,
+) -> Cow<'static, str> {
+    if cols == 0 || s.chars().count() <= cols {
+        Cow::Borrowed(s)
+    } else {
+        let shortened = StrFit::make_cow(s, cols - 1).0;
+        format!("{}…", shortened).into()
+    }
 }
 
 fn make_colored_skin() -> MadSkin {
