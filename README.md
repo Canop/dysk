@@ -9,6 +9,11 @@ Packages created:
 -RPM (installs the binary in /usr/bin on RPM using systems).
 
 
+Dependencies:
+
+
+- nfpm
+
 
 
 Improvements: 
