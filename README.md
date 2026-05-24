@@ -1,4 +1,30 @@
-# dysk
+# dysk-packages
+
+This repo provides native packages for dysk.
+
+
+Packages created:
+
+
+-RPM (installs the binary in /usr/bin on RPM using systems).
+
+
+
+Future projects:
+
+
+
+
+-DEB
+
+
+
+
+
+
+Have fun!
+
+
 
 [![Chat on Miaou][s4]][l4] [![MIT][s2]][l2] [![CI][s3]][l3] [![Latest Version][s1]][l1] [![Conda Version][s5]][l5] [![Packaging status][srep]][lrep]
 
