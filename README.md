@@ -28,9 +28,59 @@ Improvements:
 
 
 
-- Create the package with
+- Create the package by
+
+
+
+
+- Improved README.md file.
+
+
+
+
+Creating the binary
+
+
+
+``` cd dysk ```
+
+
+
+
+``` cargo build --release ```
+
+
+
+Create the building folders
+
+
+
+
+``` mkdir root ```
+
+
+
+
+``` mkdir root/usr ```
+
+
+
+Move the binary into the main folder
+
+
+
+``` mv target/release/dysk /root/usr ```
+
+
+
+Run nfpm
+
+
 
 ``` nfpm pkg -p rpm ```
+
+
+
 
 
 Install the package with
@@ -38,13 +88,11 @@ Install the package with
 
 
 
-```cd RPM```
-
-
-
-
-
 ```sudo dnf install dysk-3.6.1-1.x86_64.rpm ```
+
+
+
+
 
 
 Future projects:
