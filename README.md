@@ -8,6 +8,8 @@ Packages created:
 
 -RPM (installs the binary in /usr/bin on RPM using systems).
 
+```cd RPM```
+```sudo dnf install dysk-3.6.1+git-1.x86_64.rpm ```
 
 
 Future projects:
