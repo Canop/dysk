@@ -1,0 +1,16 @@
+
+name: dysk
+arch: amd64
+platform: linux
+version: 3.6.1
+version_schema: semver
+description: RPM package of dysk.
+license: MIT
+disable_globbing: false
+provides:
+  - dysk
+contents:
+  - src: root/usr/bin
+    dst: /usr/bin/
+
+  
