@@ -11,7 +11,7 @@ rust-version = "1.70"
 [dependencies]
 bet = "1.0.4"
 clap = { version = "4.4", features = ["derive", "cargo"] }
-clap-help = "1.4"
+clap-help = "1.5.1"
 file-size = "1.0.3"
 #lfs-core = { git = "https://github.com/Canop/lfs-core.git", branch = "smb" }
 #lfs-core = { path = "../../lfs-core" }
