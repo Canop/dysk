@@ -282,16 +282,16 @@ impl fmt::Display for EvalExprError {
     ) -> fmt::Result {
         match self {
             Self::NotANumber(s) => {
-                write!(f, "{:?} can't be evaluated as a number", &s)
+                write!(f, "{:?} can't be evaluated as a number", s)
             }
             Self::NotAnId(s) => {
-                write!(f, "{:?} can't be evaluated as an id", &s)
+                write!(f, "{:?} can't be evaluated as an id", s)
             }
             Self::NotADeviceId(s) => {
-                write!(f, "{:?} can't be evaluated as a device id", &s)
+                write!(f, "{:?} can't be evaluated as a device id", s)
             }
             Self::NotABool(s) => {
-                write!(f, "{:?} can't be evaluated as a boolean", &s)
+                write!(f, "{:?} can't be evaluated as a boolean", s)
             }
         }
     }

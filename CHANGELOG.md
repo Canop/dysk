@@ -1,5 +1,6 @@
 ### next
 - reduce the size of messages in 'use' column depending on heuristic to reduce wasted space
+- bump MSRV to 1.85 and rust edition to 2024
 
 <a name="v3.6.1"></a>
 ### v3.6.1 - 2026/05/04
