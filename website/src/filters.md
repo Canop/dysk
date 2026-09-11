@@ -13,11 +13,14 @@ The default selection of filesystems showcases your storage, avoiding any filesy
 
 Here are the rules of the current heuristics, in order: a filesystem
 
+1. is excluded when its usage statistics can't be read unless it's an unreachable remote one
 1. is excluded when it's bound to a previous one
 1. is excluded when it's of type `squashfs`
 1. is included when it's of type `zfs`
 1. is included when it's remote
+1. is included when its disk is a disk image
 1. is excluded when no underlying disk was found
+1. (on mac) is excluded when it's the read-only system volum, is mounted in `/System` (except `/System/Volumes/Data`) or in `/Library/Developper`
 
 To see *all* filesystems of your system, do `dysk --all`:
 

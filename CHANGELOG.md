@@ -1,5 +1,7 @@
 ### next
 - reduce the size of messages in 'use' column depending on heuristic to reduce wasted space
+- on popular demande, make `/boot` "normal" again (meaning its mounts are shown by default)
+- `dysk <path>` shows the FS holding the path even when it's not "normal"
 
 <a name="v3.6.1"></a>
 ### v3.6.1 - 2026/05/04

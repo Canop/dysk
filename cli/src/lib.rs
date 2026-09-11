@@ -73,9 +73,6 @@ pub fn run() -> io::Result<()> {
             return Ok(());
         }
     };
-    if !args.all {
-        mounts.retain(is_normal);
-    }
     if let Some(path) = &args.path {
         let dev = match lfs_core::DeviceId::of_path(path) {
             Ok(dev) => dev,
@@ -84,7 +81,9 @@ pub fn run() -> io::Result<()> {
                 return Ok(());
             }
         };
-        mounts.retain(|m| m.info.dev == dev);
+        mounts.retain(|m| m.info.dev == dev && (args.all || !m.info.bound));
+    } else if !args.all {
+        mounts.retain(is_normal);
     }
     args.sort.sort(&mut mounts);
     let mounts = match args.filter.clone().unwrap_or_default().filter(&mounts) {

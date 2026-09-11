@@ -38,12 +38,8 @@ fn is_system_path(path: &Path) -> bool {
     false
 }
 
-#[cfg(target_os = "linux")]
-fn is_system_path(path: &Path) -> bool {
-    path.starts_with("/boot")
-}
 
-#[cfg(target_os = "windows")]
+#[cfg(not(target_os = "macos"))]
 fn is_system_path(_path: &Path) -> bool {
     false
 }
