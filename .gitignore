@@ -1,6 +1,8 @@
 /target
 /cli/target
 /build
+/.build-cache
+/build-scripts/_local.sh
 /releases
 /dysk_*.zip
 /lfs_*.zip

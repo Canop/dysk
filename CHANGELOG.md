@@ -1,6 +1,8 @@
 ### next
 - reduce the size of messages in 'use' column depending on heuristic to reduce wasted space
 - bump MSRV to 1.85 and rust edition to 2024
+- the release archive no longer wraps its content in a `build` directory
+- add a macOS Intel binary to the release archive
 
 <a name="v3.6.1"></a>
 ### v3.6.1 - 2026/05/04
