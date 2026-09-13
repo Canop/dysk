@@ -1,6 +1,6 @@
 [package]
 name = "dysk-cli"
-version = "3.6.1"
+version = "3.7.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2024"
 license = "MIT"

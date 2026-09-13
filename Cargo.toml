@@ -1,6 +1,6 @@
 [package]
 name = "dysk"
-version = "3.6.1"
+version = "3.7.0"
 authors = ["dystroy <denys.seguret@gmail.com>"]
 edition = "2024"
 keywords = ["linux", "mac", "filesystem", "disk"]
@@ -22,13 +22,13 @@ members = [
 ]
 
 [dependencies]
-dysk-cli = { version = "3.6.1", path = "cli" } # beware: version is also in build dependencies
+dysk-cli = { version = "3.7.0", path = "cli" } # beware: version is also in build dependencies
 
 [build-dependencies]
 clap = { version = "4.6", features = ["derive", "cargo"] }
 clap_complete = "4.6"
 clap_mangen = "0.3"
-dysk-cli = { version = "3.6.1", path = "cli" }
+dysk-cli = { version = "3.7.0", path = "cli" }
 serde = { version = "1.0", features = ["derive"] }
 toml = "1"
 
