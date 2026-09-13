@@ -49,7 +49,7 @@ fn build_man_page() -> std::io::Result<()> {
     man.render(&mut buffer)?;
     let file_path = out_dir.join("dysk.1");
     std::fs::write(&file_path, buffer)?;
-    eprintln!("map page generated in {file_path:?}");
+    eprintln!("map page generated in {}", file_path.display());
     Ok(())
 }
 

@@ -13,6 +13,8 @@ use {
     termimad::crossterm::tty::IsTty,
 };
 
+#[allow(clippy::struct_excessive_bools)]
+#[allow(clippy::doc_markdown)]
 /// List your filesystems.
 ///
 /// Documentation at https://dystroy.org/dysk

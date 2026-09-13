@@ -45,9 +45,9 @@ pub struct ParseSortingError {
     reason: String,
 }
 impl ParseSortingError {
-    pub fn new<S: Into<String>, E: ToString>(
+    pub fn new<S: Into<String>, E: ToString + ?Sized>(
         raw: S,
-        reason: E,
+        reason: &E,
     ) -> Self {
         Self {
             raw: raw.into(),
@@ -82,11 +82,11 @@ impl FromStr for Sorting {
         };
         let col: Col = s_col
             .parse()
-            .map_err(|pce| ParseSortingError::new(s, Box::new(pce)))?;
+            .map_err(|pce| ParseSortingError::new(s, &pce))?;
         let order = match s_order {
             Some(s_order) => s_order
                 .parse()
-                .map_err(|poe| ParseSortingError::new(s, Box::new(poe)))?,
+                .map_err(|poe| ParseSortingError::new(s, &poe))?,
             None => col.default_sort_order(),
         };
         Ok(Self { col, order })

@@ -96,13 +96,13 @@ impl ColExpr {
                 mount.info.id,
                 self.value
                     .parse::<MountId>()
-                    .map_err(|_| EvalExprError::NotAnId(self.value.to_string()))?,
+                    .map_err(|_| EvalExprError::NotAnId(self.value.clone()))?,
             ),
             Col::Dev => self.operator.eval(
                 mount.info.dev,
                 self.value
                     .parse::<DeviceId>()
-                    .map_err(|_| EvalExprError::NotADeviceId(self.value.to_string()))?,
+                    .map_err(|_| EvalExprError::NotADeviceId(self.value.clone()))?,
             ),
             Col::Filesystem => self.operator.eval_str(&mount.info.fs, &self.value),
             Col::Label => self
@@ -114,7 +114,7 @@ impl ColExpr {
                 .eval(mount.is_remote(), parse_bool(&self.value)?),
             Col::Disk => self
                 .operator
-                .eval_option_str(mount.disk.as_ref().map(|d| d.disk_type()), &self.value),
+                .eval_option_str(mount.disk.as_ref().map(Disk::disk_type), &self.value),
             Col::Used => self.operator.eval_option(
                 mount.stats().as_ref().map(|s| s.used()),
                 parse_integer(&self.value)?,
@@ -240,7 +240,7 @@ impl FromStr for ColExpr {
             op => {
                 return Err(ParseExprError::new(
                     input,
-                    format!("unknown operator: {:?}", op),
+                    format!("unknown operator: {op:?}"),
                 ));
             }
         };
@@ -282,16 +282,16 @@ impl fmt::Display for EvalExprError {
     ) -> fmt::Result {
         match self {
             Self::NotANumber(s) => {
-                write!(f, "{:?} can't be evaluated as a number", s)
+                write!(f, "{s:?} can't be evaluated as a number")
             }
             Self::NotAnId(s) => {
-                write!(f, "{:?} can't be evaluated as an id", s)
+                write!(f, "{s:?} can't be evaluated as an id")
             }
             Self::NotADeviceId(s) => {
-                write!(f, "{:?} can't be evaluated as a device id", s)
+                write!(f, "{s:?} can't be evaluated as a device id")
             }
             Self::NotABool(s) => {
-                write!(f, "{:?} can't be evaluated as a boolean", s)
+                write!(f, "{s:?} can't be evaluated as a boolean")
             }
         }
     }

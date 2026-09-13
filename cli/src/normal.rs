@@ -38,7 +38,6 @@ fn is_system_path(path: &Path) -> bool {
     false
 }
 
-
 #[cfg(not(target_os = "macos"))]
 fn is_system_path(_path: &Path) -> bool {
     false

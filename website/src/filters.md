@@ -18,7 +18,7 @@ Here are the rules of the current heuristics, in order: a filesystem
 1. is excluded when it's of type `squashfs`
 1. is included when it's of type `zfs`
 1. is included when it's remote
-1. is included when its disk is a disk image
+1. is excluded when its disk is a disk image
 1. is excluded when no underlying disk was found
 1. (on mac) is excluded when it's the read-only system volum, is mounted in `/System` (except `/System/Volumes/Data`) or in `/Library/Developper`
 

@@ -38,6 +38,21 @@ command = ["cargo", "clippy", "--all-targets", "--workspace"]
 need_stdout = false
 watch = ["tests", "benches", "examples"]
 
+[jobs.pedantic]
+command = [
+	"cargo", "clippy",
+	"--all-targets",
+	"--",
+	"-W", "clippy::pedantic",
+	"-A", "clippy::match_same_arms",
+	"-A", "clippy::missing_errors_doc",
+	"-A", "clippy::must_use_candidate",
+	"-A", "clippy::needless_raw_string_hashes",
+	"-A", "clippy::too_many_lines",
+	"-A", "clippy::wildcard_imports",
+]
+
+need_stdout = false
 [jobs.test]
 command = [
     "cargo", "test", "--all-targets", "--workspace",
@@ -81,3 +96,4 @@ d = "job:doc-open"
 t = "job:test"
 r = "job:run"
 v = "job:check-msrv"
+p = "job:pedantic"

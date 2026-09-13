@@ -1,6 +1,8 @@
-### next
+<a name="v3.7.0"></a>
+### v3.7.0 - 2026/09/13
 - on popular demande, make `/boot` "normal" again (meaning its mounts are shown by default)
 - reduce the size of messages in 'use' column depending on heuristic to reduce wasted space
+- fix the used part of the 'use' bar being empty with `--ascii`
 - `dysk <path>` shows the filesystem holding the path even when it's not "normal"
 - bump MSRV to 1.85 and rust edition to 2024
 - the release archive no longer wraps its content in a `build` directory

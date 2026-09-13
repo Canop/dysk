@@ -172,6 +172,11 @@ impl Col {
             Self::CompressLevel => "compress algo/level",
         }
     }
+    /// Get a comparator function for this column, which can be used to sort a list of mounts
+    ///
+    /// # Panics
+    /// Panics if `use_share` returns NaN, which can't happen at the moment but is
+    /// defined in lfs-core
     pub fn comparator(self) -> impl for<'a, 'b> FnMut(&'a Mount, &'b Mount) -> Ordering {
         match self {
             Self::Id => |a: &Mount, b: &Mount| a.info.id.cmp(&b.info.id),

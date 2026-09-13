@@ -17,8 +17,7 @@ impl FromStr for Units {
             "binary" => Ok(Self::Binary),
             "bytes" => Ok(Self::Bytes),
             _ => Err(format!(
-                "Illegal value: {:?} - valid values are 'SI', 'binary', and 'bytes'",
-                value
+                "Illegal value: {value:?} - valid values are 'SI', 'binary', and 'bytes'"
             )),
         }
     }

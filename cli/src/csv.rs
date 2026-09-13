@@ -35,12 +35,12 @@ impl<W: Write> Csv<W> {
                 if c == '"' {
                     write!(self.w, "\"\"")?;
                 } else {
-                    write!(self.w, "{}", c)?;
+                    write!(self.w, "{c}")?;
                 }
             }
             write!(self.w, "\"")?;
         } else {
-            write!(self.w, "{}", s)?;
+            write!(self.w, "{s}")?;
         }
         write!(self.w, "{}", self.separator)
     }

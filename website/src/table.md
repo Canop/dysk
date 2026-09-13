@@ -93,6 +93,13 @@ Or sorting on the remaining free space, in descending order:
 
 ![screen](img/dysk_s=free-d.png)
 
+# Style
+
+Standard output is tailored for a normal terminal.
+If you redirect the output, if you want to copy into a document, or if your terminal doesn't support some characters or ANSI escape sequences, the `--color` and `--ascii` launch arguments may come handy:
+
+![screen](img/color-ascii.png)
+
 # CSV
 
 With the `--csv` argument, you can ask dysk to output the table in CSV:

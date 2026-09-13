@@ -30,6 +30,9 @@ use {
 ///
 /// # Errors
 /// Returns an `io::Error` if writing to stdout fails
+///
+/// # Panics
+/// Panics is serde fails to serialize the JSON output, which should not happen
 #[allow(clippy::match_like_matches_macro)]
 pub fn run() -> io::Result<()> {
     let mut w = io::stdout();
@@ -69,7 +72,7 @@ pub fn run() -> io::Result<()> {
     let mut mounts = match lfs_core::read_mounts(&options) {
         Ok(mounts) => mounts,
         Err(e) => {
-            eprintln!("Error reading mounts: {}", e);
+            eprintln!("Error reading mounts: {e}");
             return Ok(());
         }
     };
@@ -89,7 +92,7 @@ pub fn run() -> io::Result<()> {
     let mounts = match args.filter.clone().unwrap_or_default().filter(&mounts) {
         Ok(mounts) => mounts,
         Err(e) => {
-            eprintln!("Error in filter evaluation: {}", e);
+            eprintln!("Error in filter evaluation: {e}");
             return Ok(());
         }
     };

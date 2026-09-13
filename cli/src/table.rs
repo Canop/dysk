@@ -52,7 +52,7 @@ pub fn write<W: Write>(
                     .info
                     .id
                     .as_ref()
-                    .map_or("".to_string(), |i| i.to_string()),
+                    .map_or(String::new(), |i| i.to_string()),
             )
             .set("dev", mount.info.dev)
             .set("filesystem", &mount.info.fs)
@@ -177,7 +177,7 @@ fn compute_use_col_width(args: &Args) -> usize {
 }
 
 /// Return a string potentially shortened with an ellipsis, so that it fits in the given number of
-/// columns. To avoid importing a crate like unicode_width, all characters are assumed to have a
+/// columns. To avoid importing a crate like `unicode_width`, all characters are assumed to have a
 /// width of 1. To ease enforcing this assumption, only static string are used.
 fn string_fitting_cols(
     s: &'static str,
@@ -187,7 +187,7 @@ fn string_fitting_cols(
         Cow::Borrowed(s)
     } else {
         let shortened = StrFit::make_cow(s, cols - 1).0;
-        format!("{}…", shortened).into()
+        format!("{shortened}…").into()
     }
 }
 
@@ -208,11 +208,11 @@ fn progress_bar_md(
 ) -> String {
     if ascii {
         let count = (share * bar_width as f64).round() as usize;
-        let bar: String = "".repeat(count);
+        let bar: String = "=".repeat(count);
         let no_bar: String = "-".repeat(bar_width - count);
-        format!("~~{}~~*{}*", bar, no_bar)
+        format!("~~{bar}~~*{no_bar}*")
     } else {
         let pb = ProgressBar::new(share as f32, bar_width);
-        format!("`{:<width$}`", pb, width = bar_width)
+        format!("`{pb:<bar_width$}`")
     }
 }

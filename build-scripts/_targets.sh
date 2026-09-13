@@ -46,7 +46,7 @@ ARM 64|aarch64-unknown-linux-gnu|zig||
 ARM 64 MUSL|aarch64-unknown-linux-musl|zig||
 RISC-V|riscv64gc-unknown-linux-gnu|zig||
 Windows|x86_64-pc-windows-gnu|zig||
-# NetBSD/amd64|x86_64-unknown-netbsd   zig can't target it, and normal.rs has no is_system_path outside linux/macos/windows
+# NetBSD/amd64|x86_64-unknown-netbsd   zig can't target it: it would need a cross engine, on a Linux host
 EOF
 }
 
