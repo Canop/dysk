@@ -2,7 +2,7 @@
 name = "dysk"
 version = "3.6.1"
 authors = ["dystroy <denys.seguret@gmail.com>"]
-edition = "2018"
+edition = "2024"
 keywords = ["linux", "mac", "filesystem", "disk"]
 license = "MIT"
 categories = ["filesystem", "command-line-utilities"]
@@ -11,10 +11,9 @@ repository = "https://github.com/Canop/dysk"
 homepage = "https://dystroy.org/dysk"
 documentation = "https://dystroy.org/dysk"
 readme = "README.md"
-rust-version = "1.75"
+rust-version = "1.85"
 exclude = ["website", "dysk*.zip"]
 build = "build.rs"
-resolver = "2"
 
 [workspace]
 members = [
@@ -31,7 +30,7 @@ clap_complete = "4.6"
 clap_mangen = "0.3"
 dysk-cli = { version = "3.6.1", path = "cli" }
 serde = { version = "1.0", features = ["derive"] }
-toml = "0.7"
+toml = "1"
 
 [profile.release]
 strip = true

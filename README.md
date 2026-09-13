@@ -8,8 +8,8 @@
 [s2]: https://img.shields.io/badge/license-MIT-blue.svg
 [l2]: LICENSE
 
-[s3]: https://travis-ci.org/Canop/dysk.svg?branch=master
-[l3]: https://travis-ci.org/Canop/dysk
+[s3]: https://github.com/Canop/dysk/actions/workflows/tests.yml/badge.svg
+[l3]: https://github.com/Canop/dysk/actions/workflows/tests.yml
 
 [s4]: https://miaou.dystroy.org/static/shields/room.svg
 [l4]: https://miaou.dystroy.org/4847?dysk
@@ -20,7 +20,7 @@
 [srep]: https://repology.org/badge/tiny-repos/dysk.svg
 [lrep]: https://repology.org/project/dysk/versions
 
-A Linux/Mac utility listing your filesystems.
+A utility listing your filesystems, on Linux, Mac, and Windows (experimental).
 
 Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org/dysk)**
 

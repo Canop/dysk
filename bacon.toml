@@ -14,7 +14,7 @@ watch = ["tests", "benches", "examples"]
 [jobs.check-msrv]
 command = [
     "cargo",
-    "+1.75", # adjust depending on the MSRV
+    "+1.85", # adjust depending on the MSRV
     "check",
     "--all-targets",
 ]
