@@ -1,3 +1,6 @@
+### next
+- read inodes on Mac/iokit (not very interesting for APFS) - Fix #107
+
 <a name="v3.7.1"></a>
 ### v3.7.1 - 2026/09/27
 - Mac/iokit: support IOMedia without physical layer, eg RAID - Fix #121
