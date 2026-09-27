@@ -1,4 +1,5 @@
-### next
+<a name="v3.7.1"></a>
+### v3.7.1 - 2026/09/27
 - Mac/iokit: support IOMedia without physical layer, eg RAID - Fix #121
 
 <a name="v3.7.0"></a>
