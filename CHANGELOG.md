@@ -1,3 +1,6 @@
+### next
+- Mac/iokit: support IOMedia without physical layer, eg RAID - Fix #121
+
 <a name="v3.7.0"></a>
 ### v3.7.0 - 2026/09/13
 - on popular demande, make `/boot` "normal" again (meaning its mounts are shown by default)
