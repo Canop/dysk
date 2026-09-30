@@ -41,16 +41,16 @@ pub fn run() -> io::Result<()> {
         return writeln!(&mut w, "dysk {}", env!("CARGO_PKG_VERSION"));
     }
     if args.help {
-        help::print(args.ascii);
+        help::write(&mut w, args.ascii)?;
         if args.color() {
-            csi_reset();
+            csi_reset(&mut w)?;
         }
         return Ok(());
     }
     if args.list_cols {
         list_cols::write(&mut w, args.color(), args.ascii)?;
         if args.color() {
-            csi_reset();
+            csi_reset(&mut w)?;
         }
         return Ok(());
     }
@@ -111,12 +111,12 @@ pub fn run() -> io::Result<()> {
     }
     table::write(&mut w, &mounts, args.color(), &args)?;
     if args.color() {
-        csi_reset();
+        csi_reset(&mut w)?;
     }
     Ok(())
 }
 
 /// output a Reset CSI sequence
-fn csi_reset() {
-    print!("\u{1b}[0m");
+fn csi_reset<W: Write>(w: &mut W) -> io::Result<()> {
+    write!(w, "\u{1b}[0m")
 }

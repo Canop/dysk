@@ -1,6 +1,10 @@
 use {
     crate::args::*,
     clap::CommandFactory,
+    std::io::{
+        self,
+        Write,
+    },
 };
 
 static INTRO_TEMPLATE: &str = "
@@ -49,7 +53,10 @@ static EXAMPLES: &[Example] = &[
     ),
 ];
 
-pub fn print(ascii: bool) {
+pub fn write<W: Write>(
+    w: &mut W,
+    ascii: bool,
+) -> io::Result<()> {
     let mut printer = clap_help::Printer::new(Args::command())
         .with("introduction", INTRO_TEMPLATE)
         .without("author");
@@ -67,7 +74,7 @@ pub fn print(ascii: bool) {
             .set("example-cmd", example.cmd)
             .set_md("example-comments", example.comments);
     }
-    printer.print_help();
+    printer.write_help(w)
 }
 
 struct Example {

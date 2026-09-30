@@ -1,5 +1,6 @@
 ### next
 - read inodes on Mac/iokit (not very interesting for APFS) - Fix #107
+- no panic on `--help` when stdout is closed - Fix #123
 
 <a name="v3.7.1"></a>
 ### v3.7.1 - 2026/09/27
