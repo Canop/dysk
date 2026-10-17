@@ -123,9 +123,13 @@ impl ColExpr {
                 mount.stats().as_ref().map(|s| s.use_share()),
                 parse_float(&self.value)?,
             ),
-            Col::Free | Col::FreePercent => self.operator.eval_option(
+            Col::Free => self.operator.eval_option(
                 mount.stats().as_ref().map(|s| s.available()),
                 parse_integer(&self.value)?,
+            ),
+            Col::FreePercent => self.operator.eval_option(
+                mount.stats().as_ref().map(|s| 1.0 - s.use_share()),
+                parse_float(&self.value)?,
             ),
             Col::Size => self.operator.eval_option(
                 mount.stats().as_ref().map(|s| s.size()),

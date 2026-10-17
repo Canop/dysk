@@ -1,3 +1,6 @@
+### next
+- fix `free_percent` filter, eg `-f 'free_percent>20%'`
+
 <a name="v3.8.0"></a>
 ### v3.8.0 - 2026/10/17
 - read inodes on Mac/iokit (not very interesting for APFS) - Fix #107
