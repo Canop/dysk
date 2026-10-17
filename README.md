@@ -20,7 +20,7 @@
 [srep]: https://repology.org/badge/tiny-repos/dysk.svg
 [lrep]: https://repology.org/project/dysk/versions
 
-A utility listing your filesystems, on Linux, Mac, and Windows (experimental).
+A utility listing your filesystems, on Linux, Mac, and Windows.
 
 Complete documentation lives at **[https://dystroy.org/dysk](https://dystroy.org/dysk)**
 
