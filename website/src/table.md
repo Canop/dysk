@@ -20,6 +20,7 @@ disk | ✓ | short tag of the underlying storage identified
 used | ✓ | cumulated size of the occupied blocks
 use | ✓ | graphical view of the use share
 use_percent |  | percentage of occupied blocks
+use_bar |  | graphical view of the use share, without percentage
 free | ✓ | cumulated size of the available blocks
 free_percent |  | percentage of available blocks
 size | ✓ | size of the volume
@@ -27,6 +28,7 @@ inodesfree |  | available inodes
 inodesused |  | inodes used
 inodes |  | inodes use share, graphical
 inodes_use_percent |  | inodes use share, in percents
+inodes_bar |  | inodes use share, graphical, without percentage
 inodescount |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
 uuid |  | filesystem's UUID
@@ -43,7 +45,7 @@ The default set is defined for the casual usage of checking the available volume
 
 ![screen](img/dysk_c=default.png)
 
-With `-c all`, you may see all available columns, but that's normally too much for convenience:
+With `-c all`, you may see all available columns (except `use` and `inodes`, whose content is already in `use_percent`+`use_bar` and `inodes_use_percent`+`inodes_bar`), but that's normally too much for convenience:
 
 ![screen](img/dysk_c=all.png)
 

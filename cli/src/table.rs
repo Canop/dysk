@@ -42,7 +42,12 @@ pub fn write<W: Write>(
     let units = args.units;
     let mut expander = OwningTemplateExpander::new();
     expander.set_default("");
-    let use_col_width = compute_use_col_width(args);
+    let mut use_content_width = 3 + args.bar_width; // 3 for eg "97%"
+    if args.bar_width > BAR_WIDTH_SPACE_THRESHOLD {
+        use_content_width += 1;
+    }
+    let use_col_width = compute_error_width(args, use_content_width);
+    let bar_col_width = compute_error_width(args, args.bar_width);
     for mount in mounts {
         let sub = expander
             .sub("rows")
@@ -101,10 +106,15 @@ pub fn write<W: Write>(
             }
         } else if mount.is_timeout() {
             sub.set("use-error", string_fitting_cols("timeout", use_col_width));
+            sub.set("bar-error", string_fitting_cols("timeout", bar_col_width));
         } else if mount.is_unreachable() {
             sub.set(
                 "use-error",
                 string_fitting_cols("unreachable", use_col_width),
+            );
+            sub.set(
+                "bar-error",
+                string_fitting_cols("unreachable", bar_col_width),
             );
         }
     }
@@ -133,6 +143,7 @@ pub fn write<W: Write>(
                     Col::Used => "~~${used}~~",
                     Col::Use => "~~${use-percents}~~${use-space}${bar}~~${use-error}~~",
                     Col::UsePercent => "~~${use-percents}~~",
+                    Col::UseBar => "${bar}~~${bar-error}~~",
                     Col::Free => "*${free}*",
                     Col::FreePercent => "*${free-percents}*",
                     Col::Size => "**${size}**",
@@ -140,6 +151,7 @@ pub fn write<W: Write>(
                     Col::InodesUsed => "~~${iused}~~",
                     Col::InodesUse => "~~${iuse-percents}~~ ${ibar}",
                     Col::InodesUsePercent => "~~${iuse-percents}~~",
+                    Col::InodesBar => "${ibar}",
                     Col::InodesCount => "**${inodes}**",
                     Col::MountPoint => "${mount-point}",
                     Col::Uuid => "${uuid}",
@@ -157,13 +169,12 @@ pub fn write<W: Write>(
 }
 
 /// Use settings and heuristics to determine the max width to be used by errors messages
-/// in the "use" column, so that they don't break the layout too much.
-fn compute_use_col_width(args: &Args) -> usize {
+/// in the "use" and "use_bar" columns, so that they don't break the layout too much.
+fn compute_error_width(
+    args: &Args,
+    width: usize,
+) -> usize {
     const MAX: usize = 20; // basically no limit
-    let mut width = 3 + args.bar_width; // 3 for eg "97%"
-    if args.bar_width > BAR_WIDTH_SPACE_THRESHOLD {
-        width += 1;
-    }
     if width < MAX {
         if args.cols.len() < 3 {
             return MAX;

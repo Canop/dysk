@@ -81,7 +81,7 @@ pub fn write<W: Write>(
                 Col::Remote => csv.cell(if mount.is_remote() { "yes" } else { "no" }),
                 Col::Disk => csv.cell_opt(mount.disk.as_ref().map(|d| d.disk_type())),
                 Col::Used => csv.cell_opt(mount.stats().map(|s| units.fmt(s.used()))),
-                Col::Use => csv.cell_opt(mount.stats().map(|s| s.use_share())),
+                Col::Use | Col::UseBar => csv.cell_opt(mount.stats().map(|s| s.use_share())),
                 Col::UsePercent => csv.cell_opt(
                     mount
                         .stats()
@@ -95,7 +95,9 @@ pub fn write<W: Write>(
                 ),
                 Col::Size => csv.cell_opt(mount.stats().map(|s| units.fmt(s.size()))),
                 Col::InodesUsed => csv.cell_opt(mount.inodes().map(|i| i.used())),
-                Col::InodesUse => csv.cell_opt(mount.inodes().map(|i| i.use_share())),
+                Col::InodesUse | Col::InodesBar => {
+                    csv.cell_opt(mount.inodes().map(|i| i.use_share()))
+                }
                 Col::InodesUsePercent => csv.cell_opt(
                     mount
                         .inodes()

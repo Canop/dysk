@@ -58,7 +58,7 @@ impl Cols {
         &mut self,
         col_set: &[Col],
     ) {
-        if self.0 == ALL_COLS {
+        if self.0 == *ALL_SET_COLS {
             for &col in col_set {
                 self.add(col);
             }
@@ -128,7 +128,7 @@ impl FromStr for Cols {
                     } else {
                         // if we add all to something, it means the already
                         // present one are meant to be first
-                        for &col in ALL_COLS {
+                        for &col in ALL_SET_COLS.iter() {
                             if !cols.contains(col) {
                                 cols.add(col);
                             }
@@ -137,10 +137,10 @@ impl FromStr for Cols {
                 }
                 "default" => {
                     if negative {
-                        cols.remove_set(DEFAULT_COLS);
+                        cols.remove_set(&DEFAULT_COLS);
                         negative = false;
                     } else {
-                        cols.add_set(DEFAULT_COLS);
+                        cols.add_set(&DEFAULT_COLS);
                     }
                 }
                 _ => {
@@ -156,10 +156,10 @@ impl FromStr for Cols {
         }
         match tokens.last().map(|s| s.as_ref()) {
             Some("-") => {
-                cols.remove_set(DEFAULT_COLS);
+                cols.remove_set(&DEFAULT_COLS);
             }
             Some("+") => {
-                cols.add_set(DEFAULT_COLS);
+                cols.add_set(&DEFAULT_COLS);
             }
             _ => {}
         }
@@ -198,7 +198,7 @@ mod cols_parsing {
         check("dev,free,used", vec![Dev, Free, Used]);
         check("dev+free + used", vec![Dev, Free, Used]);
         check("  dev   free used ", vec![Dev, Free, Used]);
-        check("all", ALL_COLS);
+        check("all", ALL_SET_COLS.clone());
     }
 
     #[test]
@@ -212,13 +212,14 @@ mod cols_parsing {
                 Remote,
                 Disk,
                 Used,
-                Use,
                 UsePercent,
+                UseBar,
                 Free,
                 FreePercent,
                 Size,
                 InodesUsed,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 MountPoint,
@@ -238,10 +239,11 @@ mod cols_parsing {
                 Label,
                 Remote,
                 UsePercent,
+                UseBar,
                 FreePercent,
                 InodesUsed,
-                InodesUse,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 Uuid,
@@ -259,10 +261,11 @@ mod cols_parsing {
                 Label,
                 Remote,
                 UsePercent,
+                UseBar,
                 FreePercent,
                 InodesUsed,
-                InodesUse,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 Uuid,
@@ -290,14 +293,14 @@ mod cols_parsing {
                 Remote,
                 Disk,
                 Used,
-                Use,
                 UsePercent,
+                UseBar,
                 Free,
                 FreePercent,
                 Size,
                 InodesUsed,
-                InodesUse,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 MountPoint,
@@ -316,14 +319,14 @@ mod cols_parsing {
                 Type,
                 Remote,
                 Used,
-                Use,
                 UsePercent,
+                UseBar,
                 Free,
                 FreePercent,
                 Size,
                 InodesUsed,
-                InodesUse,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 MountPoint,
@@ -337,19 +340,19 @@ mod cols_parsing {
 
     #[test]
     fn cols_from_default() {
-        check("", DEFAULT_COLS);
+        check("", DEFAULT_COLS.clone());
         check(
             "-dev", // no impact as dev isn't in defaults
-            DEFAULT_COLS,
+            DEFAULT_COLS.clone(),
         );
-        check("default", DEFAULT_COLS);
+        check("default", DEFAULT_COLS.clone());
         check(
             "-default", // not really useful
             vec![],
         );
         check(
             "default-dev", // no impact as dev isn't in defaults
-            DEFAULT_COLS,
+            DEFAULT_COLS.clone(),
         );
         check(
             "+dev",
@@ -371,10 +374,11 @@ mod cols_parsing {
                 Label,
                 Remote,
                 UsePercent,
+                UseBar,
                 FreePercent,
                 InodesUsed,
-                InodesUse,
                 InodesUsePercent,
+                InodesBar,
                 InodesFree,
                 InodesCount,
                 Uuid,

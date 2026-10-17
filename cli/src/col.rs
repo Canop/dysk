@@ -5,15 +5,21 @@ use {
         cmp::Ordering,
         fmt,
         str::FromStr,
+        sync::LazyLock,
     },
     termimad::minimad::Alignment,
 };
 
+/// Tell whether a flag of a column definition is the one asked
+macro_rules! col_flag {
+    (is_default default) => { true };
+    (is_default redundant) => { false };
+    (is_redundant default) => { false };
+    (is_redundant redundant) => { true };
+}
+
 macro_rules! col_enum {
-    (@just_variant $variant:ident $discarded:ident) => {
-        Col::$variant
-    };
-    ($($variant:ident $name:literal $($alias:literal)* : $title:literal $($def:ident)*,)*) => {
+    ($($variant:ident $name:literal $($alias:literal)* : $title:literal $($flag:ident)*,)*) => {
         /// A column of the lfs table.
         #[derive(Debug, Clone, Copy, PartialEq)]
         pub enum Col {
@@ -21,11 +27,6 @@ macro_rules! col_enum {
         }
         pub static ALL_COLS: &[Col] = &[
             $(Col::$variant,)*
-        ];
-        pub static DEFAULT_COLS: &[Col] = &[
-            $(
-                $(col_enum!(@just_variant $variant $def),)*
-            )*
         ];
         impl FromStr for Col {
             type Err = ParseColError;
@@ -73,17 +74,47 @@ macro_rules! col_enum {
                 }
             }
             pub fn is_default(self) -> bool {
-                DEFAULT_COLS.contains(&self)
+                match self {
+                    $(
+                        Self::$variant => false $(|| col_flag!(is_default $flag))*,
+                    )*
+                }
+            }
+            /// Whether the column only combines what other columns show,
+            /// in which case it's not part of the `all` set
+            pub fn is_redundant(self) -> bool {
+                match self {
+                    $(
+                        Self::$variant => false $(|| col_flag!(is_redundant $flag))*,
+                    )*
+                }
             }
         }
     };
 }
 
+pub static DEFAULT_COLS: LazyLock<Vec<Col>> = LazyLock::new(|| {
+    ALL_COLS
+        .iter()
+        .copied()
+        .filter(|col| col.is_default())
+        .collect()
+});
+
+/// The columns of the `all` set: all columns but the redundant ones
+pub static ALL_SET_COLS: LazyLock<Vec<Col>> = LazyLock::new(|| {
+    ALL_COLS
+        .iter()
+        .copied()
+        .filter(|col| !col.is_redundant())
+        .collect()
+});
+
 // definition of all columns and their names
 // in the --cols definition
 col_enum!(
     // syntax:
-    // Variant name [aliases]: title [default]
+    // Variant name [aliases]: title [default] [redundant]
     Id "id": "id",
     Dev "dev" "device" "device_id": "dev",
     Filesystem "fs" "filesystem": "filesystem" default,
@@ -92,14 +123,16 @@ col_enum!(
     Remote "remote" "rem": "remote",
     Disk "disk" "dsk": "disk" default,
     Used "used": "used" default,
-    Use "use": "use" default,
+    Use "use": "use" default redundant,
     UsePercent "use_percent": "use%",
+    UseBar "use_bar" "bar": "use",
     Free "free": "free" default,
     FreePercent "free_percent": "free%",
     Size "size": "size" default,
     InodesUsed "inodes_used" "iused": "used inodes",
-    InodesUse "inodes" "ino" "inodes_use" "iuse": "inodes",
+    InodesUse "inodes" "ino" "inodes_use" "iuse": "inodes" redundant,
     InodesUsePercent "inodes_use_percent" "iuse_percent": "inodes%",
+    InodesBar "inodes_bar" "ibar": "inodes",
     InodesFree "inodes_free" "ifree": "free inodes",
     InodesCount "inodes_total" "inodes_count" "itotal": "inodes total",
     MountPoint "mount" "mount_point" "mp": "mount point" default,
@@ -130,12 +163,14 @@ impl Col {
             Self::Used => Alignment::Right,
             Self::Use => Alignment::Right,
             Self::UsePercent => Alignment::Right,
+            Self::UseBar => Alignment::Right,
             Self::Free => Alignment::Right,
             Self::FreePercent => Alignment::Right,
             Self::Size => Alignment::Right,
             Self::InodesUsed => Alignment::Right,
             Self::InodesUse => Alignment::Right,
             Self::InodesUsePercent => Alignment::Right,
+            Self::InodesBar => Alignment::Right,
             Self::InodesFree => Alignment::Right,
             Self::InodesCount => Alignment::Right,
             Self::MountPoint => Alignment::Left,
@@ -157,12 +192,14 @@ impl Col {
             Self::Used => "size used",
             Self::Use => "usage graphical view",
             Self::UsePercent => "percentage of blocks used",
+            Self::UseBar => "usage bar, without percentage",
             Self::Free => "free bytes",
             Self::FreePercent => "percentage of free blocks",
             Self::Size => "total size",
             Self::InodesUsed => "number of inodes used",
             Self::InodesUse => "graphical view of inodes usage",
             Self::InodesUsePercent => "percentage of inodes used",
+            Self::InodesBar => "inodes usage bar, without percentage",
             Self::InodesFree => "number of free inodes",
             Self::InodesCount => "total count of inodes",
             Self::MountPoint => "mount point",
@@ -205,15 +242,17 @@ impl Col {
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::Use | Self::UsePercent => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
-                // the 'use' column shows the percentage of used blocks, so it makes sense
-                // to sort by use_share for it
-                // SAFETY: use_share() doesn't return NaN
-                (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
-                (Some(_), None) => Ordering::Greater,
-                (None, Some(_)) => Ordering::Less,
-                (None, None) => Ordering::Equal,
-            },
+            Self::Use | Self::UsePercent | Self::UseBar => {
+                |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
+                    // the 'use' column shows the percentage of used blocks, so it makes sense
+                    // to sort by use_share for it
+                    // SAFETY: use_share() doesn't return NaN
+                    (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
+                    (Some(_), None) => Ordering::Greater,
+                    (None, Some(_)) => Ordering::Less,
+                    (None, None) => Ordering::Equal,
+                }
+            }
             Self::Free => |a: &Mount, b: &Mount| match (&a.stats(), &b.stats()) {
                 (Some(a), Some(b)) => a.available().cmp(&b.available()),
                 (Some(_), None) => Ordering::Greater,
@@ -238,7 +277,7 @@ impl Col {
                 (None, Some(_)) => Ordering::Less,
                 (None, None) => Ordering::Equal,
             },
-            Self::InodesUsePercent | Self::InodesUse => {
+            Self::InodesUsePercent | Self::InodesUse | Self::InodesBar => {
                 |a: &Mount, b: &Mount| match (&a.inodes(), &b.inodes()) {
                     // SAFETY: use_share() doesn't return NaN
                     (Some(a), Some(b)) => a.use_share().partial_cmp(&b.use_share()).unwrap(),
@@ -298,12 +337,14 @@ impl Col {
             Self::Used => Order::Asc,
             Self::Use => Order::Desc,
             Self::UsePercent => Order::Asc,
+            Self::UseBar => Order::Desc,
             Self::Free => Order::Asc,
             Self::FreePercent => Order::Desc,
             Self::Size => Order::Desc,
             Self::InodesUsed => Order::Asc,
             Self::InodesUse => Order::Asc,
             Self::InodesUsePercent => Order::Asc,
+            Self::InodesBar => Order::Asc,
             Self::InodesFree => Order::Asc,
             Self::InodesCount => Order::Asc,
             Self::MountPoint => Order::Asc,

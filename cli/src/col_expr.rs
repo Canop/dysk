@@ -119,7 +119,7 @@ impl ColExpr {
                 mount.stats().as_ref().map(|s| s.used()),
                 parse_integer(&self.value)?,
             ),
-            Col::Use | Col::UsePercent => self.operator.eval_option(
+            Col::Use | Col::UsePercent | Col::UseBar => self.operator.eval_option(
                 mount.stats().as_ref().map(|s| s.use_share()),
                 parse_float(&self.value)?,
             ),
@@ -135,7 +135,7 @@ impl ColExpr {
                 mount.inodes().as_ref().map(|i| i.used()),
                 parse_integer(&self.value)?,
             ),
-            Col::InodesUse | Col::InodesUsePercent => self.operator.eval_option(
+            Col::InodesUse | Col::InodesUsePercent | Col::InodesBar => self.operator.eval_option(
                 mount.inodes().as_ref().map(|i| i.use_share()),
                 parse_float(&self.value)?,
             ),
