@@ -1,4 +1,5 @@
-### next
+<a name="v3.8.0"></a>
+### v3.8.0 - 2026/10/17
 - read inodes on Mac/iokit (not very interesting for APFS) - Fix #107
 - no panic on `--help` when stdout is closed - Fix #123
 - new `use_bar` and `inodes_bar` columns: bars without percentage - Fix #116
