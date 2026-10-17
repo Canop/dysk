@@ -32,6 +32,7 @@ Here it is:
   "fs-type": "ext4",
   "id": 26,
   "mount-point": "/",
+  "options": "rw,relatime",
   "remote": false,
   "stats": {
     "available": "81G",
@@ -39,6 +40,7 @@ Here it is:
     "bfree": 22790364,
     "blocks": 59233748,
     "bsize": 4096,
+    "bused": 36443384,
     "inodes": {
       "avail": 13880393,
       "files": 15114240,
@@ -56,6 +58,11 @@ Here it is:
 The `disk`, `stats`, and `stats.inodes` structures, or the `fs-label`, may be `null` for some filesystems.
 
 Note that fields may be *added* in any version.
+
+The JSON output doesn't depend on `--cols`: all fields are always there.
+
+`size`, `used`, and `available` are formatted according to `--units`.
+For raw numbers, use `blocks`, `bavail`, `bfree`, and `bused`, which count blocks of `bsize` bytes.
 
 # All filesystems
 

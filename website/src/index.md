@@ -18,10 +18,11 @@ Besides traditional columns, the `disk` column helps you identify your "disk" (o
 * `RAM` : an in-memory device (such as zram)
 * `LVM` : a device mapped to one or several disks using LVM
 * `crypt` : a crypted disk
+* `imag` : a disk image (only listed with `-a`)
 
 By default, only the "normal" devices, the ones you're usually interested about, are shown, but you can see the other ones with the `-a` option.
 
-All sizes are normally based on the current SI recommendations (1M is one million bytes) but can be changed with `--units binary` (then 1M is 1,048,576 bytes).
+All sizes are normally based on the current SI recommendations (1M is one million bytes) but can be changed with `--units binary` (then 1Mi is 1,048,576 bytes), or `--units bytes` for exact byte counts.
 
 # Tables
 

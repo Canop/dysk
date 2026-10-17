@@ -4,7 +4,7 @@ You can modify it easily.
 
 # Columns
 
-You can run `dysk --list-cols` for the list of all columns.
+You can run `dysk --list-cols` for the list of all columns, with their aliases (eg `ifree` for `inodes_free`).
 
 ## All columns
 
@@ -24,12 +24,12 @@ use_bar |  | graphical view of the use share, without percentage
 free | ✓ | cumulated size of the available blocks
 free_percent |  | percentage of available blocks
 size | ✓ | size of the volume
-inodesfree |  | available inodes
-inodesused |  | inodes used
+inodes_free |  | available inodes
+inodes_used |  | inodes used
 inodes |  | inodes use share, graphical
 inodes_use_percent |  | inodes use share, in percents
 inodes_bar |  | inodes use share, graphical, without percentage
-inodescount |  | total number of inodes in the filesystem
+inodes_total |  | total number of inodes in the filesystem
 mount | ✓ | mounting path
 uuid |  | filesystem's UUID
 partuuid |  | partition's UUID
@@ -67,12 +67,12 @@ To add the device id and the share of inodes used to the default columns, you do
 
 ![screen](img/dysk_c=+dev+inodes.png)
 
-To preprend the `label` column before the default ones, use `dysk -c label+`:
+To prepend the `label` column before the default ones, use `dysk -c label+`:
 
 ![screen](img/dysk_c=label+.png)
 
 The `-` sign removes columns.
-And adding an already present column moves it to the end (there's never duplicates).
+And adding an already present column moves it to the end (there are never duplicates).
 
 Here's removing the `fs` column and moving the `type` column to the end, with `dysk -c -fs+type`:
 
@@ -86,6 +86,8 @@ With the `--sort` launch argument, shortened as `-s`, you can specify the order 
 The argument's value must be either a column name, for example `dysk -s dev`, or a column name and a direction, for example `dysk --sort size-desc`.
 
 The `desc` and `asc` directions can be abbreviated into `d` and `a`.
+
+Without a direction, the usual one for the column is used: for example `dysk -s size` lists the biggest filesystems first.
 
 For example, sorting on the device id:
 
@@ -102,6 +104,19 @@ If you redirect the output, if you want to copy into a document, or if your term
 
 ![screen](img/color-ascii.png)
 
+`--color` takes `yes`, `no`, or `auto` (the default: colors only when the output is a terminal).
+
+`--bar-width` sets the width of the bars of the `use`, `use_bar`, `inodes`, and `inodes_bar` columns (5 by default).
+
+# Remote filesystems
+
+dysk reads the usage of remote filesystems (NFS, SMB, etc.) too.
+If that's slow, `--remote-stats no` skips it (on Linux and Windows): those filesystems are then only listed with `-a`.
+
+On Linux, reading the usage of a filesystem gives up after 50ms, and the `use` column then says `timeout`.
+Such a filesystem is only listed with `-a`.
+You may change the delay with `--timeout`, eg `--timeout 2s` or `--timeout 500ms`, or wait as long as needed with `--timeout none`.
+
 # CSV
 
 With the `--csv` argument, you can ask dysk to output the table in CSV:
@@ -112,7 +127,7 @@ dysk --csv > mounts.csv
 
 You may choose the separator with the `--csv-separator` argument.
 
-Filters, sorting, and column selection work the same than for standard tables so you may do this:
+Filters, sorting, and column selection work the same as for standard tables so you may do this:
 
 ```bash
 dysk --csv -f 'size>100G' -c remote+default+inodes > mounts.csv
