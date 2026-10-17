@@ -23,6 +23,9 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 version=$(dysk_version)
 
+# Legacy download path, still used by third-party install scripts.
+ln -s x86_64-unknown-linux-gnu build/x86_64-linux
+
 h1 "Deploying $version to $DYSK_DEPLOY_TARGET"
 # Everything must be world-readable to be served; -a then carries the modes over.
 # rsync's --chmod=D...,F... syntax isn't an option: macOS ships openrsync, which
@@ -32,6 +35,9 @@ chmod -R a+rX build "dysk_$version.zip"
 rsync -av build/ "$DYSK_DEPLOY_TARGET/"
 rsync -av "dysk_$version.zip" "$DYSK_DEPLOY_TARGET/"
 ok "deployed $version"
+
+h2 "Tagging the release"
+push_release_tag
 
 # Last: the site must never describe a version whose binaries aren't up yet.
 h2 "Deploying the website"

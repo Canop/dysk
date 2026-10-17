@@ -16,6 +16,11 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 version=$(dysk_version)
 
+# The GitHub release and the source archives come from origin, so the binaries
+# must be built from the commit that's there.
+h2 "Checking the release source"
+check_release_source
+
 # Publishing a binary built from uncommitted work is worth a question, whether
 # or not the artifacts travelled through a staging server.
 if ! tree_is_clean; then
@@ -85,3 +90,5 @@ cp "dysk_$version.zip" releases/
 ok "archived in releases/"
 
 h1 "Release $version ready: dysk_$version.zip"
+info "deploy.sh publishes it and tags $(release_tag); then create the GitHub release with"
+info "    gh release create $(release_tag) dysk_$version.zip --verify-tag"

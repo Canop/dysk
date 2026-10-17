@@ -27,6 +27,11 @@ esac
 version=$(dysk_version)
 h1 "Building all targets for $NAME $version   (host $(host_os), darwin=$DARWIN_METHOD)"
 [[ $DARWIN_METHOD == skip ]] && warn "the macOS binaries will not be built (DARWIN_METHOD=skip)"
+if ! fetch_release_branch; then
+    warn "couldn't fetch origin/$DYSK_RELEASE_BRANCH to check this build matches it"
+elif ! head_is_published; then
+    warn "HEAD isn't origin/$DYSK_RELEASE_BRANCH: release.sh will refuse to package this build"
+fi
 
 # Decide up front whether this build will be staged, so a dirty tree is settled
 # now rather than after a long build.

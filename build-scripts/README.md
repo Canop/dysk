@@ -14,8 +14,8 @@ binaries, and the Apple ones are native. Elsewhere the Apple binaries are
 missing, and the release has to be assembled from two machines through a staging
 server (`DYSK_STAGE_HOST`, see below).
 
-1. Commit, then on **each** machine that builds (just the Mac, unless you've set
-   up staging):
+1. Commit and push, then on **each** machine that builds (just the Mac, unless
+   you've set up staging):
 
        ./build-scripts/build-all-targets.sh
 
@@ -23,13 +23,15 @@ server (`DYSK_STAGE_HOST`, see below).
    the staging server, keyed by `<version>-<commit>`; targets already staged under
    that key are skipped, so a re-run after a failure only builds what's missing,
    and `--force` rebuilds them all. Any new commit changes the key, so everything
-   is rebuilt.
+   is rebuilt. It warns when HEAD isn't `origin/main`.
 
 2. On one machine, assemble and package:
 
        ./build-scripts/release.sh
 
-   Fetches the staged artifacts, checks every target is present, verifies each
+   Refuses to go on unless HEAD is exactly `origin/main` (not unpushed, not
+   behind) and no `v<version>` tag exists on origin at another commit. Then
+   fetches the staged artifacts, checks every target is present, verifies each
    binary, and produces `dysk_<version>.zip` (also the artifact to attach to the
    GitHub release), with a copy in `releases/`.
 
@@ -41,10 +43,20 @@ server (`DYSK_STAGE_HOST`, see below).
    server. Nothing goes through `~/dev/www/dystroy`: that tree mirrors the whole
    site on each machine, so pushing it from one machine republishes its stale
    copy of everything the other machines deployed. Previous zips are left in
-   place, so old versions stay downloadable.
+   place, so old versions stay downloadable. It also publishes `x86_64-linux`,
+   a link to `x86_64-unknown-linux-gnu`, for third-party install scripts using
+   that old path.
 
-   It then runs `website/deploy.sh`, last, so the site never describes a version
-   whose binaries aren't online yet.
+   It then creates and pushes the `v<version>` tag on HEAD, and runs
+   `website/deploy.sh`, last, so the site never describes a version whose
+   binaries aren't online yet.
+
+4. Create the GitHub release from that tag, not from a branch:
+
+       gh release create v<version> dysk_<version>.zip --verify-tag
+
+   With "target: main" in the GitHub form, the tag lands on whatever `main` is
+   on GitHub at that moment.
 
 Staging and deploy settings come from `build-scripts/_local.sh` (see below).
 Without it, `release.sh` builds locally on a single host and `deploy.sh` won't run.
@@ -112,6 +124,7 @@ It's sourced by `_common.sh`.
 |----------|---------|----------|---------|
 | `DYSK_STAGE_HOST` | build-all-targets.sh, release.sh | for staged releases | ssh host every machine can reach; enables push/fetch of a multi-host release. Unset ⇒ single-host local builds. |
 | `DYSK_STAGE_DIR` | build-all-targets.sh, release.sh | no — default `dysk-staging` | staging dir on the server, relative to your ssh login home (or absolute, with a leading `/`). |
+| `DYSK_RELEASE_BRANCH` | build-all-targets.sh, release.sh | no — default `main` | branch of origin the released commit must be. |
 | `DYSK_DEPLOY_TARGET` | deploy.sh | yes, to deploy | rsync destination of the download dir, e.g. `dys@dystroy.org:prod/www.dystroy.org/dysk/download`. Must end in `/dysk/download`. |
 
 A full example:
