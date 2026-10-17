@@ -1,4 +1,5 @@
-### next
+<a name="v3.8.1"></a>
+### v3.8.1 - 2026/10/17
 - fix `free_percent` filter, eg `-f 'free_percent>20%'`
 - `-s use_percent` and `-s free_percent` sort by default in the same direction as `-s use` and `-s free`, and the inodes use columns sort fullest first, like `-s use`
 - 3.8.0's source archive reported version 3.7.1 - Fix #124
