@@ -1,3 +1,6 @@
+### next
+- GitHub releases come with one archive per target, and checksums - Fix #67
+
 <a name="v3.8.1"></a>
 ### v3.8.1 - 2026/10/17
 - fix `free_percent` filter, eg `-f 'free_percent>20%'`

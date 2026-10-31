@@ -25,7 +25,7 @@ Binaries are made available at every release in [download](https://dystroy.org/d
 The archives also contain dysk's man page and shell completion scripts.
 
 
-You may download previous releases on [GitHub releases](https://github.com/Canop/dysk/releases).
+[GitHub releases](https://github.com/Canop/dysk/releases) hold previous releases too, and, for each release, one archive per target (eg `dysk-v3.8.1-x86_64-unknown-linux-musl.tar.gz`) with a `sha256sums` file.
 
 When you download executable files, you'll have to ensure the shell can find them. An easy solution on linux is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 

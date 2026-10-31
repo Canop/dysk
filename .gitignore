@@ -1,6 +1,7 @@
 /target
 /cli/target
 /build
+/dist
 /.build-cache
 /build-scripts/_local.sh
 /releases

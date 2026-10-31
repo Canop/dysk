@@ -77,6 +77,15 @@ tree_is_clean() { git diff --quiet HEAD 2>/dev/null; }
 
 release_tag() { printf 'v%s\n' "$(dysk_version)"; }
 
+DYSK_GITHUB_REPO=Canop/dysk
+
+# Die unless gh is installed and logged in to github.com.
+need_gh() {
+    need gh "see https://cli.github.com"
+    gh auth status --hostname github.com >/dev/null 2>&1 \
+        || die "gh isn't logged in to github.com — run 'gh auth login'"
+}
+
 # The commit the tag points at on origin, peeled; empty when there's no such tag.
 remote_tag_commit() { # remote_tag_commit <tag>
     local refs peeled
@@ -141,6 +150,15 @@ push_release_tag() {
     ok "tag $tag created and pushed"
 }
 
+# The body of the CHANGELOG.md section of a version, without its heading.
+changelog_notes() { # changelog_notes <version>
+    awk -v h="### v$1" '
+        $0 == h || index($0, h " ") == 1 { on = 1; next }
+        on && (/^### / || /^<a name=/) { exit }
+        on { print }
+    ' CHANGELOG.md
+}
+
 # Ask a yes/no question on the terminal, defaulting to no. With no terminal to
 # ask on (cron, CI) the answer is no, unless DYSK_YES is set.
 confirm() { # confirm <question>
@@ -169,6 +187,12 @@ stage_push() { # stage_push <local-dir>  -> pushes its contents into <dir>/<id>/
     dest="$DYSK_STAGE_DIR/$id"
     ssh "$DYSK_STAGE_HOST" "mkdir -p '$dest'"
     rsync -az "$dir"/ "$DYSK_STAGE_HOST:$dest/"
+}
+
+# Prints yes or no; fails when the server can't be reached.
+stage_has_release() {
+    ssh "$DYSK_STAGE_HOST" \
+        "if test -d '$DYSK_STAGE_DIR/$(release_id)'; then echo yes; else echo no; fi"
 }
 
 stage_fetch() { # stage_fetch <local-dir>  <- pulls <dir>/<id>/ into it
