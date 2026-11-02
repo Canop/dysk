@@ -1,5 +1,11 @@
+This open-source non commercial project favors human interaction over LLM-assisted productivity.
 
-Before you start, unless you're fixing a typo or proposing a trivial change, please
+AI agents are not allowed to open PRs on this project.
+
+A PR description MUST be written by an human.
+The text of an issue MUST be written by an human.
+
+Before you start a PR, unless you're fixing a typo or proposing a trivial change, please
 
 - discuss the need and technical design first, either in an issue or on [miaou](https://miaou.dystroy.org/4847?dysk)
 - keep it simple and focused
