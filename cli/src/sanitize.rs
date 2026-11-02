@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 
-/// Replace C0 (including ESC), DEL, and C1 controls with `?`.
+/// Replace C0 (including ESC), DEL, and C1 controls with a visible
+/// `\xNN` escape (e.g. `\x1b`), so injected bytes can still be seen.
 ///
 /// Mount metadata is read by lfs-core and may contain bytes chosen by an
 /// unprivileged user (a FUSE mount point or device string, for example).
@@ -10,11 +11,16 @@ pub fn sanitize(s: &str) -> Cow<'_, str> {
     if !s.contains(char::is_control) {
         return Cow::Borrowed(s);
     }
-    Cow::Owned(
-        s.chars()
-            .map(|c| if c.is_control() { '?' } else { c })
-            .collect(),
-    )
+    let mut out = String::with_capacity(s.len() + 8);
+    for c in s.chars() {
+        if c.is_control() {
+            // C0, DEL and C1 are all below U+0100.
+            out.push_str(&format!("\\x{:02x}", c as u32));
+        } else {
+            out.push(c);
+        }
+    }
+    Cow::Owned(out)
 }
 
 #[cfg(test)]
@@ -42,7 +48,7 @@ mod tests {
     #[test]
     fn replaces_c0_del_c1_and_esc() {
         // ESC, BEL, DEL, and a C1 CSI.
-        assert_eq!(sanitize("a\u{1b}\u{7}\u{7f}\u{9b}b"), "a????b");
+        assert_eq!(sanitize("a\u{1b}\u{7}\u{7f}\u{9b}b"), "a\\x1b\\x07\\x7f\\x9bb");
         assert!(!sanitize("a\u{1b}b").contains(char::is_control));
     }
 
@@ -54,14 +60,14 @@ mod tests {
 
         // One column at a time so termimad's terminal-width wrapping cannot
         // split the sanitized text across lines.
-        assert_col("fs", &mounts, &["fuse?[31msrc", "/dev/sda1"]);
-        assert_col("mp", &mounts, &["/mnt/?]0;pwned?", "/safe/path"]);
-        assert_col("type", &mounts, &["fu?se", "ext4"]);
-        assert_col("label", &mounts, &["lab?el"]);
-        assert_col("options", &mounts, &["rw,compress=zstd?:3"]);
-        assert_col("uuid", &mounts, &["uu?id"]);
-        assert_col("partuuid", &mounts, &["part?"]);
-        assert_col("compress", &mounts, &["zstd?:3"]);
+        assert_col("fs", &mounts, &["fuse\\x1b[31msrc", "/dev/sda1"]);
+        assert_col("mp", &mounts, &["/mnt/\\x1b]0;pwned\\x07", "/safe/path"]);
+        assert_col("type", &mounts, &["fu\\x9bse", "ext4"]);
+        assert_col("label", &mounts, &["lab\\x9del"]);
+        assert_col("options", &mounts, &["rw,compress=zstd\\x1b:3"]);
+        assert_col("uuid", &mounts, &["uu\\x7fid"]);
+        assert_col("partuuid", &mounts, &["part\\x1b"]);
+        assert_col("compress", &mounts, &["zstd\\x1b:3"]);
 
         let colored = render_table("mp", &mounts, true);
         assert!(
@@ -69,7 +75,7 @@ mod tests {
             "OSC payload survived color output: {colored:?}"
         );
         assert!(!colored.contains('\u{7}'), "{colored:?}");
-        assert!(colored.contains("/mnt/?]0;pwned?"), "{colored:?}");
+        assert!(colored.contains("/mnt/\\x1b]0;pwned\\x07"), "{colored:?}");
 
         let args = args_with("fs+type+label+mp+options+uuid+partuuid+compress");
         let mut csv_buf = Cursor::new(Vec::new());
@@ -77,14 +83,14 @@ mod tests {
         let csv_out = String::from_utf8(csv_buf.into_inner()).unwrap();
         assert_terminal_safe(&csv_out);
         for needle in [
-            "/mnt/?]0;pwned?",
-            "fuse?[31msrc",
-            "fu?se",
-            "lab?el",
-            "rw,compress=zstd?:3",
-            "uu?id",
-            "part?",
-            "zstd?:3",
+            "/mnt/\\x1b]0;pwned\\x07",
+            "fuse\\x1b[31msrc",
+            "fu\\x9bse",
+            "lab\\x9del",
+            "rw,compress=zstd\\x1b:3",
+            "uu\\x7fid",
+            "part\\x1b",
+            "zstd\\x1b:3",
             "/safe/path",
             "/dev/sda1",
         ] {
@@ -97,7 +103,7 @@ mod tests {
         assert!(json_out.contains("]0;pwned"), "{json_out}");
         assert!(json_out.contains("/safe/path"), "{json_out}");
         assert!(json_out.contains("lab\u{9d}el"), "{json_out}");
-        assert!(!json_out.contains("/mnt/?]0;pwned?"), "{json_out}");
+        assert!(!json_out.contains("/mnt/\\x1b]0;pwned\\x07"), "{json_out}");
         assert!(!json_out.contains('\u{1b}'), "{json_out}");
     }
 
