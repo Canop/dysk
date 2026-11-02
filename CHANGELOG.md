@@ -1,5 +1,6 @@
 ### next
 - GitHub releases come with one archive per target, and checksums - Fix #67
+- sanitize terminal output to prevent escape sequence injection - Fix #125 - Thanks @itulo
 
 <a name="v3.8.1"></a>
 ### v3.8.1 - 2026/10/17

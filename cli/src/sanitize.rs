@@ -1,12 +1,8 @@
 use std::borrow::Cow;
 
-/// Replace C0 (including ESC), DEL, and C1 controls with a visible
-/// `\xNN` escape (e.g. `\x1b`), so injected bytes can still be seen.
-///
-/// Mount metadata is read by lfs-core and may contain bytes chosen by an
-/// unprivileged user (a FUSE mount point or device string, for example).
-/// Table and CSV rendering must not write those bytes to a terminal.
-/// JSON is left untouched: serde already escapes controls.
+/// Replace C0 (including ESC), DEL, and C1 controls with a visible `\xNN`
+/// escape (e.g. `\x1b`), for strings which may be printed to a terminal
+/// and may contain untrusted bytes.
 pub fn sanitize(s: &str) -> Cow<'_, str> {
     if !s.contains(char::is_control) {
         return Cow::Borrowed(s);
