@@ -146,8 +146,21 @@ push_release_tag() {
     elif [[ $local_tagged != "$head" ]]; then
         die "local tag $tag points at ${local_tagged:0:10}, not at HEAD ${head:0:10}"
     fi
-    git push --quiet origin "refs/tags/$tag"
-    ok "tag $tag created and pushed"
+    local attempt
+    for attempt in 1 2 3; do
+        if git push --quiet origin "refs/tags/$tag"; then
+            ok "tag $tag created and pushed"
+            return 0
+        fi
+        if [[ $(remote_tag_commit "$tag") == "$head" ]]; then
+            ok "tag $tag is on origin despite the push error"
+            return 0
+        fi
+        [[ $attempt -lt 3 ]] || break
+        warn "pushing tag $tag failed, retrying in $((attempt * 10))s"
+        sleep $((attempt * 10))
+    done
+    die "couldn't push tag $tag — once GitHub is fine, re-run deploy.sh or push it by hand"
 }
 
 # The body of the CHANGELOG.md section of a version, without its heading.
