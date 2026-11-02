@@ -29,6 +29,28 @@ The archives also contain dysk's man page and shell completion scripts.
 
 When you download executable files, you'll have to ensure the shell can find them. An easy solution on linux is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 
+For a typical Unix installation (Linux or macOS), copy the extracted files to destinations such as these:
+
+| File in the archive | Example destination | Purpose |
+|---|---|---|
+| `dysk` | `/usr/local/bin/dysk` | Executable |
+| `man/dysk.1` | `/usr/local/share/man/man1/dysk.1` | Man page (`man dysk`) |
+| `completion/dysk.bash` | `/usr/local/share/bash-completion/completions/dysk` | Optional Bash completion |
+| `completion/_dysk` | `/usr/local/share/zsh/site-functions/_dysk` | Optional Zsh completion |
+| `completion/dysk.fish` | `~/.config/fish/completions/dysk.fish` | Optional Fish completion |
+| `completion/dysk.elv` | `~/.config/elvish/lib/dysk.elv` | Optional Elvish completion module |
+
+The paths in the first column are relative to the extracted `dysk-v<version>-<triple>/` directory of a per-target archive. In the all-target `dysk_<version>.zip`, choose the executable in the directory for your target (for example `aarch64-apple-darwin/dysk`); `man/` and `completion/` are at the archive root.
+
+These are examples, not Windows installation paths. The `/usr/local` destinations are system-wide and may require administrator permissions; `~` refers to your home directory. Create missing directories as needed, and adjust the prefix and lookup paths for your system's executable, man-page, and shell configuration.
+
+Only install the optional completion for the shell you use:
+
+- Bash needs bash-completion installed and loaded. Copy `dysk.bash` into its completion directory with the installed name `dysk`; the directory may differ from the example above.
+- Zsh needs the directory containing `_dysk` on `fpath` before its completion system is initialized with `autoload -Uz compinit; compinit` in `~/.zshrc` (unless your shell configuration already initializes it).
+- Fish automatically loads `dysk.fish` from its user completion directory; adjust the example if you use a different Fish configuration directory.
+- Elvish needs the module loaded: add `use dysk` to `~/.config/elvish/rc.elv`, adjusting both Elvish paths if you use a different configuration directory.
+
 # From crates.io
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed and up to date.
