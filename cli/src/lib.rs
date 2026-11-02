@@ -9,6 +9,7 @@ pub mod json;
 pub mod list_cols;
 pub mod normal;
 pub mod order;
+pub mod sanitize;
 pub mod sorting;
 pub mod table;
 pub mod timeout;

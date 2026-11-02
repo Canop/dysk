@@ -2,6 +2,7 @@ use {
     crate::{
         Args,
         col::Col,
+        sanitize::sanitize,
     },
     lfs_core::*,
     std::{
@@ -60,16 +61,22 @@ pub fn write<W: Write>(
                     .map_or(String::new(), |i| i.to_string()),
             )
             .set("dev", mount.info.dev)
-            .set("filesystem", &mount.info.fs)
+            .set("filesystem", sanitize(&mount.info.fs))
             .set("disk", mount.disk.as_ref().map_or("", |d| d.disk_type()))
-            .set("type", &mount.info.fs_type)
-            .set("mount-point", mount.info.mount_point.to_string_lossy())
-            .set("mount-options", mount.info.options_string())
-            .set_option("uuid", mount.uuid.as_ref())
-            .set_option("part_uuid", mount.part_uuid.as_ref())
-            .set_option("compress-level", mount.info.option_value("compress"));
+            .set("type", sanitize(&mount.info.fs_type))
+            .set(
+                "mount-point",
+                sanitize(&mount.info.mount_point.to_string_lossy()),
+            )
+            .set("mount-options", sanitize(&mount.info.options_string()))
+            .set_option("uuid", mount.uuid.as_deref().map(sanitize))
+            .set_option("part_uuid", mount.part_uuid.as_deref().map(sanitize))
+            .set_option(
+                "compress-level",
+                mount.info.option_value("compress").map(sanitize),
+            );
         if let Some(label) = &mount.fs_label {
-            sub.set("label", label);
+            sub.set("label", sanitize(label));
         }
         if mount.is_remote() {
             sub.set("remote", "x");

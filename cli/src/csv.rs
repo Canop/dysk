@@ -2,6 +2,7 @@ use {
     crate::{
         Args,
         col::Col,
+        sanitize::sanitize,
     },
     lfs_core::*,
     std::{
@@ -27,7 +28,8 @@ impl<W: Write> Csv<W> {
         &mut self,
         content: D,
     ) -> Result<(), std::io::Error> {
-        let s = content.to_string();
+        let raw = content.to_string();
+        let s = sanitize(&raw);
         let needs_quotes = s.contains(self.separator) || s.contains('"') || s.contains('\n');
         if needs_quotes {
             write!(self.w, "\"")?;
