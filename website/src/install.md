@@ -29,6 +29,13 @@ The archives also contain dysk's man page and shell completion scripts.
 
 When you download executable files, you'll have to ensure the shell can find them. An easy solution on linux is for example to put them in `/usr/local/bin`. You may also have to set them executable using `chmod +x dysk`.
 
+On Linux or macOS, typical destinations for the other files of the archive are:
+
+* `man/dysk.1` -> `/usr/local/share/man/man1/`
+* `completion/dysk.bash` -> `/usr/local/share/bash-completion/completions/dysk`
+* `completion/_dysk` -> `/usr/local/share/zsh/site-functions/`
+* `completion/dysk.fish` -> `~/.config/fish/completions/`
+
 # From crates.io
 
 You'll need to have the [Rust development environment](https://www.rustup.rs) installed and up to date.
